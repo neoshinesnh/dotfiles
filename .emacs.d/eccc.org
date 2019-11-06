@@ -43,7 +43,7 @@ All custom variables and functions will have a prefix (eccc).
       user-mail-address "your@email.com"
       eccc/default-shell "/bin/bash"
       eccc/pandoc-path "~/.local/bin/pandoc"
-      eccc/languagetool-path "~/.emacs.d/bin/LanguageTool-4.5/languagetool-commandline.jar"
+      eccc/languagetool-path "~/.local/bin/LanguageTool-4.5/languagetool-commandline.jar"
       eccc/custom-snippets-path "~/.emacs.d/custom/snippets"
       eccc/markdown-css-path '("/home/thiago/.emacs.d/custom/styles/md.css")
       eccc/markdown-head "<style>/* any html head tag you want to export with md to html */</style>"
