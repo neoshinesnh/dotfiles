@@ -2,7 +2,7 @@
 Description=IW set region service
 
 [Service]
-ExecStart=/path/to/iwreg.sh
+ExecStart=/path/to/iwset.sh
 
 [Install]
 WantedBy=multi-user.target
