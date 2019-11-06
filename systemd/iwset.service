@@ -1,0 +1,8 @@
+[Unit]
+Description=IW set region service
+
+[Service]
+ExecStart=/path/to/iwreg.sh
+
+[Install]
+WantedBy=multi-user.target
