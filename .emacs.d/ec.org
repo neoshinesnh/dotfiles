@@ -1,5 +1,5 @@
 #+AUTHOR: Thiago Polastri
-#+TITLE: Emacs [[https://en.wikipedia.org/wiki/Cargo_cult][Cargo Cult]] Configuration
+#+TITLE: Emacs conf
 #+EMAIL: thiagopolastri@gmail.com
 
 # -*- mode: org; -*-
@@ -13,15 +13,6 @@
 #+STARTUP: nodlcheck lognotestate showall
 
 #+OPTIONS: html-style:nil
-
-
-
-
-
-This is a compilation of custom Emacs configurations with a lot of
-things from internet (like [[https://github.com/bbatsov/prelude][prelude]] and [[https://www.emacswiki.org/][emacswiki]]) that works for me.
-
-
 
 
 
