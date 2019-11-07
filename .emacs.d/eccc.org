@@ -15,10 +15,6 @@
 #+OPTIONS: html-style:nil
 
 
-#+BEGIN_COMMENT
-You may find this same configuration in Schlabotka Github...
-Don't worry I'm Schlabotka :)
-#+END_COMMENT
 
 
 
