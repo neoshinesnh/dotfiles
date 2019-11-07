@@ -1,3 +1,3 @@
-# dotfiles
+# :house_with_garden: dotfiles
 
-Configuration files.
+Some personal configurations and customizations.
