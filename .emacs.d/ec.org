@@ -12,9 +12,6 @@
 #+OPTIONS: d:(HIDE) tags:not-in-toc
 #+STARTUP: nodlcheck lognotestate showall
 
-#+OPTIONS: html-style:nil
-
-
 
 ** Global variables
 
