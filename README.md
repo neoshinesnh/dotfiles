@@ -1,3 +1,3 @@
-# dotfiles
+# dotfiles :house:
 
-Configuration files.
+Some personal configurations and customizations.
