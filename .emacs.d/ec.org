@@ -48,8 +48,7 @@ All custom variables and functions will have a prefix (eccc).
 
 ** Recommended dependencies and setup
 
-All examples listed here are using [[https://www.archlinux.org/][Arch Linux]] with [[https://wiki.archlinux.org/index.php/Pacman][Pacman]] and [[https://aur.archlinux.org/packages/yay/][Yay]] ([[http://www.btwiusearch.fyi/][btw
-I use Arch]]).
+All examples listed here are using [[https://www.archlinux.org/][Arch Linux]] with [[https://wiki.archlinux.org/index.php/Pacman][Pacman]] and [[https://aur.archlinux.org/packages/yay/][Yay]].
 
 Install the following packages.
 
