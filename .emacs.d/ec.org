@@ -692,11 +692,12 @@ depth.
   :hook (prog-mode . rainbow-delimiters-mode))
 #+END_SRC
 
-[[https://github.com/DarthFennec/highlight-indent-guides][This]] minor mode highlights indentation levels via font-lock.  Indent widths
-are dynamically discovered, which means this correctly highlights in any
-mode, regardless of indent width, even in languages with non-uniform
-indentation such as Haskell.  This mode works properly around hard tabs and
-mixed indentation, and it behaves well in large buffers.
+[[https://github.com/DarthFennec/highlight-indent-guides][Highlight indent guides]] is a minor mode to highlights indentation
+levels via font-lock. Indent widths are dynamically discovered, which
+means this correctly highlights in any mode, regardless of indent
+width, even in languages with non-uniform indentation such as Haskell.
+This mode works properly around hard tabs and mixed indentation, and
+it behaves well in large buffers.
 
 #+BEGIN_SRC emacs-lisp
 (use-package highlight-indent-guides
@@ -766,7 +767,7 @@ things easily.
   (global-set-key [remap mark-sexp] 'easy-mark))
 #+END_SRC
 
-[[https://elpa.gnu.org/packages/nlinum.html][This]] is like /linum-mode/, but uses jit-lock to be (hopefully) more
+[[https://elpa.gnu.org/packages/nlinum.html][Nlinum]] is like /linum-mode/, but uses jit-lock to be (hopefully) more
 efficient.
 
 #+BEGIN_SRC emacs-lisp
@@ -802,14 +803,6 @@ Remove white-spaces with [[https://github.com/jcpetkovich/shrink-whitespace.el][
   :ensure t
   :defer t
   :bind ("M-SPC" . shrink-whitespace))
-#+END_SRC
-
-Use pdf-tools to read pdf files.
-
-#+BEGIN_SRC emacs-lisp
-(use-package pdf-tools
-  :ensure t
-  :defer t)
 #+END_SRC
 
 Replace /isearch/ and /ido/ with [[https://github.com/abo-abo/swiper][ivy/swiper/counsel]], and add [[https://github.com/bbatsov/projectile][projectile]].
@@ -1235,6 +1228,13 @@ to work.
   (global-wakatime-mode))
 #+END_SRC
 
+Use [[https://github.com/politza/pdf-tools][pdf-tools]] to read pdf files.
+
+#+BEGIN_SRC emacs-lisp
+(use-package pdf-tools
+  :ensure t
+  :defer t)
+#+END_SRC
 
 
 
@@ -1246,7 +1246,7 @@ Adding new or better support to programming languages and text markup.
 
 
 
-*** LISP
+*** Lisp
 
 [[https://common-lisp.net/project/slime/][SLIME]] is a Emacs mode for Common Lisp development. Inspired by
 existing systems such Emacs Lisp and ILISP, we are working to create
