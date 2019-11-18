@@ -1,5 +1,5 @@
 #+AUTHOR: Thiago Polastri
-#+TITLE: Emacs conf
+#+TITLE: Emacs config
 #+EMAIL: thiagopolastri@gmail.com
 
 # -*- mode: org; -*-
