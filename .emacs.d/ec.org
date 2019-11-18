@@ -1524,7 +1524,7 @@ Add TypeScript support.
 
 
 
-*** HTML
+*** WEB (HTML, inline CSS and Javascript, Svelte)
 
 [[http://web-mode.org/][Web-mode]] is a Emacs major-mode for editing web templates.
 
