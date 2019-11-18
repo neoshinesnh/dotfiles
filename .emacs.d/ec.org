@@ -53,6 +53,7 @@ Install the following packages.
 sudo pacman -S emacs aspell aspell-en aspell-pt the_silver_searcher sbcl
 editorconfig-core-c nodejs npm openssl git grep sudo ttf-hack wget racket
 hunspell hunspell-en_US zsh texlive-most texlive-lang rustup python-pip
+python-jedi flake8 autopep8 yapf ipython
 #+END_EXAMPLE
 
 Install [[https://www.java.com][JDK]] and [[https://leiningen.org/][Leiningen]] from [[https://aur.archlinux.org/][AUR]]. Since this configuration supports
@@ -96,7 +97,7 @@ sudo npm i -g eslint tslint tern flow typescript prettier indium
 Install Python packages.
 
 #+BEGIN_EXAMPLE
-sudo pip install jedi flake8 autopep8 yapf ipython importmagic wakatime
+sudo pip install importmagic wakatime
 #+END_EXAMPLE
 
 
@@ -1540,7 +1541,6 @@ Add TypeScript support.
   :defer t
   :after (flycheck tide)
   :init
-  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
   (defun eccc/web-mode-hook ()
     (setq web-mode-markup-indent-offset 2
           web-mode-css-indent-offset 2
@@ -1552,6 +1552,10 @@ Add TypeScript support.
   (add-hook 'web-mode-hook 'eccc/web-mode-hook)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (flycheck-add-mode 'typescript-tslint 'web-mode))
+
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.svelte?\\'" . web-mode))
 #+END_SRC
 
 
