@@ -85,7 +85,7 @@ stack install cabal-install
 stack install pandoc
 #+END_EXAMPLE
 
-Install Elm.
+Install [[https://elm-lang.org/][Elm]].
 
 #+BEGIN_EXAMPLE
 cd ~/Downloads
