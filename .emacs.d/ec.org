@@ -36,7 +36,8 @@ All custom variables and functions will have a prefix (eccc).
       eccc/racer-path "~/.cargo/bin/racer"
       eccc/rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
       eccc/wakatime-path "/usr/bin/wakatime"
-      eccc/wakatime-apikey "your-wakatime-api-key")
+      eccc/wakatime-apikey "your-wakatime-api-key"
+      eccc/enable-wakatime nil) ; change to t if you want to enable wakatime
 #+END_SRC
 
 
@@ -61,7 +62,7 @@ English and Portuguese (Brazilian), I'll also install the /hunspell/
 dictionary for it.
 
 #+BEGIN_EXAMPLE
-yay -S jre jdk leiningen hunspell-pt-br
+yay -S jre jdk leiningen hunspell-pt-br python-importmagic wakatime
 #+END_EXAMPLE
 
 Install [[https://docs.haskellstack.org/en/stable/README/][Haskell Stack]].
@@ -92,12 +93,6 @@ Install JavaScript packages.
 
 #+BEGIN_EXAMPLE
 sudo npm i -g eslint tslint tern flow typescript prettier indium
-#+END_EXAMPLE
-
-Install Python packages.
-
-#+BEGIN_EXAMPLE
-sudo pip install importmagic wakatime
 #+END_EXAMPLE
 
 
@@ -1216,14 +1211,15 @@ to work.
 [[https://wakatime.com/emacs][Wakatime]] to track your time in editor.
 
 #+BEGIN_SRC emacs-lisp
-(use-package wakatime-mode
-  :ensure t
-  :defer t
-  :diminish " ⓦ"
-  :init
-  (setq wakatime-api-key eccc/wakatime-apikey
-        wakatime-cli-path eccc/wakatime-path)
-  (global-wakatime-mode))
+(when eccc/enable-wakatime
+  (use-package wakatime-mode
+    :ensure t
+    :defer t
+    :diminish " ⓦ"
+    :init
+    (setq wakatime-api-key eccc/wakatime-apikey
+          wakatime-cli-path eccc/wakatime-path)
+    (global-wakatime-mode)))
 #+END_SRC
 
 Use [[https://github.com/politza/pdf-tools][pdf-tools]] to read pdf files.
