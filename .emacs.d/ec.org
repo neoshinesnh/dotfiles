@@ -23,11 +23,13 @@ You can change personal info and /OS/ specific settings here.
 All custom variables and functions will have a prefix (eccc).
 
 #+BEGIN_SRC emacs-lisp
+;; Don't forget to add ~/.local/bin to your PATH
+
 (setq user-full-name "Your Name"
       user-mail-address "your@email.com"
       eccc/default-shell "/bin/bash"
       eccc/pandoc-path "~/.local/bin/pandoc"
-      eccc/languagetool-path "~/.local/bin/LanguageTool-4.5/languagetool-commandline.jar"
+      eccc/languagetool-path "~/.local/share/LanguageTool-4.7/languagetool-commandline.jar"
       eccc/custom-snippets-path "~/.emacs.d/custom/snippets"
       eccc/markdown-css-path '("/home/USER/.emacs.d/custom/styles/md.css")
       eccc/markdown-head "<style>/* any html head tag you want to export with md to html */</style>"
@@ -111,6 +113,18 @@ Install JavaScript packages.
 #+BEGIN_EXAMPLE
 sudo npm i -g eslint tslint tern flow typescript prettier indium elm-oracle
 #+END_EXAMPLE
+
+Download the desktop version of [[https://languagetool.org][Language Tool]].
+
+#+BEGIN_EXAMPLE
+cd ~/local/share
+wget https://languagetool.org/download/LanguageTool-4.7.zip
+unzip LanguageTool-4.7.zip
+rm -rf LanguageTool-4.7.zip
+cd ~
+#+END_EXAMPLE
+
+
 
 
 
