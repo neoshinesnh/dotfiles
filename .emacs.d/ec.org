@@ -8,10 +8,44 @@
 #+PROPERTY: header-args:emacs-lisp :tangle yes
 #+PROPERTY: header-args:sh :eval no
 #+EXPORT_EXCLUDE_TAGS: noexport
+#+OPTIONS: toc:nil
 #+OPTIONS: H:4 num:nil toc:t \n:nil ::t |:t ^:{} -:t f:t *:t
 #+OPTIONS: d:(HIDE) tags:not-in-toc
 #+STARTUP: nodlcheck lognotestate showall
 
+
+    -  [[#global-variables][Global variables]]
+    -  [[#recommended-dependencies-and-setup][Recommended dependencies and setup]]
+    -  [[#key-binds-table][Key-binds table]]
+    -  [[#initialization-file-initel][Initialization file (init.el)]]
+    -  [[#packages][Packages]]
+    -  [[#requirements][Requirements]]
+    -  [[#settings-for-built-in-stuff][Settings for built-in stuff]]
+      -  [[#editor-enhancements][Editor enhancements]]
+      -  [[#linux-tweaks][Linux tweaks]]
+      -  [[#visual-settings][Visual settings]]
+      -  [[#auto-completions][Auto completions]]
+    -  [[#settings-for-external-stuff][Settings for external stuff]]
+      -  [[#visual-settings][Visual settings]]
+      -  [[#editor-enhancements][Editor enhancements]]
+      -  [[#spell-and-code-check][Spell and code check]]
+      -  [[#auto-completion][Auto completion]]
+      -  [[#version-control][Version control]]
+      -  [[#tools-and-applications][Tools and applications]]
+    -  [[#programming-languages][Programming languages]]
+      -  [[#lisp][Lisp]]
+      -  [[#markdown][Markdown]]
+      -  [[#javascript][JavaScript]]
+      -  [[#web-html-svelte-templates-inline-css-and-javascript][WEB (HTML, Svelte, Templates, inline CSS and Javascript)]]
+      -  [[#css][CSS]]
+      -  [[#json][JSON]]
+      -  [[#yaml][YAML]]
+      -  [[#php][PHP]]
+      -  [[#rust][RUST]]
+      -  [[#python][PYTHON]]
+      -  [[#haskell][HASKELL]]
+      -  [[#docker][Docker]]
+      -  [[#elm][Elm]]
 
 ** Global variables
 
