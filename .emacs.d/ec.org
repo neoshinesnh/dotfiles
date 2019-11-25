@@ -14,38 +14,8 @@
 #+STARTUP: nodlcheck lognotestate showall
 
 
-    -  [[#global-variables][Global variables]]
-    -  [[#recommended-dependencies-and-setup][Recommended dependencies and setup]]
-    -  [[#key-binds-table][Key-binds table]]
-    -  [[#initialization-file-initel][Initialization file (init.el)]]
-    -  [[#packages][Packages]]
-    -  [[#requirements][Requirements]]
-    -  [[#settings-for-built-in-stuff][Settings for built-in stuff]]
-      -  [[#editor-enhancements][Editor enhancements]]
-      -  [[#linux-tweaks][Linux tweaks]]
-      -  [[#visual-settings][Visual settings]]
-      -  [[#auto-completions][Auto completions]]
-    -  [[#settings-for-external-stuff][Settings for external stuff]]
-      -  [[#visual-settings][Visual settings]]
-      -  [[#editor-enhancements][Editor enhancements]]
-      -  [[#spell-and-code-check][Spell and code check]]
-      -  [[#auto-completion][Auto completion]]
-      -  [[#version-control][Version control]]
-      -  [[#tools-and-applications][Tools and applications]]
-    -  [[#programming-languages][Programming languages]]
-      -  [[#lisp][Lisp]]
-      -  [[#markdown][Markdown]]
-      -  [[#javascript][JavaScript]]
-      -  [[#web-html-svelte-templates-inline-css-and-javascript][WEB (HTML, Svelte, Templates, inline CSS and Javascript)]]
-      -  [[#css][CSS]]
-      -  [[#json][JSON]]
-      -  [[#yaml][YAML]]
-      -  [[#php][PHP]]
-      -  [[#rust][RUST]]
-      -  [[#python][PYTHON]]
-      -  [[#haskell][HASKELL]]
-      -  [[#docker][Docker]]
-      -  [[#elm][Elm]]
+
+
 
 ** Global variables
 
@@ -61,6 +31,10 @@ All custom variables and functions will have a prefix (eccc).
 
 (setq user-full-name "Your Name"
       user-mail-address "your@email.com"
+      calendar-latitude -23.550520
+      calendar-longitude -46.633308
+      calendar-location-name "Sao Paulo, BR"
+      org-directory "~/Documents/org"
       eccc/default-shell "/bin/bash"
       eccc/pandoc-path "~/.local/bin/pandoc"
       eccc/languagetool-path "~/.local/share/LanguageTool-4.7/languagetool-commandline.jar"
@@ -1858,3 +1832,28 @@ Install mode for Elm development.
     (with-eval-after-load 'flycheck
       (add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
 #+END_SRC
+
+
+
+
+
+
+
+** Org configuration
+
+*** Visual tweaks
+
+Use bullets to mark the Org outlines and set ellipsis to a better character.
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets
+  :ensure t
+  :init
+  (add-hook 'org-mode-hook 'org-bullets-mode))
+
+(setq org-ellipsis "⤵")
+#+END_SRC
+
+*** TODO Export
+*** TODO Agenda
+*** TODO Capturing tasks
