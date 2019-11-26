@@ -1439,7 +1439,7 @@ Add TypeScript support.
   (add-hook 'typescript-mode-hook #'eccc/setup-tide-mode))
 #+END_SRC
 
-*** WEB (HTML, Svelte, Templates, inline CSS and Javascript)
+*** WEB (HTML, Svelte and Templates)
 
 [[http://web-mode.org/][Web-mode]] is a Emacs major-mode for editing web templates.
 
@@ -1481,15 +1481,13 @@ is displayed in white with a blue background.
 
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-mode
-  :ensure t
-  :defer t)
+  :ensure t)
 #+END_SRC
 
 Add CSS, LESS and SASS support, and activate rainbow mode.
 
 #+BEGIN_SRC emacs-lisp
 (use-package css-mode
-  :after (rainbow-mode)
   :init
   (setq css-indent-offset 2)
   :config
@@ -1499,7 +1497,6 @@ Add CSS, LESS and SASS support, and activate rainbow mode.
 (use-package less-css-mode
   :ensure t
   :defer t
-  :after (rainbow-mode)
   :config
   (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
   (add-hook 'less-css-mode-hook
@@ -1508,7 +1505,6 @@ Add CSS, LESS and SASS support, and activate rainbow mode.
 (use-package scss-mode
   :ensure t
   :defer t
-  :after (rainbow-mode)
   :init
   (setq scss-compile-at-save nil)
   :config
@@ -1618,9 +1614,8 @@ Install /elpy/ and /pyenv/.
 
 (use-package pyenv-mode
   :ensure t
-  :defer t
-  :disabled
-  :init (pyenv-mode))
+  :defer t)
+;;  :init (pyenv-mode)) - same as npm-mode, call when you need it with M-x
 
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
