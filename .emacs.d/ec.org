@@ -8,7 +8,6 @@
 #+PROPERTY: header-args:emacs-lisp :tangle yes
 #+PROPERTY: header-args:sh :eval no
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+OPTIONS: toc:nil
 #+OPTIONS: H:4 num:nil toc:t \n:nil ::t |:t ^:{} -:t f:t *:t
 #+OPTIONS: d:(HIDE) tags:not-in-toc
 #+STARTUP: nodlcheck lognotestate showall
@@ -16,15 +15,11 @@
 
 
 
-
 ** Global variables
 
-All variables to use in this configuration are grouped here to make
-easy to change.
-
-You can change personal info and /OS/ specific settings here.
-
-All custom variables and functions will have a prefix (eccc).
+All variables to use in this configuration are grouped and you can
+change personal info, paths and some specific settings here. All custom
+variables and functions will have a prefix (eccc).
 
 #+BEGIN_SRC emacs-lisp
 ;; Don't forget to add ~/.local/bin to your PATH
@@ -49,10 +44,6 @@ All custom variables and functions will have a prefix (eccc).
       eccc/wakatime-apikey "your-wakatime-api-key"
       eccc/enable-wakatime nil) ; change to t if you want to enable wakatime
 #+END_SRC
-
-
-
-
 
 ** Recommended dependencies and setup
 
@@ -132,12 +123,6 @@ rm -rf LanguageTool-4.7.zip
 cd ~
 #+END_EXAMPLE
 
-
-
-
-
-
-
 ** Key-binds table
 
 Key binds defined, redefined or removed by this configuration.
@@ -202,10 +187,6 @@ Key binds defined, redefined or removed by this configuration.
 | =C-k=           | When in JavaScript use refactor kill      | Js2-refactor         |
 | =C-c s=         | Slime selector                            | Slime                |
 
-
-
-
-
 ** Initialization file (/init.el/)
 
 Create a /init.el/ to load this file and set your custom file.
@@ -225,10 +206,6 @@ Create a /init.el/ to load this file and set your custom file.
 
 ;;; init.el ends here
 #+END_EXAMPLE
-
-
-
-
 
 ** Packages
 
@@ -260,19 +237,7 @@ performance-oriented and tidy.
   (require 'use-package))
 #+END_SRC
 
-
-
-
-
 ** Requirements
-
-Installing [[https://github.com/emacsmirror/diminish][diminish]]. This package implements hiding or abbreviation of
-the mode line displays (lighters) of minor-modes.
-
-#+BEGIN_SRC emacs-lisp
-(use-package diminish
-  :ensure t)
-#+END_SRC
 
 If you want to disable a package just put a =:disabled= in the code.
 
@@ -301,22 +266,13 @@ Require everything we need.
 (require 'org)
 (require 'dabbrev)
 (require 'hippie-exp)
-(require 'diminish)
 (require 'ispell)
 (require 'flyspell)
 #+END_SRC
 
-
-
-
-
 ** Settings for built-in stuff
 
 Settings for built in packages (no /use-package/ here).
-
-
-
-
 
 *** Editor enhancements
 
@@ -502,7 +458,6 @@ Turn on /autofill/ for all text modes.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
-(diminish 'auto-fill-function "")
 #+END_SRC
 
 Make /.zsh/ executable after save.
@@ -518,9 +473,6 @@ Configure /tramp/ to use /ssh/.
 #+BEGIN_SRC emacs-lisp
 (setq tramp-default-method "ssh")
 #+END_SRC
-
-
-
 
 *** Linux tweaks
 
@@ -563,10 +515,6 @@ Use Emacs /terminfo/, not system /terminfo/.
 #+BEGIN_SRC emacs-lisp
 (setq system-uses-terminfo nil)
 #+END_SRC
-
-
-
-
 
 *** Visual settings
 
@@ -636,12 +584,7 @@ Prettify lambda and function symbols.
   (global-prettify-symbols-mode +1))
 #+END_SRC
 
-
-
-
-
 *** Auto completions
-
 
 Set [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Apropos.html][apropos]], [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dynamic-Abbrevs.html][dabrev]] and [[https://www.emacswiki.org/emacs/HippieExpand][hippie expand]].
 
@@ -669,17 +612,9 @@ Set [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Apropos.html][ap
           try-complete-lisp-symbol))
 #+END_SRC
 
-
-
-
-
 ** Settings for external stuff
 
 Settings for external packages to enhance editor.
-
-
-
-
 
 *** Visual settings
 
@@ -692,22 +627,21 @@ Set theme to [[https://github.com/greduan/emacs-theme-gruvbox][Gruvbox]].
   :init (load-theme 'gruvbox-dark-hard t))
 #+END_SRC
 
-install smart modeline.
+install Moody for a better modeline and Minions to hide minor modes.
 
 #+BEGIN_SRC emacs-lisp
-(use-package smart-mode-line
+(use-package moody
   :ensure t
-  :defer t
-  :init
-  (sml/setup))
+  :config
+  (setq x-underline-at-descent-line t)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode))
 
-(use-package nyan-mode
+(use-package minions
   :ensure t
-  :defer t
-  :if window-system
-  :init
-  (nyan-mode t)
-  (nyan-toggle-wavy-trail))
+  :config
+  (setq minions-mode-line-lighter "ミ")
+  (minions-mode 1))
 #+END_SRC
 
 Install [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]], a "rainbow parentheses"-like mode which
@@ -735,7 +669,6 @@ it behaves well in large buffers.
 (use-package highlight-indent-guides
   :ensure t
   :defer t
-  :diminish highlight-indent-guides-mode
   :hook (prog-mode . highlight-indent-guides-mode)
   :init
   (setq highlight-indent-guides-method 'column
@@ -758,14 +691,8 @@ same time will be readable enough to know it's content.
 (use-package golden-ratio
   :ensure t
   :defer t
-  :diminish golden-ratio-mode
-  :init
-  (golden-ratio-mode 1))
+  :init (golden-ratio-mode 1))
 #+END_SRC
-
-
-
-
 
 *** Editor enhancements
 
@@ -819,7 +746,6 @@ Install [[https://www.emacswiki.org/emacs/UndoTree][undo-tree]], and set it to s
 (use-package undo-tree
   :ensure t
   :defer t
-  :diminish ""
   :init
   (setq undo-tree-auto-save-history t
         undo-tree-history-directory-alist `((".*" . ,temporary-file-directory)))
@@ -862,7 +788,6 @@ indexing mechanism backed by external commands exists as well).
   :defer t
   :init
   (ivy-mode 1)
-  (diminish 'ivy-mode " ⓘ")
   (setq ivy-use-virtual-buffers t
         ivy-display-style 'fancy)
   (advice-add 'swiper :after #'eccc/swiper-recenter)
@@ -893,7 +818,6 @@ indexing mechanism backed by external commands exists as well).
   :ensure t
   :defer t
   :after (swiper)
-  :diminish " ⓟ"
   :init
   (setq projectile-completion-system 'ivy)
   (setq projectile-keymap-prefix (kbd "C-x p"))
@@ -950,7 +874,6 @@ Use [[https://editorconfig.org/][editorconfig]] to set different editor settings
 (use-package editorconfig
   :ensure t
   :defer t
-  :diminish editorconfig-mode
   :hook (prog-mode . editorconfig-mode))
 #+END_SRC
 
@@ -961,7 +884,6 @@ mode for dealing with pairs in Emacs.
 (use-package paredit
   :ensure t
   :defer t
-  :diminish " ⒫"
   :hook ((emacs-lisp-mode . paredit-mode)
          (lisp-mode       . paredit-mode)
          (scheme-mode     . paredit-mode)))
@@ -970,7 +892,6 @@ mode for dealing with pairs in Emacs.
   :ensure t
   :defer t
   :after (paredit)
-  :diminish " ⒮"
   :hook (prog-mode . smartparens-mode)
   :init
   (require 'smartparens-config)
@@ -994,17 +915,12 @@ Better /tab/ behavior with [[https://www.emacswiki.org/emacs/TabCompletion#Smart
 (use-package smart-tab
   :ensure t
   :defer t
-  :diminish ""
   :init
   (setq smart-tab-using-hippie-expand t)
   (global-smart-tab-mode 1)
   :config
   (add-to-list 'smart-tab-disabled-major-modes 'shell-mode))
 #+END_SRC
-
-
-
-
 
 *** Spell and code check
 
@@ -1016,7 +932,6 @@ Setting skip rules for /ispell/ and set /flyspell/ to text mode.
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
 (add-hook 'text-mode-hook 'flyspell-mode)
-(diminish 'flyspell-mode " Ⓕ")
 
 ;; I prefer disable spell check in code, you can uncomment this if you like
 ;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
@@ -1071,7 +986,6 @@ Code check with [[https://www.flycheck.org/en/latest/][Flycheck]] with /jshint/ 
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
   :ensure t
-  :diminish " ⓕ"
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (defun eccc/disable-flycheck-flawed-checkers ()
@@ -1084,10 +998,6 @@ Code check with [[https://www.flycheck.org/en/latest/][Flycheck]] with /jshint/ 
   (eval-after-load 'flycheck-mode 'eccc/disable-flycheck-flawed-checkers))
 #+END_SRC
 
-
-
-
-
 *** Auto completion
 
 [[https://github.com/joaotavora/yasnippet][YASnippet]] is a template system for Emacs. It allows you to type an
@@ -1097,7 +1007,6 @@ abbreviation and automatically expand it into function templates.
 (use-package yasnippet
   :ensure t
   :defer t
-  :diminish yas-minor-mode
   :bind (("M-=" . yas-insert-snippet))
   :init
   (yas-global-mode 1)
@@ -1113,7 +1022,6 @@ retrieve and display completion candidates.
 #+BEGIN_SRC emacs-lisp
 (use-package company
   :ensure t
-  :diminish company-mode
   :bind (("C-c ." . company-complete)
          ("C-." . company-complete))
   :init
@@ -1162,9 +1070,6 @@ likelier candidates at the top of the list.
   :init (company-statistics-mode))
 #+END_SRC
 
-
-
-
 *** Version control
 
 Disable default version control (Actually not, just keep git because I
@@ -1209,10 +1114,6 @@ exist, only Magit and Git itself deserve to be called porcelains.
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 #+END_SRC
 
-
-
-
-
 *** Tools and applications
 
 [[https://github.com/pashky/restclient.el][Restclient]] is a tool to manually explore and test HTTP REST
@@ -1254,7 +1155,6 @@ to work.
   (use-package wakatime-mode
     :ensure t
     :defer t
-    :diminish " ⓦ"
     :init
     (setq wakatime-api-key eccc/wakatime-apikey
           wakatime-cli-path eccc/wakatime-path)
@@ -1269,15 +1169,9 @@ Use [[https://github.com/politza/pdf-tools][pdf-tools]] to read pdf files.
   :defer t)
 #+END_SRC
 
-
-
 ** Programming languages
 
 Adding new or better support to programming languages and text markup.
-
-
-
-
 
 *** Lisp
 
@@ -1315,7 +1209,6 @@ Make all /elisp/ modes use the [[https://github.com/purcell/elisp-slime-nav][Sli
   :ensure t
   :defer t
   :after (slime)
-  :diminish elisp-slime-nav-mode
   :config
   (dolist (hook '(emacs-lisp-mode-hook
                   lisp-interaction-mode-hook
@@ -1383,10 +1276,6 @@ Clojure.
         cider-repl-wrap-history t))
 #+END_SRC
 
-
-
-
-
 *** Markdown
 
 [[https://jblevins.org/projects/markdown-mode/][Major]] mode for editing Markdown-formatted text.
@@ -1409,10 +1298,6 @@ Clojure.
   :ensure t
   :defer t)
 #+END_SRC
-
-
-
-
 
 *** JavaScript
 
@@ -1445,7 +1330,6 @@ references or definitions.
 #+BEGIN_SRC emacs-lisp
 (use-package js2-refactor
   :ensure t
-  :diminish " ⒭"
   :init
   (add-hook 'js2-mode-hook #'js2-refactor-mode)
   (add-hook 'rjsx-mode-hook #'js2-refactor-mode)
@@ -1468,7 +1352,6 @@ Adding [[http://ternjs.net/][Tern]] for parse and add to /company/ completion.
 #+BEGIN_SRC emacs-lisp
 (use-package tern
   :ensure t
-  :diminish " ⓣ"
   :init
   (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
   (add-hook 'rjsx-mode-hook (lambda () (tern-mode t)))
@@ -1487,7 +1370,6 @@ Install [[https://github.com/NicolasPetton/Indium][Indium]] to connect to a brow
 #+BEGIN_SRC emacs-lisp
 (use-package indium
   :ensure t
-  :diminish indium-interaction-mode
   :config
   (add-hook 'js2-mode-hook #'indium-interaction-mode)
   (add-hook 'rjsx-mode-hook #'indium-interaction-mode))
@@ -1499,7 +1381,6 @@ Add [[https://github.com/mojochao/npm-mode][NPM]] mode to manage npm projects.
 (use-package npm-mode
   :ensure t
   :defer t
-  :diminish " Ⓝ"
   :init (npm-global-mode))
 #+END_SRC
 
@@ -1546,7 +1427,6 @@ Add TypeScript support.
 (use-package tide
   :ensure t
   :defer t
-  :diminish " Ⓣ"
   :init
   (defun setup-tide-mode ()
     (interactive)
@@ -1554,10 +1434,6 @@ Add TypeScript support.
     (tide-hl-identifier-mode +1))
   (add-hook 'typescript-mode-hook #'setup-tide-mode))
 #+END_SRC
-
-
-
-
 
 *** WEB (HTML, Svelte, Templates, inline CSS and Javascript)
 
@@ -1594,10 +1470,6 @@ Add TypeScript support.
 (add-to-list 'auto-mode-alist '("\\.hbs?\\'" . web-mode))
 #+END_SRC
 
-
-
-
-
 *** CSS
 
 Sets background color to strings that match color names, e.g. #0000ff
@@ -1606,8 +1478,7 @@ is displayed in white with a blue background.
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-mode
   :ensure t
-  :defer t
-  :diminish rainbow-mode)
+  :defer t)
 #+END_SRC
 
 Add CSS, LESS and SASS support, and activate rainbow mode.
@@ -1642,10 +1513,6 @@ Add CSS, LESS and SASS support, and activate rainbow mode.
             (lambda () (rainbow-mode 1))))
 #+END_SRC
 
-
-
-
-
 *** JSON
 
 Add support for JSON.
@@ -1662,10 +1529,6 @@ Add support for JSON.
     (add-to-list 'auto-mode-alist '("\\.jshintrc\\'" . json-mode)))
 #+END_SRC
 
-
-
-
-
 *** YAML
 
 Add support to YAML.
@@ -1677,10 +1540,6 @@ Add support to YAML.
   :init
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 #+END_SRC
-
-
-
-
 
 *** PHP
 
@@ -1701,10 +1560,6 @@ Support to PHP.
       (add-to-list 'company-backends 'company-ac-php-backend)))
 #+END_SRC
 
-
-
-
-
 *** RUST
 
 Install Rust major mode.
@@ -1717,7 +1572,6 @@ Install Rust major mode.
 (use-package cargo
   :ensure t
   :defer t
-  :diminish " Ⓒ"
   :after (rust-mode)
   :hook (rust-mode . cargo-minor-mode))
 #+END_SRC
@@ -1728,7 +1582,6 @@ Install Racer.
 (use-package racer
   :ensure t
   :defer t
-  :diminish " Ⓡ"
   :after (rust-mode)
   :hook ((rust-mode  . racer-mode)
          (racer-mode . eldoc-mode)
@@ -1749,10 +1602,6 @@ Install Flycheck rust
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 #+END_SRC
 
-
-
-
-
 *** PYTHON
 
 Install /elpy/ and /pyenv/.
@@ -1761,21 +1610,17 @@ Install /elpy/ and /pyenv/.
 (use-package elpy
   :ensure t
   :defer t
-  :diminish " Ⓔ"
   :init (elpy-enable))
 
 (use-package pyenv-mode
   :ensure t
   :defer t
+  :disabled
   :init (pyenv-mode))
 
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
 #+END_SRC
-
-
-
-
 
 *** HASKELL
 
@@ -1789,9 +1634,6 @@ Install haskell mode and Intero.
   :ensure t
   :hook (haskell-mode . intero-mode))
 #+END_SRC
-
-
-
 
 *** Docker
 
@@ -1810,9 +1652,6 @@ inside containers using tramp.
 (use-package docker-tramp
   :ensure t)
 #+END_SRC
-
-
-
 
 *** Elm
 
@@ -1833,24 +1672,13 @@ Install mode for Elm development.
       (add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
 #+END_SRC
 
-
-
-
-
-
-
 ** Org configuration
 
 *** Visual tweaks
 
-Use bullets to mark the Org outlines and set ellipsis to a better character.
+Set ellipsis to a better character.
 
 #+BEGIN_SRC emacs-lisp
-(use-package org-bullets
-  :ensure t
-  :init
-  (add-hook 'org-mode-hook 'org-bullets-mode))
-
 (setq org-ellipsis "⤵")
 #+END_SRC
 
