@@ -1,5 +1,5 @@
-#+AUTHOR: Thiago Polastri
 #+TITLE: Emacs config
+#+AUTHOR: Thiago Polastri
 #+EMAIL: thiagopolastri@gmail.com
 
 # -*- mode: org; -*-
@@ -11,8 +11,6 @@
 #+OPTIONS: H:4 num:nil toc:t \n:nil ::t |:t ^:{} -:t f:t *:t
 #+OPTIONS: d:(HIDE) tags:not-in-toc
 #+STARTUP: nodlcheck lognotestate showall
-
-
 
 
 ** Global variables
@@ -1604,18 +1602,35 @@ Install Flycheck rust
 
 *** PYTHON
 
-Install /elpy/ and /pyenv/.
+Install elpy, pyenv, autopep8 and jedi.
 
 #+BEGIN_SRC emacs-lisp
+(use-package python-mode
+  :ensure t)
+
 (use-package elpy
   :ensure t
-  :defer t
+  :hook (elpy-mode . flycheck-mode)
   :init (elpy-enable))
 
 (use-package pyenv-mode
   :ensure t
   :defer t)
 ;;  :init (pyenv-mode)) - same as npm-mode, call when you need it with M-x
+
+(use-package py-autopep8
+  :ensure t
+  :defer t
+  :hook (elpy-mode . py-autopep8-enable-on-save))
+
+(use-package company-jedi
+  :ensure t
+  :defer t
+  :hook (python-mode . jedi:setup)
+  :config
+  (setq jedi:complete-on-dot t)
+  :init
+  (add-to-list 'company-backends 'company-jedi))
 
 (setq python-shell-interpreter "ipython"
       python-shell-interpreter-args "-i --simple-prompt")
@@ -1627,7 +1642,12 @@ Install haskell mode and Intero.
 
 #+BEGIN_SRC emacs-lisp
 (use-package haskell-mode
-  :ensure t)
+  :ensure t
+  :init
+  (add-hook 'haskell-mode-hook
+    (lambda ()
+      (haskell-doc-mode)
+      (turn-on-haskell-indent))))
 
 (use-package intero
   :ensure t
