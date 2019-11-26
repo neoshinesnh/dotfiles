@@ -237,8 +237,6 @@ performance-oriented and tidy.
   (require 'use-package))
 #+END_SRC
 
-** Requirements
-
 If you want to disable a package just put a =:disabled= in the code.
 
 #+BEGIN_EXAMPLE
@@ -272,7 +270,7 @@ Require everything we need.
 
 ** Settings for built-in stuff
 
-Settings for built in packages (no /use-package/ here).
+Change the defaults and settings for built in packages.
 
 *** Editor enhancements
 
@@ -640,8 +638,17 @@ install Moody for a better modeline and Minions to hide minor modes.
 (use-package minions
   :ensure t
   :config
-  (setq minions-mode-line-lighter "ミ")
+  (setq minions-mode-line-lighter "ミ"
+        minions-mode-line-delimiters '("" . ""))
   (minions-mode 1))
+
+(use-package nyan-mode
+  :ensure t
+  :defer t
+  :if window-system
+  :init
+  (nyan-mode t)
+  (nyan-toggle-wavy-trail))
 #+END_SRC
 
 Install [[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]], a "rainbow parentheses"-like mode which
@@ -966,7 +973,8 @@ Create a custom command to change dictionary and check spell.
 #+END_SRC
 
 Use [[https://www.languagetool.org/][Language Tool]] to check grammar. You need to download and set
-languagetool-path in the custom variables.
+languagetool-path in the custom variables (no keybind defined, just
+call it with M-x).
 
 #+BEGIN_SRC emacs-lisp
 (use-package langtool
@@ -1330,9 +1338,9 @@ references or definitions.
 #+BEGIN_SRC emacs-lisp
 (use-package js2-refactor
   :ensure t
+  :hook ((js2-mode  . js2-refactor-mode)
+         (rjsx-mode . js2-refactor-mode))
   :init
-  (add-hook 'js2-mode-hook #'js2-refactor-mode)
-  (add-hook 'rjsx-mode-hook #'js2-refactor-mode)
   (js2r-add-keybindings-with-prefix "C-c x")
   (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
   (define-key rjsx-mode-map (kbd "C-k") #'js2r-kill))
@@ -1370,9 +1378,8 @@ Install [[https://github.com/NicolasPetton/Indium][Indium]] to connect to a brow
 #+BEGIN_SRC emacs-lisp
 (use-package indium
   :ensure t
-  :config
-  (add-hook 'js2-mode-hook #'indium-interaction-mode)
-  (add-hook 'rjsx-mode-hook #'indium-interaction-mode))
+  :hook ((js2-mode  . indium-interaction-mode)
+         (rjsx-mode . indium-interaction-mode)))
 #+END_SRC
 
 Add [[https://github.com/mojochao/npm-mode][NPM]] mode to manage npm projects.
@@ -1380,8 +1387,8 @@ Add [[https://github.com/mojochao/npm-mode][NPM]] mode to manage npm projects.
 #+BEGIN_SRC emacs-lisp
 (use-package npm-mode
   :ensure t
-  :defer t
-  :init (npm-global-mode))
+  :defer t)
+;; :init (npm-global-mode)) - disabling global mode, call it with M-x
 #+END_SRC
 
 Add /Prettier/ to JavaScript modes (not added to hook, I prefer to
@@ -1390,9 +1397,7 @@ call for it when needed).
 #+BEGIN_SRC emacs-lisp
 (use-package prettier-js
   :ensure t
-  :defer t
-  :after (js2-mode rjsx-mode))
-
+  :defer t)
 ;; :init
 ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
 ;; (add-hook 'rjsx-mode-hook 'prettier-js-mode)
@@ -1411,9 +1416,8 @@ Add support for /flowtype/.
 (use-package flow-minor-mode
   :ensure t
   :defer t
-  :init
-  (add-hook 'js2-mode-hook 'flow-minor-enable-automatically)
-  (add-hook 'rjsx-mode-hook 'flow-minor-enable-automatically))
+  :hook ((js2-mode  . flow-minor-enable-automatically)
+         (rjsx-mode . flow-minor-enable-automatically)))
 #+END_SRC
 
 Add TypeScript support.
@@ -1428,11 +1432,11 @@ Add TypeScript support.
   :ensure t
   :defer t
   :init
-  (defun setup-tide-mode ()
+  (defun eccc/setup-tide-mode ()
     (interactive)
     (tide-setup)
     (tide-hl-identifier-mode +1))
-  (add-hook 'typescript-mode-hook #'setup-tide-mode))
+  (add-hook 'typescript-mode-hook #'eccc/setup-tide-mode))
 #+END_SRC
 
 *** WEB (HTML, Svelte, Templates, inline CSS and Javascript)
