@@ -22,8 +22,8 @@ variables and functions will have a prefix (eccc).
 #+BEGIN_SRC emacs-lisp
 ;; Don't forget to add ~/.local/bin to your PATH
 
-(setq user-full-name "Your Name"
-      user-mail-address "your@email.com"
+(setq user-full-name "Thiago Polastri"
+      user-mail-address "thiagopolastri@gmail.com"
       calendar-latitude -23.550520
       calendar-longitude -46.633308
       calendar-location-name "Sao Paulo, BR"
@@ -184,6 +184,8 @@ Key binds defined, redefined or removed by this configuration.
 | =C-c x=         | Js2 refactor prefix                       | Js2-refactor         |
 | =C-k=           | When in JavaScript use refactor kill      | Js2-refactor         |
 | =C-c s=         | Slime selector                            | Slime                |
+| =C-c C-,=       | Org capture                               | Org                  |
+| =C-c C-/=       | Org agenda                                | Org                  |
 
 ** Initialization file (/init.el/)
 
@@ -1693,14 +1695,20 @@ Install mode for Elm development.
 
 ** Org configuration
 
-*** Visual tweaks
-
-Set ellipsis to a better character.
+Set variables.
 
 #+BEGIN_SRC emacs-lisp
-(setq org-ellipsis "⤵")
+(setq org-ellipsis "⤵"                ;; make org ellipsis show as a arrow
+      org-log-done 'time              ;; add time stamp in tasks that are done
+      org-enforce-todo-dependencies t ;; don't let tasks that have undone subtasks to be done
+      org-enforce-todo-checkbox-dependencies t
+      org-default-notes-file (concat org-directory "/notes.org")
+      org-agenda-files (list (concat org-directory "/general.org") (concat org-directory "/work.org")))
 #+END_SRC
 
-*** TODO Export
-*** TODO Agenda
-*** TODO Capturing tasks
+Set keybind for org-capture.
+
+#+BEGIN_SRC emacs-lisp
+(define-key global-map (kbd "C-c C-,") 'org-capture)
+(define-key global-map (kbd "C-c C-/") 'org-agenda)
+#+END_SRC
