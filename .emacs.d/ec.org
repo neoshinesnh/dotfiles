@@ -1703,7 +1703,7 @@ Set variables.
       org-enforce-todo-dependencies t ;; don't let tasks that have undone subtasks to be done
       org-enforce-todo-checkbox-dependencies t
       org-default-notes-file (concat org-directory "/notes.org")
-      org-agenda-files (list (concat org-directory "/general.org") (concat org-directory "/work.org")))
+      org-agenda-files (list (concat org-directory "/inbox.org") (concat org-directory "/work.org")))
 #+END_SRC
 
 Set keybind for org-capture.
