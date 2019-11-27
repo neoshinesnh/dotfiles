@@ -17,7 +17,7 @@
 
 All variables to use in this configuration are grouped and you can
 change personal info, paths and some specific settings here. All custom
-variables and functions will have a prefix (eccc).
+variables and functions will have a prefix (my).
 
 #+BEGIN_SRC emacs-lisp
 ;; Don't forget to add ~/.local/bin to your PATH
@@ -27,20 +27,20 @@ variables and functions will have a prefix (eccc).
       calendar-latitude -23.550520
       calendar-longitude -46.633308
       calendar-location-name "Sao Paulo, BR"
-      org-directory "~/Documents/org"
-      eccc/default-shell "/bin/bash"
-      eccc/pandoc-path "~/.local/bin/pandoc"
-      eccc/languagetool-path "~/.local/share/LanguageTool-4.7/languagetool-commandline.jar"
-      eccc/custom-snippets-path "~/.emacs.d/custom/snippets"
-      eccc/markdown-css-path '("/home/USER/.emacs.d/custom/styles/md.css")
-      eccc/markdown-head "<style>/* any html head tag you want to export with md to html */</style>"
-      eccc/sbcl-path "/usr/bin/sbcl"
-      eccc/racket-path "/usr/bin/racket"
-      eccc/racer-path "~/.cargo/bin/racer"
-      eccc/rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-      eccc/wakatime-path "/usr/bin/wakatime"
-      eccc/wakatime-apikey "your-wakatime-api-key"
-      eccc/enable-wakatime nil) ; change to t if you want to enable wakatime
+      my/org-directory "~/Documents/org"
+      my/default-shell "/bin/bash"
+      my/pandoc-path "~/.local/bin/pandoc"
+      my/languagetool-path "~/.local/share/LanguageTool-4.7/languagetool-commandline.jar"
+      my/custom-snippets-path "~/.emacs.d/custom/snippets"
+      my/markdown-css-path '("/home/USER/.emacs.d/custom/styles/md.css")
+      my/markdown-head "<style>/* any html head tag you want to export with md to html */</style>"
+      my/sbcl-path "/usr/bin/sbcl"
+      my/racket-path "/usr/bin/racket"
+      my/racer-path "~/.cargo/bin/racer"
+      my/rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+      my/wakatime-path "/usr/bin/wakatime"
+      my/wakatime-apikey "your-wakatime-api-key"
+      my/enable-wakatime nil) ; change to t if you want to enable wakatime
 #+END_SRC
 
 ** Recommended dependencies and setup
@@ -202,7 +202,7 @@ Create a /init.el/ to load this file and set your custom file.
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 (require 'org)
-(org-babel-load-file (expand-file-name "eccc.org" user-emacs-directory))
+(org-babel-load-file (expand-file-name "ec.org" user-emacs-directory))
 
 ;;; init.el ends here
 #+END_EXAMPLE
@@ -403,16 +403,16 @@ Soft line break.
 Set garbage collector threshold and add to /minibuffer/ hook.
 
 #+BEGIN_SRC emacs-lisp
-(defun eccc/minibuffer-setup-hook ()
+(defun my/minibuffer-setup-hook ()
   "Set gc threshold to most big positive number on enter minibuffer."
   (setq gc-cons-threshold most-positive-fixnum))
 
-(defun eccc/minibuffer-exit-hook ()
+(defun my/minibuffer-exit-hook ()
   "Set gc threshold to a fixed value on exit minibuffer."
   (setq gc-cons-threshold 800000))
 
-(add-hook 'minibuffer-setup-hook #'eccc/minibuffer-setup-hook)
-(add-hook 'minibuffer-exit-hook #'eccc/minibuffer-exit-hook)
+(add-hook 'minibuffer-setup-hook #'my/minibuffer-setup-hook)
+(add-hook 'minibuffer-exit-hook #'my/minibuffer-exit-hook)
 #+END_SRC
 
 Ignore case for completion, and set /string/ for /regex/.
@@ -445,11 +445,11 @@ Use only /y/ or /n/ for yes or no questions.
 Colorize output of compilation mode.
 
 #+BEGIN_SRC emacs-lisp
-(defun eccc/colorize-compilation-buffer ()
+(defun my/colorize-compilation-buffer ()
   "Colorize compilation buffer."
   (let ((inhibit-read-only t))
     (ansi-color-apply-on-region (point-min) (point-max))))
-(add-hook 'compilation-filter-hook 'eccc/colorize-compilation-buffer)
+(add-hook 'compilation-filter-hook 'my/colorize-compilation-buffer)
 #+END_SRC
 
 Turn on /autofill/ for all text modes.
@@ -497,12 +497,12 @@ Tweaks for /GTK/ and unset =C-z=.
 (when (eq system-type 'gnu/linux)
   (setq x-gtk-use-system-tooltips t)
 
-  (defun eccc/max-fullscreen ()
+  (defun my/max-fullscreen ()
     "Tweak to use maximum frame size in linux."
     (interactive)
     (toggle-frame-maximized))
 
-  (add-hook 'after-init-hook #'eccc/max-fullscreen)
+  (add-hook 'after-init-hook #'my/max-fullscreen)
   (setq dired-listing-switches "-lFaGh1v --group-directories-first")
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z")))
@@ -786,7 +786,7 @@ Emacs Lisp without the use of GNU find (but for performance sake an
 indexing mechanism backed by external commands exists as well).
 
 #+BEGIN_SRC emacs-lisp
-(defun eccc/swiper-recenter ()
+(defun my/swiper-recenter ()
   "Recenter display after swiper."
   (recenter))
 
@@ -797,7 +797,7 @@ indexing mechanism backed by external commands exists as well).
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t
         ivy-display-style 'fancy)
-  (advice-add 'swiper :after #'eccc/swiper-recenter)
+  (advice-add 'swiper :after #'my/swiper-recenter)
   :bind (("\C-s"    . swiper)
          ("C-c u"   . swiper-all)
          ("C-c C-r" . ivy-resume)
@@ -981,7 +981,7 @@ call it with M-x).
  :ensure t
  :defer t
  :init
- (setq langtool-language-tool-jar eccc/languagetool-path
+ (setq langtool-language-tool-jar my/languagetool-path
      langtool-mother-tongue "en"
      langtool-disabled-rules '("WHITESPACE_RULE"
                                "EN_UNPAIRED_BRACKETS"
@@ -996,14 +996,14 @@ Code check with [[https://www.flycheck.org/en/latest/][Flycheck]] with /jshint/ 
   :ensure t
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
-  (defun eccc/disable-flycheck-flawed-checkers ()
+  (defun my/disable-flycheck-flawed-checkers ()
     (setq-default flycheck-disabled-checkers
                   (append flycheck-disabled-checkers)
                   '(javascript-jshint))
     (setq-default flycheck-disabled-checkers
                   (append flycheck-disabled-checkers)
                   '(json-jsonlist)))
-  (eval-after-load 'flycheck-mode 'eccc/disable-flycheck-flawed-checkers))
+  (eval-after-load 'flycheck-mode 'my/disable-flycheck-flawed-checkers))
 #+END_SRC
 
 *** Auto completion
@@ -1019,7 +1019,7 @@ abbreviation and automatically expand it into function templates.
   :init
   (yas-global-mode 1)
   :config
-  (add-to-list 'yas-snippet-dirs eccc/custom-snippets-path)
+  (add-to-list 'yas-snippet-dirs my/custom-snippets-path)
   (yas-reload-all))
 #+END_SRC
 
@@ -1151,7 +1151,7 @@ to work.
   :bind (("C-c t" . shell-pop))
   :init
   (setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
-  (setq shell-pop-term-shell eccc/default-shell)
+  (setq shell-pop-term-shell my/default-shell)
   :config
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
 #+END_SRC
@@ -1159,13 +1159,13 @@ to work.
 [[https://wakatime.com/emacs][Wakatime]] to track your time in editor.
 
 #+BEGIN_SRC emacs-lisp
-(when eccc/enable-wakatime
+(when my/enable-wakatime
   (use-package wakatime-mode
     :ensure t
     :defer t
     :init
-    (setq wakatime-api-key eccc/wakatime-apikey
-          wakatime-cli-path eccc/wakatime-path)
+    (setq wakatime-api-key my/wakatime-apikey
+          wakatime-cli-path my/wakatime-path)
     (global-wakatime-mode)))
 #+END_SRC
 
@@ -1197,7 +1197,7 @@ an environment for hacking Common Lisp in.
   :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.sbclrc$" . lisp-mode))
-  (setq inferior-lisp-program eccc/sbcl-path
+  (setq inferior-lisp-program my/sbcl-path
         slime-net-coding-system 'utf-8-unix
         slime-complete-symbol*-fancy t
         slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
@@ -1235,10 +1235,10 @@ major mode.
   :ensure t
   :defer t
   :config
-  (setq geiser-default-implementation eccc/racket-path
+  (setq geiser-default-implementation my/racket-path
         geiser-guile-load-init-file-p t)
   (add-hook 'geiser-mode-hook
-            (lambda () (setq geiser-impl--implementation eccc/racket-path)))
+            (lambda () (setq geiser-impl--implementation my/racket-path)))
   (add-hook 'scheme-mode-hook 'slime-mode))
 #+END_SRC
 
@@ -1297,9 +1297,9 @@ Clojure.
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init
-  (setq markdown-command eccc/pandoc-path)
-  (setq markdown-css-paths eccc/markdown-css-path)
-  (setq markdown-xhtml-header-content eccc/markdown-head))
+  (setq markdown-command my/pandoc-path)
+  (setq markdown-css-paths my/markdown-css-path)
+  (setq markdown-xhtml-header-content my/markdown-head))
 
 
 (use-package markdown-preview-mode
@@ -1432,11 +1432,11 @@ Add TypeScript support.
   :ensure t
   :defer t
   :init
-  (defun eccc/setup-tide-mode ()
+  (defun my/setup-tide-mode ()
     (interactive)
     (tide-setup)
     (tide-hl-identifier-mode +1))
-  (add-hook 'typescript-mode-hook #'eccc/setup-tide-mode))
+  (add-hook 'typescript-mode-hook #'my/setup-tide-mode))
 #+END_SRC
 
 *** WEB (HTML, Svelte and Templates)
@@ -1456,7 +1456,7 @@ Add TypeScript support.
   :defer t
   :after (flycheck tide)
   :init
-  (defun eccc/web-mode-hook ()
+  (defun my/web-mode-hook ()
     (setq web-mode-markup-indent-offset 2
           web-mode-css-indent-offset 2
           web-mode-code-indent-offset 2
@@ -1464,7 +1464,7 @@ Add TypeScript support.
           web-mode-enable-css-colorization t)
     (when (string-equal "tsx" (file-name-extension buffer-file-name))
       (setup-tide-mode)))
-  (add-hook 'web-mode-hook 'eccc/web-mode-hook)
+  (add-hook 'web-mode-hook 'my/web-mode-hook)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (flycheck-add-mode 'typescript-tslint 'web-mode))
 
@@ -1587,8 +1587,8 @@ Install Racer.
          (racer-mode . eldoc-mode)
          (racer-mode . company-mode))
   :init
-  (setq racer-cmd eccc/racer-path)
-  (setq racer-rust-src-path eccc/rust-src-path))
+  (setq racer-cmd my/racer-path)
+  (setq racer-rust-src-path my/rust-src-path))
 #+END_SRC
 
 Install Flycheck rust
@@ -1691,24 +1691,4 @@ Install mode for Elm development.
   :init
     (with-eval-after-load 'flycheck
       (add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
-#+END_SRC
-
-** Org configuration
-
-Set variables.
-
-#+BEGIN_SRC emacs-lisp
-(setq org-ellipsis "⤵"                ;; make org ellipsis show as a arrow
-      org-log-done 'time              ;; add time stamp in tasks that are done
-      org-enforce-todo-dependencies t ;; don't let tasks that have undone subtasks to be done
-      org-enforce-todo-checkbox-dependencies t
-      org-default-notes-file (concat org-directory "/notes.org")
-      org-agenda-files (list (concat org-directory "/inbox.org") (concat org-directory "/work.org")))
-#+END_SRC
-
-Set keybind for org-capture.
-
-#+BEGIN_SRC emacs-lisp
-(define-key global-map (kbd "C-c C-,") 'org-capture)
-(define-key global-map (kbd "C-c C-/") 'org-agenda)
 #+END_SRC
