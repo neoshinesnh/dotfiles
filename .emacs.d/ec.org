@@ -1692,3 +1692,23 @@ Install mode for Elm development.
     (with-eval-after-load 'flycheck
       (add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
 #+END_SRC
+** Org configuration
+
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets
+  :ensure t
+  :init
+  (add-hook 'org-mode-hook 'org-bullets-mode))
+
+(setq org-ellipsis "⤵"
+      org-log-done 'time
+      org-hide-emphasis-markers t
+      org-default-notes-file (concat my/org-directory "/notes.org")
+      org-agenda-files (list (concat my/org-directory "/agenda.org") (concat org-directory "/work.org")))
+
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c c") 'org-capture)
+
+(add-hook 'org-mode-hook 'org-indent-mode)
+#+END_SRC
