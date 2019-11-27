@@ -1,16 +1,8 @@
 #+TITLE: Emacs config
 #+AUTHOR: Thiago Polastri
 #+EMAIL: thiagopolastri@gmail.com
-
-# -*- mode: org; -*-
-
 #+LANGUAGE: en
-#+PROPERTY: header-args:emacs-lisp :tangle yes
-#+PROPERTY: header-args:sh :eval no
-#+EXPORT_EXCLUDE_TAGS: noexport
-#+OPTIONS: H:4 num:nil toc:t \n:nil ::t |:t ^:{} -:t f:t *:t
-#+OPTIONS: d:(HIDE) tags:not-in-toc
-#+STARTUP: nodlcheck lognotestate showall
+#+OPTIONS: num:nil toc:t
 
 
 ** Global variables
@@ -184,8 +176,9 @@ Key binds defined, redefined or removed by this configuration.
 | =C-c x=         | Js2 refactor prefix                       | Js2-refactor         |
 | =C-k=           | When in JavaScript use refactor kill      | Js2-refactor         |
 | =C-c s=         | Slime selector                            | Slime                |
-| =C-c C-,=       | Org capture                               | Org                  |
-| =C-c C-/=       | Org agenda                                | Org                  |
+| =C-c c=         | Org capture                               | Org                  |
+| =C-c a=         | Org agenda                                | Org                  |
+| =C-c l=         | Org store link                            | Org                  |
 
 ** Initialization file (/init.el/)
 
