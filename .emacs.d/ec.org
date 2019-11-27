@@ -182,6 +182,11 @@ Key binds defined, redefined or removed by this configuration.
 | =C-c c=         | Org capture                               | Org                  |
 | =C-c a=         | Org agenda                                | Org                  |
 | =C-c l=         | Org store link                            | Org                  |
+| =C-c w=         | Open this config file                     | Custom               |
+| =C-x / g=       | Search on Google                          | Engine mode          |
+| =C-x / y=       | Search on Youtube                         | Engine mode          |
+| =C-x / h=       | Search on Github                          | Engine mode          |
+| =C-x / w=       | Search on Wikipedia                       | Engine mode          |
 
 ** Initialization file (/init.el/)
 
@@ -1707,4 +1712,34 @@ Install mode for Elm development.
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (add-hook 'org-mode-hook 'org-indent-mode)
+
+;; fix xdg-open by change process connection type to use pipe.
+;; It will probably cause some side effects (eg. gnuplot)
+;; you can comment this if you have any problems
+(setq process-connection-type nil)
+#+END_SRC
+** Utilities
+
+Open this configuration file at any moment.
+
+#+BEGIN_SRC emacs-lisp
+(defun my/conf ()
+  (interactive)
+  (find-file "~/.emacs.d/ec.org"))
+
+(global-set-key (kbd "C-c w") 'my/conf)
+#+END_SRC
+
+Use engine mode to search from emacs.
+
+#+BEGIN_SRC emacs-lisp
+(use-package engine-mode
+  :ensure t
+  :defer t
+  :init
+  (defengine google "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s" :keybinding "g")
+  (defengine youtube "https://www.youtube.com/results?search_query=%s" :keybinding "y")
+  (defengine github "https://github.com/search?ref=simplesearch&q=%s" :keybinding "h")
+  (defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" :keybinding "w")
+  (engine-mode t))
 #+END_SRC
