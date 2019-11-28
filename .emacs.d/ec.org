@@ -1454,7 +1454,6 @@ Add TypeScript support.
 
 (use-package web-mode
   :ensure t
-  :defer t
   :after (flycheck tide)
   :init
   (defun my/web-mode-hook ()
