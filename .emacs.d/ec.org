@@ -10,9 +10,8 @@
 
 ** Global variables
 
-All variables to use in this configuration are grouped and you can
-change personal info, paths and some specific settings here. All custom
-variables and functions will have a prefix (my).
+All variables in this configuration are grouped and you can
+change personal info, paths and some specific settings here.
 
 #+BEGIN_SRC emacs-lisp
 ;; Don't forget to add ~/.local/bin to your PATH
@@ -23,97 +22,106 @@ variables and functions will have a prefix (my).
       calendar-longitude -46.633308
       calendar-location-name "Sao Paulo, BR"
       my/org-directory "~/Documents/org"
-      my/default-shell "/bin/bash"
+      my/default-shell "/bin/zsh"
       my/pandoc-path "~/.local/bin/pandoc"
       my/languagetool-path "~/.local/share/LanguageTool-4.7/languagetool-commandline.jar"
       my/custom-snippets-path "~/.emacs.d/custom/snippets"
-      my/markdown-css-path '("/home/USER/.emacs.d/custom/styles/md.css")
-      my/markdown-head "<style>/* any html head tag you want to export with md to html */</style>"
+      my/markdown-css-path '("")
+      my/markdown-head ""
       my/sbcl-path "/usr/bin/sbcl"
       my/racket-path "/usr/bin/racket"
       my/racer-path "~/.cargo/bin/racer"
       my/rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
       my/wakatime-path "/usr/bin/wakatime"
-      my/wakatime-apikey "your-wakatime-api-key"
+      my/wakatime-apikey ""
       my/enable-wakatime nil) ; change to t if you want to enable wakatime
 #+END_SRC
 
 ** Recommended dependencies and setup
 
-All examples listed here are using [[https://www.archlinux.org/][Arch Linux]] with [[https://wiki.archlinux.org/index.php/Pacman][Pacman]] and [[https://aur.archlinux.org/packages/yay/][Yay]].
+This configuration depends on some packages and only works
+on Linux (for now).
 
-Install the following packages.
+The following table shows everything this installation depends on.
+
+| Support     | Packages                                | Package Manager | Code Style               |
+|-------------+-----------------------------------------+-----------------+--------------------------|
+| Base        | sudo, wget, [[https://www.openssl.org/][Openssl]], zsh, [[https://github.com/ggreer/the_silver_searcher][ag]],  [[https://sourcefoundry.org/hack/][ttf-hack]] |                 | [[https://editorconfig.org/][Editor config]]            |
+| Spell Check | [[http://aspell.net/][GNU Aspell]], [[https://hunspell.github.io/][Hunspell]], [[https://languagetool.org][Language Tool]]     |                 |                          |
+| LaTeX       | [[https://www.tug.org/texlive/][Tex Live]]                                |                 |                          |
+| Lisp        | [[http://www.sbcl.org/][SBCL]], [[https://racket-lang.org/][Racket]]                            |                 |                          |
+| JavaScript  | [[https://nodejs.org/en/][NodeJS]], [[https://www.typescriptlang.org/][Typescript]], [[https://flow.org/][Flow]], [[https://ternjs.net/][Tern]], [[https://github.com/NicolasPetton/Indium][Indium]]  | [[https://www.npmjs.com/][NPM]]             | [[https://eslint.org/][eslint]], [[https://palantir.github.io/tslint/][tslint]], [[https://prettier.io/][Prettier]] |
+| Rust        | [[https://rustup.rs/][Rustup]], [[https://github.com/racer-rust/racer][Racer]]                           | [[https://crates.io/][Cargo]]           | [[https://github.com/rust-lang/rustfmt][rustfmt]]                  |
+| Python      | [[https://jedi.readthedocs.io/en/latest/][Jedi]], [[https://ipython.org/][IPython]], [[https://github.com/alecthomas/importmagic][importmagic]], [[https://wakatime.com/][wakatime]]    | [[https://pypi.org/project/pip/][PIP]]             | [[http://flake8.pycqa.org/en/latest/][Flake8]], [[https://github.com/hhatto/autopep8][Autopep8]], [[https://github.com/google/yapf][YAPF]]   |
+| Clojure     | [[https://www.java.com][JRE, JDK]]                                | [[https://leiningen.org/][Leiningen]]       |                          |
+| Haskell     | [[https://docs.haskellstack.org/en/stable/README/][Stack]], [[https://pandoc.org][Pandoc]]                           | [[https://www.haskell.org/cabal/][Cabal]]           |                          |
+| Elm         | [[https://elm-lang.org/][Elm]], [[https://github.com/ElmCast/elm-oracle][elm-oracle]]                         |                 |                          |
+
+On [[https://www.archlinux.org/][Arch Linux]] with [[https://wiki.archlinux.org/index.php/Pacman][Pacman]] and [[https://aur.archlinux.org/packages/yay/][Yay]] you can install this packages
+following the instructions bellow:
+
+- Install the following packages with /Pacman/.
 
 #+BEGIN_EXAMPLE
-sudo pacman -S emacs aspell aspell-en aspell-pt the_silver_searcher sbcl
-editorconfig-core-c nodejs npm openssl git grep sudo ttf-hack wget racket
-hunspell hunspell-en_US zsh texlive-most texlive-lang rustup python-pip
-python-jedi flake8 autopep8 yapf ipython
+sudo pacman -S emacs aspell aspell-en aspell-pt the_silver_searcher sbcl editorconfig-core-c nodejs npm openssl git grep sudo ttf-hack wget racket hunspell hunspell-en_US zsh texlive-most texlive-lang rustup python-pip python-jedi flake8 autopep8 yapf ipython
 #+END_EXAMPLE
 
-Install [[https://www.java.com][JDK]] and [[https://leiningen.org/][Leiningen]] from [[https://aur.archlinux.org/][AUR]]. Since this configuration supports
-English and Portuguese (Brazilian), I'll also install the /hunspell/
-dictionary for it.
+- Install the following packages from [[https://aur.archlinux.org/][AUR]] with /Yay/.
 
 #+BEGIN_EXAMPLE
 yay -S jre jdk leiningen hunspell-pt-br python-importmagic wakatime
 #+END_EXAMPLE
 
-Disable post-install scripts for npm.
+- Disable post-install scripts for /npm/.
 
 #+BEGIN_EXAMPLE
 npm config set ignore-scripts true
 #+END_EXAMPLE
 
-Install [[https://docs.haskellstack.org/en/stable/README/][Haskell Stack]].
+- Install [[https://docs.haskellstack.org/en/stable/README/][Haskell Stack]].
 
 #+BEGIN_EXAMPLE
 wget -qO- https://get.haskellstack.org/ | sh
 #+END_EXAMPLE
 
-Install [[https://www.haskell.org/cabal/][Cabal]] and [[https://pandoc.org][Pandoc]] using stack.
+- Install [[https://www.haskell.org/cabal/][Cabal]] and [[https://pandoc.org][Pandoc]] using stack.
 
 #+BEGIN_EXAMPLE
 stack setup
-stack install cabal-install
-stack install pandoc
+stack install cabal-install pandoc
 #+END_EXAMPLE
 
-Install [[https://elm-lang.org/][Elm]].
+- Install [[https://elm-lang.org/][Elm]].
 
 #+BEGIN_EXAMPLE
-cd ~/Downloads
 curl -L -o elm.gz https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz
 gunzip elm.gz
 chmod +x elm
 mv elm ~/.local/bin
-cd ~
 #+END_EXAMPLE
 
-Install [[https://www.rust-lang.org][Rust]] and [[https://github.com/racer-rust/racer][Racer]] with /rustp/.
+- Install [[https://www.rust-lang.org][Rust]] and [[https://github.com/racer-rust/racer][Racer]].
 
 #+BEGIN_EXAMPLE
 rustup install nightly
 rustup default nightly
 rustup component add rust-src
-cargo install racer
-cargo install rustfmt
+cargo install racer rustfmt
 #+END_EXAMPLE
 
-Install JavaScript packages.
+- Install JavaScript packages.
 
 #+BEGIN_EXAMPLE
 sudo npm i -g eslint tslint tern flow typescript prettier indium elm-oracle
 #+END_EXAMPLE
 
-Download the desktop version of [[https://languagetool.org][Language Tool]].
+- Download and extract the desktop version of [[https://languagetool.org][Language Tool]].
 
 #+BEGIN_EXAMPLE
 cd ~/local/share
 wget https://languagetool.org/download/LanguageTool-4.7.zip
 unzip LanguageTool-4.7.zip
 rm -rf LanguageTool-4.7.zip
-cd ~
 #+END_EXAMPLE
 
 ** Key-binds table
@@ -722,7 +730,7 @@ Emacs experience.
          ("C-c r"   . crux-rename-file-and-buffer)))
 #+END_SRC
 
-[[https://github.com/leoliu/easy-kill][Provide]] commands /easy-kill/ and /easy-mark/ to let users kill or mark
+[[https://github.com/leoliu/easy-kill][Easy kill]] provide commands /easy-kill/ and /easy-mark/ to let users kill or mark
 things easily.
 
 #+BEGIN_SRC emacs-lisp
@@ -1322,7 +1330,7 @@ add /eslint/ to /flycheck/.
   (flycheck-add-mode 'javascript-eslint 'js2-mode))
 #+END_SRC
 
-Add /rjsx-mode/ for React and JSX syntax.
+Add [[https://github.com/felipeochoa/rjsx-mode][rjsx-mode]] for React and JSX syntax.
 
 #+BEGIN_SRC emacs-lisp
 (use-package rjsx-mode
@@ -1332,8 +1340,8 @@ Add /rjsx-mode/ for React and JSX syntax.
   (flycheck-add-mode 'javascript-eslint 'rjsx-mode))
 #+END_SRC
 
-The package /js2-refactor/ adds powerful refactorings based on the AST
-generated by /js2-mode/, and /xref-js2/ makes it easy to jump to function
+The package [[https://github.com/magnars/js2-refactor.el][js-2-refactor]] adds powerful refactorings based on the AST
+generated by /js2-mode/, and [[https://github.com/NicolasPetton/xref-js2][xref-js2]] makes it easy to jump to function
 references or definitions.
 
 #+BEGIN_SRC emacs-lisp
@@ -1392,7 +1400,7 @@ Add [[https://github.com/mojochao/npm-mode][NPM]] mode to manage npm projects.
 ;; :init (npm-global-mode)) - disabling global mode, call it with M-x
 #+END_SRC
 
-Add /Prettier/ to JavaScript modes (not added to hook, I prefer to
+Add [[https://github.com/prettier/prettier-emacs][Prettier]] to JavaScript modes (not added to hook, I prefer to
 call for it when needed).
 
 #+BEGIN_SRC emacs-lisp
@@ -1401,10 +1409,10 @@ call for it when needed).
   :defer t)
 ;; :init
 ;; (add-hook 'js2-mode-hook 'prettier-js-mode)
-;; (add-hook 'rjsx-mode-hook 'prettier-js-mode)
+;; (add-hook 'rjsx-mode-hook 'prettier-js-mode))
 #+END_SRC
 
-Add support for /flowtype/.
+Add support for [[https://github.com/an-sh/flow-minor-mode][flow]].
 
 #+BEGIN_SRC emacs-lisp
 (use-package company-flow
@@ -1421,7 +1429,7 @@ Add support for /flowtype/.
          (rjsx-mode . flow-minor-enable-automatically)))
 #+END_SRC
 
-Add TypeScript support.
+Add [[https://github.com/emacs-typescript/typescript.el][Typescript]] support.
 
 #+BEGIN_SRC emacs-lisp
 (use-package typescript-mode
@@ -1476,7 +1484,7 @@ Add TypeScript support.
 
 *** CSS
 
-Sets background color to strings that match color names, e.g. #0000ff
+[[https://github.com/emacsmirror/rainbow-mode][Rainbow mode]] sets background color to strings that match color names, e.g. #0000ff
 is displayed in white with a blue background.
 
 #+BEGIN_SRC emacs-lisp
@@ -1560,7 +1568,7 @@ Support to PHP.
       (add-to-list 'company-backends 'company-ac-php-backend)))
 #+END_SRC
 
-*** RUST
+*** Rust
 
 Install Rust major mode.
 
@@ -1602,7 +1610,7 @@ Install Flycheck rust
     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 #+END_SRC
 
-*** PYTHON
+*** Python
 
 Install elpy, pyenv, autopep8 and jedi.
 
@@ -1638,7 +1646,7 @@ Install elpy, pyenv, autopep8 and jedi.
       python-shell-interpreter-args "-i --simple-prompt")
 #+END_SRC
 
-*** HASKELL
+*** Haskell
 
 Install haskell mode and Intero.
 
