@@ -360,15 +360,6 @@ Use /windmove/ to switch buffers.
 (windmove-default-keybindings)
 #+END_SRC
 
-Make /windmove/ work in /org-mode/.
-
-#+BEGIN_SRC emacs-lisp
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
-#+END_SRC
-
 Ask before close Emacs.
 
 #+BEGIN_SRC emacs-lisp
@@ -385,8 +376,8 @@ Hide mouse when you start typing.
 Disable dialog boxes, and hide expression logs in /minibuffer/.
 
 #+BEGIN_SRC emacs-lisp
-(setq use-dialog-box nil)
-(setq eval-expression-print-level nil)
+(setq use-dialog-box nil
+      eval-expression-print-level nil)
 #+END_SRC
 
 Better scroll.
@@ -427,10 +418,10 @@ Set garbage collector threshold and add to /minibuffer/ hook.
 Ignore case for completion, and set /string/ for /regex/.
 
 #+BEGIN_SRC emacs-lisp
-(setq read-file-name-completion-ignore-case t)
-(setq completion-ignore-case t
-      read-file-name-completion-ignore-case t)
-(setq reb-re-syntax 'string)
+(setq read-file-name-completion-ignore-case t
+      completion-ignore-case t
+      read-file-name-completion-ignore-case t
+      reb-re-syntax 'string)
 #+END_SRC
 
 Resolve symbolic links.
@@ -486,21 +477,21 @@ Configure /tramp/ to use /ssh/.
 Make /GnuTLS/ more safe.
 
 #+BEGIN_SRC emacs-lisp
-(setq gnutls-min-prime-bits 4096)
-(setq tls-program '("openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof"))
+(setq gnutls-min-prime-bits 4096
+      tls-program '("openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof"))
 #+END_SRC
 
 Better clipboard.
 
 #+BEGIN_SRC emacs-lisp
-(setq select-enable-clipboard t)
-(setq select-enable-primary t)
-(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-(setq save-interprogram-paste-before-kill t)
-(setq mouse-yank-at-point t)
+(setq select-enable-clipboard t
+      select-enable-primary t
+      x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)
+      save-interprogram-paste-before-kill t
+      mouse-yank-at-point t)
 #+END_SRC
 
-Tweaks for /GTK/ and unset =C-z=.
+Tweaks for /GTK/.
 
 #+BEGIN_SRC emacs-lisp
 (when (eq system-type 'gnu/linux)
@@ -512,7 +503,13 @@ Tweaks for /GTK/ and unset =C-z=.
     (toggle-frame-maximized))
 
   (add-hook 'after-init-hook #'my/max-fullscreen)
-  (setq dired-listing-switches "-lFaGh1v --group-directories-first")
+  (setq dired-listing-switches "-lFaGh1v --group-directories-first"))
+#+END_SRC
+
+Unset =C-z= on graphical enviroment.
+
+#+BEGIN_SRC emacs-lisp
+(when window-system
   (global-unset-key (kbd "C-z"))
   (global-unset-key (kbd "C-x C-z")))
 #+END_SRC
@@ -529,10 +526,10 @@ Enable visible-bell and disable beep. Remove startup screen, scratch message and
 startup message.
 
 #+BEGIN_SRC emacs-lisp
-(setq visible-bell t)
-(setq inhibit-startup-screen t)
-(setq initial-scratch-message "")
-(setq inhibit-startup-message t)
+(setq visible-bell t
+      inhibit-startup-screen t
+      initial-scratch-message ""
+      inhibit-startup-message t)
 #+END_SRC
 
 Highlight current line and pairs of parentheses.
@@ -596,9 +593,8 @@ Prettify lambda and function symbols.
 Set [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Apropos.html][apropos]], [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dynamic-Abbrevs.html][dabrev]] and [[https://www.emacswiki.org/emacs/HippieExpand][hippie expand]].
 
 #+BEGIN_SRC emacs-lisp
-(setq apropos-do-all t)
-
-(setq dabbrev-case-fold-search nil)
+(setq apropos-do-all t
+      dabbrev-case-fold-search nil)
 
 (defadvice hippie-expand (around hippie-expand-case-fold activate)
     "Try to do case-sensitive matching (not effective with all functions)."
@@ -1702,28 +1698,48 @@ Install mode for Elm development.
 #+END_SRC
 ** Org configuration
 
+Add [[https://github.com/sabof/org-bullets][Org bullets]] to show bullets in outline.
+
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets
   :ensure t
   :init
   (add-hook 'org-mode-hook 'org-bullets-mode))
+#+END_SRC
 
+Set ellipsis character, timestamp and files location.
+
+#+BEGIN_SRC emacs-lisp
 (setq org-ellipsis "⤵"
       org-log-done 'time
       org-hide-emphasis-markers t
       org-default-notes-file (concat my/org-directory "/notes.org")
       org-agenda-files (list (concat my/org-directory "/agenda.org") (concat org-directory "/work.org")))
+#+END_SRC
 
+Set /keybind/ for agenda, capture, store link and add org-indent on hook.
+
+#+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
 
 (add-hook 'org-mode-hook 'org-indent-mode)
+#+END_SRC
 
-;; fix xdg-open by change process connection type to use pipe.
-;; It will probably cause some side effects (eg. gnuplot)
-;; you can comment this if you have any problems
+Fix /xdg-open/ on org export, setting process connection type to pipe.
+
+#+BEGIN_SRC emacs-lisp
 (setq process-connection-type nil)
+#+END_SRC
+
+Make /windmove/ work in /org-mode/.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
 #+END_SRC
 ** Utilities
 
