@@ -1,0 +1,45 @@
+! Setting for HiDpi
+Xft.dpi: 180
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+! URxvt conf
+*background: #282828
+*foreground: #ebdbb2
+*color0:  #282828
+*color8:  #928374
+*color1:  #cc241d
+*color9:  #fb4934
+*color2:  #98971a
+*color10: #b8bb26
+*color3:  #d79921
+*color11: #fabd2f
+*color4:  #458588
+*color12: #83a598
+*color5:  #b16286
+*color13: #d3869b
+*color6:  #689d6a
+*color14: #8ec07c
+*color7:  #a89984
+*color15: #ebdbb2
+
+URxvt.font: xft:Hack:size=12
+URxvt.boldFont: xft:Hack:size=12
+URxvt.italicFont: xft:Hack:size=12
+URxvt.boldItalicFont: xft:Hack:size=12
+URxvt.letterSpace: 0
+URxvt.lineSpace: 0
+URxvt.geometry: 92x24
+URxvt.internalBorder: 24
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
+URxvt.saveline: 2048
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.urgentOnBell: true
+URxvt.depth: 24
+URxvt.iso14755: false
