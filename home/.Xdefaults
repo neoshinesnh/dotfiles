@@ -9,9 +9,9 @@ Xft.rgba: rgb
 
 ! URxvt conf
 ! *background: #282828
-*background: #282828
+*background: #1d2021
 *foreground: #ebdbb2
-*color0:  #282828
+*color0:  #1d2021
 *color8:  #928374
 *color1:  #cc241d
 *color9:  #fb4934
@@ -32,7 +32,7 @@ URxvt.font: xft:Hack:size=12
 URxvt.boldFont: xft:Hack:size=12
 URxvt.italicFont: xft:Hack:size=12
 URxvt.boldItalicFont: xft:Hack:size=12
-URxvt.letterSpace: 0
+URxvt.letterSpace: -1
 URxvt.lineSpace: 0
 URxvt.geometry: 92x24
 URxvt.internalBorder: 24
@@ -45,5 +45,6 @@ URxvt.urgentOnBell: true
 URxvt.depth: 24
 URxvt.iso14755: false
 
+URxvt.perl-ext:
 URxvt.perl-ext-common: fullscreen
 URxvt.keysym.F11: perl:fullscreen:switch
