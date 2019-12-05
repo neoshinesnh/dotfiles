@@ -1,3 +1,3 @@
-# :house_with_garden: dotfiles
+# :rice_ball: dotfiles 
 
-Some personal configurations and customizations.
+
