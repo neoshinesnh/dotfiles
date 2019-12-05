@@ -1,3 +1,3 @@
-# :rice_ball: dotfiles 
+# :rice: dotfiles 
 
 Linux, Emacs and stuff.
