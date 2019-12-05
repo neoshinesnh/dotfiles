@@ -125,6 +125,16 @@ unzip LanguageTool-4.7.zip
 rm -rf LanguageTool-4.7.zip
 #+END_EXAMPLE
 
+- Download, install and add /quicklisp/ to /sbcl/ initialization.
+
+#+BEGIN_EXAMPLE
+curl -O https://beta.quicklisp.org/quicklisp.lisp
+sbcl --load quicklisp.lisp
+(quicklisp-quickstart:install)
+(ql:add-to-init-file)
+(exit)
+#+END_EXAMPLE
+
 ** Key-binds table
 
 Key binds defined, redefined or removed by this configuration.
