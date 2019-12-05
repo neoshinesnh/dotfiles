@@ -29,6 +29,7 @@ change personal info, paths and some specific settings here.
       my/markdown-css-path '("")
       my/markdown-head ""
       my/sbcl-path "/usr/bin/sbcl"
+      my/slime-helper-path "~/quicklisp/slime-helper.el"
       my/racket-path "/usr/bin/racket"
       my/racer-path "~/.cargo/bin/racer"
       my/rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
@@ -1202,6 +1203,7 @@ an environment for hacking Common Lisp in.
   :defer t
   :config
   (add-to-list 'auto-mode-alist '("\\.sbclrc$" . lisp-mode))
+  (load (expand-file-name my/slime-helper-path))
   (setq inferior-lisp-program my/sbcl-path
         slime-net-coding-system 'utf-8-unix
         slime-complete-symbol*-fancy t
