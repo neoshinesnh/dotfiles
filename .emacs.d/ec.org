@@ -975,17 +975,13 @@ Add [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]] to corr
 Create a custom command to change dictionary and check spell.
 
 #+BEGIN_SRC emacs-lisp
-(bind-key "C-c P"
-          (lambda ()
-            (interactive)
-            (ispell-change-dictionary "brasileiro")
-            (flyspell-buffer)))
+(defun my/spell-check (lang)
+  "Define dictionary lang and check with flyspell"
+  (ispell-change-dictionary lang)
+  (flyspell-buffer))
 
-(bind-key "C-c E"
-          (lambda ()
-            (interactive)
-            (ispell-change-dictionary "american")
-            (flyspell-buffer)))
+(bind-key "C-c P" (lambda () (interactive) (my/spell-check "brasileiro")))
+(bind-key "C-c E" (lambda () (interactive) (my/spell-check "american")))
 #+END_SRC
 
 Use [[https://www.languagetool.org/][Language Tool]] to check grammar. You need to download and set
@@ -1013,6 +1009,7 @@ Code check with [[https://www.flycheck.org/en/latest/][Flycheck]] with /jshint/ 
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
   (defun my/disable-flycheck-flawed-checkers ()
+    "Disable jshint and jsonlist from flycheck"
     (setq-default flycheck-disabled-checkers
                   (append flycheck-disabled-checkers)
                   '(javascript-jshint))
@@ -1450,6 +1447,7 @@ Add [[https://github.com/emacs-typescript/typescript.el][Typescript]] support.
   :defer t
   :init
   (defun my/setup-tide-mode ()
+    "Setup tide mode for typescript"
     (interactive)
     (tide-setup)
     (tide-hl-identifier-mode +1))
@@ -1473,6 +1471,7 @@ Add [[https://github.com/emacs-typescript/typescript.el][Typescript]] support.
   :after (flycheck tide)
   :init
   (defun my/web-mode-hook ()
+    "Settings for web-mode hook"
     (setq web-mode-markup-indent-offset 2
           web-mode-css-indent-offset 2
           web-mode-code-indent-offset 2
@@ -1759,6 +1758,7 @@ Open this configuration file at any moment.
 
 #+BEGIN_SRC emacs-lisp
 (defun my/conf ()
+  "Load the current emacs configuration org file (~/.emacs.d/ec.org)"
   (interactive)
   (find-file "~/.emacs.d/ec.org"))
 
