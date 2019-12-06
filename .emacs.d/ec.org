@@ -1311,9 +1311,9 @@ Clojure.
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init
-  (setq markdown-command my/pandoc-path)
-  (setq markdown-css-paths my/markdown-css-path)
-  (setq markdown-xhtml-header-content my/markdown-head))
+  (setq markdown-command my/pandoc-path
+        markdown-css-paths my/markdown-css-path
+        markdown-xhtml-header-content my/markdown-head))
 
 
 (use-package markdown-preview-mode
@@ -1602,8 +1602,8 @@ Install Racer.
          (racer-mode . eldoc-mode)
          (racer-mode . company-mode))
   :init
-  (setq racer-cmd my/racer-path)
-  (setq racer-rust-src-path my/rust-src-path))
+  (setq racer-cmd my/racer-path
+        racer-rust-src-path my/rust-src-path))
 #+END_SRC
 
 Install Flycheck rust
