@@ -7,134 +7,34 @@
 #+HTML_HEAD: <style>@charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Alata:400|Overpass:400,400i,700,700i|Overpass+Mono:400,700&display=swap);*,::after,::before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:14px;word-break:break-word}@media screen and (min-width:640px){html{font-size:16px}}@media screen and (min-width:1024px){html{font-size:18px}}body{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-family:Overpass,sans-serif;-webkit-font-feature-settings:"kern" 1,"liga" 1;-moz-font-feature-settings:"kern" 1,"liga" 1;font-feature-settings:"kern" 1,"liga" 1;font-weight:400;background-color:#fafafa;color:#333;font-size:1em;line-height:1.5;padding:1.5em}code,pre{font-family:'Overpass Mono',monospace;font-weight:400;font-size:.9em;line-height:1.666666667}pre{margin:1.666666667em 0;width:100%;overflow-x:auto;background-color:#1d2021;color:#fbf1c7;padding:.75rem}pre::-webkit-scrollbar{width:1.2rem}pre::-webkit-scrollbar-track{background-color:#1d2021}pre::-webkit-scrollbar-thumb{background-color:#665c54;border-radius:1.5rem}h1,h2,h3,h4,h5{font-weight:Alata,sans-serif;font-weight:400}b,strong{font-weight:700}h1{font-size:2.074em;line-height:1.446480231;margin:.723240116em 0}h2{font-size:1.728em;line-height:1.736111111;margin:.868055556em 0}h3{font-size:1.44em;line-height:1.041666667;margin:1.041666667em 0}h4{font-size:1.2em;line-height:1.25;margin:1.25em 0}h5,h6,ol,p,ul{font-size:1em;line-height:1.5;margin:1.5em 0}ol,ul{padding-left:1.5em}ol ul,ul ul{margin:0}a,a:visited{color:#07a;text-decoration:none}a:focus,a:hover{text-decoration:underline}h1.title{position:relative;top:0;margin-top:0;font-weight:700;background-color:#fafafa;border-bottom:1px solid rgba(0,0,0,.1);z-index:2}h1.title::after{content:"";position:absolute;top:.2em;right:0;display:inline-block;width:1em;height:1em;background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4IiB3aWR0aD0iNDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYgMThoMjh2LTRoLTI4djR6bTAgOGgyOHYtNGgtMjh2NHptMCA4aDI4di00aC0yOHY0em0zMiAwaDR2LTRoLTR2NHptMC0yMHY0aDR2LTRoLTR6bTAgMTJoNHYtNGgtNHY0eiIvPjxwYXRoIGQ9Ik0wIDBoNDh2NDhoLTQ4eiIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==);background-repeat:no-repeat;background-size:cover;vertical-align:middle;cursor:pointer}.subtitle{font-size:1rem;line-height:1rem;font-weight:400;color:#999;position:absolute;right:2.5em;top:1em}#content{position:relative}#table-of-contents{position:absolute;top:0;width:100%;left:0;padding:4.5rem 1.5em 1.5rem;background-color:#fafafa;border:1px solid rgba(0,0,0,.1);transition:transform .2s ease-in-out;transform-origin:top;transform:scaleY(0);z-index:1}#table-of-contents.show{transform:scaleY(1)}#table-of-contents h1,#table-of-contents h2,#table-of-contents h3,#table-of-contents h4,#table-of-contents h5,#table-of-contents h6,#table-of-contents ul ul{display:none}#table-of-contents ul{list-style:none;padding-left:0}#content>p,#footnotes,div[class*=outline-]{max-width:800px;margin:0 auto}#table-of-contents li{display:block}@media screen and (min-width:1024px){#table-of-contents li{display:inline-block;width:35%;vertical-align:top}}#table-of-contents a{font-weight:Alata,sans-serif;color:#333;text-decoration:none}#table-of-contents a:visited{color:#999}#table-of-contents a:focus,#table-of-contents a:hover{text-decoration:underline}table{border-collapse:collapse;width:100%}table,td,th{border:1px solid rgba(0,0,0,.1);border-radius:3px;padding:.7rem}tr:nth-child(even){background-color:rgba(0,0,0,.05)}#postamble{border-top:1px solid rgba(0,0,0,.1);padding-top:1.5rem}p.author,p.creator,p.date{margin:0;font-size:75%;text-align:center}p.validation{display:none}#footnotes{border-top:1px solid rgba(0,0,0,.1);padding:1.5rem 0}.footnotes{font-size:1em;line-height:1.5}.footdef,.footpara{display:inline;font-size:.9em}.done,.todo{display:inline-block;vertical-align:middle;font-size:.5em;color:#fff;padding:.1em .2em 0;border-radius:2px;background-color:#999}.TODO{background-color:#cc241d}.DONE{background-color:#689d6a}.WARNING{background-color:#d79921}</style>
 #+HTML_HEAD: <script>document.addEventListener('DOMContentLoaded',function(){var toc=document.getElementById('table-of-contents'),title=document.querySelector('h1.title');if(title){title.addEventListener('click',function(){toc.classList.toggle('show');});}});</script>
 
-
 ** Global variables
 
 All variables in this configuration are grouped and you can
 change personal info, paths and some specific settings here.
 
 #+BEGIN_SRC emacs-lisp
-;; Don't forget to add ~/.local/bin to your PATH
-
 (setq user-full-name "Thiago Polastri"
       user-mail-address "thiagopolastri@gmail.com"
       calendar-latitude -23.550520
       calendar-longitude -46.633308
       calendar-location-name "Sao Paulo, BR"
       my/org-directory "~/Documents/org"
-      my/default-shell "/bin/zsh"
-      my/pandoc-path "~/.local/bin/pandoc"
-      my/languagetool-path "~/.local/share/LanguageTool-4.7/languagetool-commandline.jar"
       my/custom-snippets-path "~/.emacs.d/custom/snippets"
-      my/markdown-css-path '("")
-      my/markdown-head ""
       my/sbcl-path "/usr/bin/sbcl"
       my/slime-helper-path "~/quicklisp/slime-helper.el"
-      my/racket-path "/usr/bin/racket"
-      my/racer-path "~/.cargo/bin/racer"
-      my/rust-src-path "~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-      my/wakatime-path "/usr/bin/wakatime"
-      my/wakatime-apikey ""
-      my/enable-wakatime nil) ; change to t if you want to enable wakatime
+      my/racket-path "/usr/bin/racket")
 #+END_SRC
 
-** Recommended dependencies and setup
+Spell check configuration. You can find the right paths executing
+"hunspell -D".
 
-This configuration depends on some packages and only works
-on Linux (for now).
-
-The following table shows everything this installation depends on.
-
-| Support     | Packages                                | Package Manager | Code Style               |
-|-------------+-----------------------------------------+-----------------+--------------------------|
-| Base        | sudo, wget, [[https://www.openssl.org/][Openssl]], zsh, [[https://github.com/ggreer/the_silver_searcher][ag]],  [[https://sourcefoundry.org/hack/][ttf-hack]] |                 | [[https://editorconfig.org/][Editor config]]            |
-| Spell Check | [[http://aspell.net/][GNU Aspell]], [[https://hunspell.github.io/][Hunspell]], [[https://languagetool.org][Language Tool]]     |                 |                          |
-| LaTeX       | [[https://www.tug.org/texlive/][Tex Live]]                                |                 |                          |
-| Lisp        | [[http://www.sbcl.org/][SBCL]], [[https://racket-lang.org/][Racket]]                            |                 |                          |
-| JavaScript  | [[https://nodejs.org/en/][NodeJS]], [[https://www.typescriptlang.org/][Typescript]], [[https://flow.org/][Flow]], [[https://ternjs.net/][Tern]], [[https://github.com/NicolasPetton/Indium][Indium]]  | [[https://www.npmjs.com/][NPM]]             | [[https://eslint.org/][eslint]], [[https://palantir.github.io/tslint/][tslint]], [[https://prettier.io/][Prettier]] |
-| Rust        | [[https://rustup.rs/][Rustup]], [[https://github.com/racer-rust/racer][Racer]]                           | [[https://crates.io/][Cargo]]           | [[https://github.com/rust-lang/rustfmt][rustfmt]]                  |
-| Python      | [[https://jedi.readthedocs.io/en/latest/][Jedi]], [[https://ipython.org/][IPython]], [[https://github.com/alecthomas/importmagic][importmagic]], [[https://wakatime.com/][wakatime]]    | [[https://pypi.org/project/pip/][PIP]]             | [[http://flake8.pycqa.org/en/latest/][Flake8]], [[https://github.com/hhatto/autopep8][Autopep8]], [[https://github.com/google/yapf][YAPF]]   |
-| Clojure     | [[https://www.java.com][JRE, JDK]]                                | [[https://leiningen.org/][Leiningen]]       |                          |
-| Haskell     | [[https://docs.haskellstack.org/en/stable/README/][Stack]], [[https://pandoc.org][Pandoc]]                           | [[https://www.haskell.org/cabal/][Cabal]]           |                          |
-| Elm         | [[https://elm-lang.org/][Elm]], [[https://github.com/ElmCast/elm-oracle][elm-oracle]]                         |                 |                          |
-
-On [[https://www.archlinux.org/][Arch Linux]] with [[https://wiki.archlinux.org/index.php/Pacman][Pacman]] and [[https://aur.archlinux.org/packages/yay/][Yay]] you can install this packages
-following the instructions bellow:
-
-- Install the following packages with /Pacman/.
-
-#+BEGIN_EXAMPLE
-sudo pacman -S emacs aspell aspell-en aspell-pt the_silver_searcher sbcl editorconfig-core-c nodejs npm openssl git grep sudo ttf-hack wget racket hunspell hunspell-en_US zsh texlive-most texlive-lang rustup python-pip python-jedi flake8 autopep8 yapf ipython
-#+END_EXAMPLE
-
-- Install the following packages from [[https://aur.archlinux.org/][AUR]] with /Yay/.
-
-#+BEGIN_EXAMPLE
-yay -S jre jdk leiningen hunspell-pt-br python-importmagic wakatime
-#+END_EXAMPLE
-
-- Disable post-install scripts for /npm/.
-
-#+BEGIN_EXAMPLE
-npm config set ignore-scripts true
-#+END_EXAMPLE
-
-- Install [[https://docs.haskellstack.org/en/stable/README/][Haskell Stack]].
-
-#+BEGIN_EXAMPLE
-wget -qO- https://get.haskellstack.org/ | sh
-#+END_EXAMPLE
-
-- Install [[https://www.haskell.org/cabal/][Cabal]] and [[https://pandoc.org][Pandoc]] using stack.
-
-#+BEGIN_EXAMPLE
-stack setup
-stack install cabal-install pandoc
-#+END_EXAMPLE
-
-- Install [[https://elm-lang.org/][Elm]].
-
-#+BEGIN_EXAMPLE
-curl -L -o elm.gz https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz
-gunzip elm.gz
-chmod +x elm
-mv elm ~/.local/bin
-#+END_EXAMPLE
-
-- Install [[https://www.rust-lang.org][Rust]] and [[https://github.com/racer-rust/racer][Racer]].
-
-#+BEGIN_EXAMPLE
-rustup install nightly
-rustup default nightly
-rustup component add rust-src
-cargo install racer rustfmt
-#+END_EXAMPLE
-
-- Install JavaScript packages.
-
-#+BEGIN_EXAMPLE
-sudo npm i -g eslint tslint tern flow typescript prettier indium elm-oracle
-#+END_EXAMPLE
-
-- Download and extract the desktop version of [[https://languagetool.org][Language Tool]].
-
-#+BEGIN_EXAMPLE
-cd ~/local/share
-wget https://languagetool.org/download/LanguageTool-4.7.zip
-unzip LanguageTool-4.7.zip
-rm -rf LanguageTool-4.7.zip
-#+END_EXAMPLE
-
-- Download, install and add /quicklisp/ to /sbcl/ initialization.
-
-#+BEGIN_EXAMPLE
-curl -O https://beta.quicklisp.org/quicklisp.lisp
-sbcl --load quicklisp.lisp
-(quicklisp-quickstart:install)
-(ql:add-to-init-file)
-(ql:quickload "quicklisp-slime-helper")
-(exit)
-#+END_EXAMPLE
+#+BEGIN_SRC emacs-lisp
+(require 'ispell)
+(setq ispell-program-name "hunspell") ;; On windows C:/Hunspell/hunspell.exe
+(setq ispell-hunspell-dict-paths-alist
+  '(("en_US" "/usr/share/hunspell/en_US.aff")
+    ("pt_BR" "/usr/share/hunspell/pt_BR.aff"))) ;; ;; On windows C:/Hunspell/en_US.aff
+#+END_SRC
 
 ** Key-binds table
 
@@ -142,73 +42,70 @@ Key binds defined, redefined or removed by this configuration.
 
 | Key bind        | Description                               | Package              |
 |-----------------+-------------------------------------------+----------------------|
-| =S-<cursor>=    | Navigate between windows                  | Windmove             |
-| =C-z=           | Unset in window mode                      | None                 |
-| =C-x C-z=       | Unset in window mode                      | None                 |
-| =C-c t=         | Open terminal                             | shell-pop            |
-| =C-c o=         | Open with                                 | Crux                 |
-| =C-c e=         | Eval and replace                          | Crux                 |
-| =C-a=           | Go to beginning of line                   | Crux                 |
-| =C-c D=         | Delete file and buffer                    | Crux                 |
-| =C-c d=         | Duplicate current line/region             | Crux                 |
-| =S-RET=         | Smart open line                           | Crux                 |
-| =C-S-RET=       | Smart open line above                     | Crux                 |
-| =C-c M-d=       | Duplicate and comment current line/region | Crux                 |
-| =C-c r=         | Rename file and buffer                    | Crux                 |
-| =C-x u=         | View undo tree                            | Undo tree            |
-| =C-/=           | Undo                                      | Undo tree            |
-| =M-SPC=         | Remove white-space (lines)                | Shrink whitespace    |
-| =C-s=           | Search in file                            | Swiper               |
-| =C-c u=         | Swiper all                                | Swiper               |
-| =C-c C-r=       | Ivy resume                                | Ivy                  |
-| =<f6>=          | Ivy resume                                | Ivy                  |
-| =M-x=           | Counsel M-x                               | Counsel              |
-| =C-x C-f=       | Open/find file                            | Counsel              |
-| =C-c f f=       | Find file at point                        | Counsel              |
-| =<f1> f=        | Counsel describe function                 | Counsel              |
-| =<f1> v=        | Counsel describe variable                 | Counsel              |
-| =<f1> l=        | Counsel load library                      | Counsel              |
-| =<f2> i=        | Counsel info lookup symbol                | Counsel              |
-| =<f2> u=        | Counsel Unicode char                      | Counsel              |
-| =C-c g=         | Counsel git                               | Counsel              |
-| =C-c j=         | Counsel git-grep                          | Counsel              |
-| =C-c k=         | Counsel ag                                | Counsel              |
-| =C-x l=         | Counsel locate                            | Counsel              |
-| =C-x p=         | Projectile prefix                         | Projectile           |
-| =C-==           | Expand region/selection                   | Expand region        |
-| =C-S-c C-S-c=   | Edit lines                                | Multiple cursors     |
-| =C-c C-<=       | Mark all like this                        | Multiple cursors     |
-| =C->=           | Mark next like this                       | Multiple cursors     |
-| =C-<=           | Mark previous like this                   | Multiple cursors     |
-| =C-S-<mouse-1>= | Add cursor on click                       | Multiple cursors     |
-| =C-c SPC=       | Go to word or sub-word                    | Avy                  |
-| =C-c q=         | Edit file as SUDO                         | Sudo edit            |
-| =C-c .=         | Auto-complete                             | Company              |
-| =C-.=           | Auto-complete                             | Company              |
-| =C-n=           | Select next on auto-complete              | Company              |
-| =C-p=           | Select previous on auto-complete          | Company              |
-| =C-d=           | Show doc buffer                           | Company              |
-| =C-l=           | Show-location                             | Company              |
-| =<tab>=         | Auto-complete                             | Company              |
-| =C-x g=         | Git status                                | Magit                |
-| =C-x M-g=       | Dispatch popup                            | Magit                |
-| =C-c P=         | Check spell on document in Portuguese     | Ispell/Flyspell      |
-| =C-c E=         | Check spell on document in English        | Ispell/Flyspell      |
-| =C-c $=         | Check word                                | flyspell-correct-ivy |
-| =M-==           | Insert snippet                            | Yasnippet            |
-| =C-c x=         | Js2 refactor prefix                       | Js2-refactor         |
-| =C-k=           | When in JavaScript use refactor kill      | Js2-refactor         |
-| =C-c s=         | Slime selector                            | Slime                |
-| =C-c c=         | Org capture                               | Org                  |
-| =C-c a=         | Org agenda                                | Org                  |
-| =C-c l=         | Org store link                            | Org                  |
-| =C-c w=         | Open this config file                     | Custom               |
-| =C-x / g=       | Search on Google                          | Engine mode          |
-| =C-x / y=       | Search on Youtube                         | Engine mode          |
-| =C-x / h=       | Search on Github                          | Engine mode          |
-| =C-x / w=       | Search on Wikipedia                       | Engine mode          |
+| =S-<cursor>=      | Navigate between windows                  | Windmove             |
+| =C-z=             | Unset in window mode                      | None                 |
+| =C-x C-z=         | Unset in window mode                      | None                 |
+| =C-c o=           | Open with                                 | Crux                 |
+| =C-c e=           | Eval and replace                          | Crux                 |
+| =C-a=             | Go to beginning of line                   | Crux                 |
+| =C-c D=           | Delete file and buffer                    | Crux                 |
+| =C-c d=           | Duplicate current line/region             | Crux                 |
+| =S-RET=           | Smart open line                           | Crux                 |
+| =C-S-RET=         | Smart open line above                     | Crux                 |
+| =C-c M-d=         | Duplicate and comment current line/region | Crux                 |
+| =C-c r=           | Rename file and buffer                    | Crux                 |
+| =C-x u=           | View undo tree                            | Undo tree            |
+| =C-/=             | Undo                                      | Undo tree            |
+| =M-SPC=           | Remove white-space (lines)                | Shrink whitespace    |
+| =C-s=             | Search in file                            | Swiper               |
+| =C-c u=           | Swiper all                                | Swiper               |
+| =C-c C-r=         | Ivy resume                                | Ivy                  |
+| =<f6>=            | Ivy resume                                | Ivy                  |
+| =M-x=             | Counsel M-x                               | Counsel              |
+| =C-x C-f=         | Open/find file                            | Counsel              |
+| =C-c f f=         | Find file at point                        | Counsel              |
+| =<f1> f=          | Counsel describe function                 | Counsel              |
+| =<f1> v=          | Counsel describe variable                 | Counsel              |
+| =<f1> l=          | Counsel load library                      | Counsel              |
+| =<f2> i=          | Counsel info lookup symbol                | Counsel              |
+| =<f2> u=          | Counsel Unicode char                      | Counsel              |
+| =C-c g=           | Counsel git                               | Counsel              |
+| =C-c j=           | Counsel git-grep                          | Counsel              |
+| =C-c k=           | Counsel ag                                | Counsel              |
+| =C-x l=           | Counsel locate                            | Counsel              |
+| =C-x p=           | Projectile prefix                         | Projectile           |
+| =C-==             | Expand region/selection                   | Expand region        |
+| =C-S-c C-S-c=     | Edit lines                                | Multiple cursors     |
+| =C-c C-<=         | Mark all like this                        | Multiple cursors     |
+| =C->=             | Mark next like this                       | Multiple cursors     |
+| =C-<=             | Mark previous like this                   | Multiple cursors     |
+| =C-S-<mouse-1>=   | Add cursor on click                       | Multiple cursors     |
+| =C-c SPC=         | Go to word or sub-word                    | Avy                  |
+| =C-c q=           | Edit file as SUDO (Linux only)            | Sudo edit            |
+| =C-c .=           | Auto-complete                             | Company              |
+| =C-.=             | Auto-complete                             | Company              |
+| =C-n=             | Select next on auto-complete              | Company              |
+| =C-p=             | Select previous on auto-complete          | Company              |
+| =C-d=             | Show doc buffer                           | Company              |
+| =C-l=             | Show-location                             | Company              |
+| =<tab>=           | Auto-complete                             | Company              |
+| =C-x g=           | Git status                                | Magit                |
+| =C-x M-g=         | Dispatch popup                            | Magit                |
+| =C-c P=           | Check spell on document in Portuguese     | Ispell/Flyspell      |
+| =C-c E=           | Check spell on document in English        | Ispell/Flyspell      |
+| =C-c $=           | Check word                                | flyspell-correct-ivy |
+| =M-==             | Insert snippet                            | Yasnippet            |
+| =C-c s=           | Slime selector                            | Slime                |
+| =C-c c=           | Org capture                               | Org                  |
+| =C-c a=           | Org agenda                                | Org                  |
+| =C-c l=           | Org store link                            | Org                  |
+| =C-c w=           | LSP prefix                                | LSP mode             |
+| =C-x / g=         | Search on Google                          | Engine mode          |
+| =C-x / y=         | Search on Youtube                         | Engine mode          |
+| =C-x / h=         | Search on Github                          | Engine mode          |
+| =C-x / w=         | Search on Wikipedia                       | Engine mode          |
 
-** Initialization file (/init.el/)
+** Initialization file
 
 Create a /init.el/ to load this file and set your custom file.
 
@@ -233,11 +130,14 @@ Create a /init.el/ to load this file and set your custom file.
 Add [[https://elpa.gnu.org/][ELPA]] and [[https://melpa.org/][MELPA]] repositories, and initialize Emacs package.
 
 #+BEGIN_SRC emacs-lisp
-(setq load-prefer-newer t)
+(require 'package)
 
-(setq package-archives
-      '(("gnu"       . "http://elpa.gnu.org/packages/")
-        ("melpa"     . "http://melpa.org/packages/")))
+(setq load-prefer-newer t)
+(setq package-enable-at-startup nil)
+
+(add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 (package-initialize)
 
@@ -274,19 +174,12 @@ packages that we will use latter.
   :ensure t)
 #+END_SRC
 
-Require everything we need.
+Require base packages.
 
 #+BEGIN_SRC emacs-lisp
 (require 'dired)
-(require 'uniquify)
-(require 'ansi-color)
 (require 'windmove)
-(require 'tramp)
 (require 'org)
-(require 'dabbrev)
-(require 'hippie-exp)
-(require 'ispell)
-(require 'flyspell)
 #+END_SRC
 
 ** Settings for built-in stuff
@@ -445,6 +338,7 @@ Resolve symbolic links.
 Use /uniquify/ to use better filenames for buffer.
 
 #+BEGIN_SRC emacs-lisp
+(require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 #+END_SRC
 
@@ -457,6 +351,7 @@ Use only /y/ or /n/ for yes or no questions.
 Colorize output of compilation mode.
 
 #+BEGIN_SRC emacs-lisp
+(require 'ansi-color)
 (defun my/colorize-compilation-buffer ()
   "Colorize compilation buffer."
   (let ((inhibit-read-only t))
@@ -481,16 +376,8 @@ Make /.zsh/ executable after save.
 Configure /tramp/ to use /ssh/.
 
 #+BEGIN_SRC emacs-lisp
+(require 'tramp)
 (setq tramp-default-method "ssh")
-#+END_SRC
-
-*** Linux tweaks
-
-Make /GnuTLS/ more safe.
-
-#+BEGIN_SRC emacs-lisp
-(setq gnutls-min-prime-bits 4096
-      tls-program '("openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof"))
 #+END_SRC
 
 Better clipboard.
@@ -501,6 +388,30 @@ Better clipboard.
       x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING)
       save-interprogram-paste-before-kill t
       mouse-yank-at-point t)
+#+END_SRC
+
+Unset =C-z= on graphical enviroment.
+
+#+BEGIN_SRC emacs-lisp
+(when window-system
+  (global-unset-key (kbd "C-z"))
+  (global-unset-key (kbd "C-x C-z")))
+#+END_SRC
+
+Use Emacs /terminfo/, not system /terminfo/.
+
+#+BEGIN_SRC emacs-lisp
+(setq system-uses-terminfo nil)
+#+END_SRC
+
+*** Linux tweaks
+
+Make /GnuTLS/ more safe.
+
+#+BEGIN_SRC emacs-lisp
+(when (eq system-type 'gnu/linux)
+  (setq gnutls-min-prime-bits 4096
+        tls-program '("openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof")))
 #+END_SRC
 
 Tweaks for /GTK/.
@@ -516,20 +427,6 @@ Tweaks for /GTK/.
 
   (add-hook 'after-init-hook #'my/max-fullscreen)
   (setq dired-listing-switches "-lFaGh1v --group-directories-first"))
-#+END_SRC
-
-Unset =C-z= on graphical enviroment.
-
-#+BEGIN_SRC emacs-lisp
-(when window-system
-  (global-unset-key (kbd "C-z"))
-  (global-unset-key (kbd "C-x C-z")))
-#+END_SRC
-
-Use Emacs /terminfo/, not system /terminfo/.
-
-#+BEGIN_SRC emacs-lisp
-(setq system-uses-terminfo nil)
 #+END_SRC
 
 *** Visual settings
@@ -605,6 +502,9 @@ Prettify lambda and function symbols.
 Set [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Apropos.html][apropos]], [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Dynamic-Abbrevs.html][dabrev]] and [[https://www.emacswiki.org/emacs/HippieExpand][hippie expand]].
 
 #+BEGIN_SRC emacs-lisp
+(require 'dabbrev)
+(require 'hippie-exp)
+
 (setq apropos-do-all t
       dabbrev-case-fold-search nil)
 
@@ -886,10 +786,11 @@ decision tree.
 Use [[https://github.com/nflath/sudo-edit/blob/master/sudo-edit.el][sudo]] to edit current file.
 
 #+BEGIN_SRC emacs-lisp
-(use-package sudo-edit
-  :ensure t
-  :defer t
-  :bind (("C-c q" . sudo-edit-current-file)))
+(when (eq system-type 'gnu/linux)
+  (use-package sudo-edit
+    :ensure t
+    :defer t
+    :bind (("C-c q" . sudo-edit-current-file))))
 #+END_SRC
 
 Use [[https://editorconfig.org/][editorconfig]] to set different editor settings by projects.
@@ -946,19 +847,22 @@ Better /tab/ behavior with [[https://www.emacswiki.org/emacs/TabCompletion#Smart
   (add-to-list 'smart-tab-disabled-major-modes 'shell-mode))
 #+END_SRC
 
-*** Spell and code check
+*** Spell check
 
 Setting skip rules for /ispell/ and set /flyspell/ to text mode.
 
 #+BEGIN_SRC emacs-lisp
+(require 'flyspell)
+
+(setq ispell-local-dictionary "en_US"
+      ispell-local-dictionary-alist
+        '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
+
 (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))
 (add-to-list 'ispell-skip-region-alist '(":\\(PROPERTIES\\|LOGBOOK\\):" . ":END:"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_SRC" . "#\\+END_SRC"))
 (add-to-list 'ispell-skip-region-alist '("#\\+BEGIN_EXAMPLE" . "#\\+END_EXAMPLE"))
 (add-hook 'text-mode-hook 'flyspell-mode)
-
-;; I prefer disable spell check in code, you can uncomment this if you like
-;; (add-hook 'prog-mode-hook 'flyspell-prog-mode)
 #+END_SRC
 
 Add [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]] to correct words with /ivy/.
@@ -976,51 +880,31 @@ Add [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]] to corr
 Create a custom command to change dictionary and check spell.
 
 #+BEGIN_SRC emacs-lisp
-(defun my/spell-check (lang)
-  "Define dictionary lang and check with flyspell"
-  (ispell-change-dictionary lang)
+(defun my/spell-check-pt ()
+  "Define dictionary lang to en and check with flyspell"
+  (setq ispell-local-dictionary "pt_BR"
+        ispell-local-dictionary-alist
+          '(("pt_BR" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "pt_BR") nil utf-8)))
   (flyspell-buffer))
 
-(bind-key "C-c P" (lambda () (interactive) (my/spell-check "brasileiro")))
-(bind-key "C-c E" (lambda () (interactive) (my/spell-check "american")))
+(defun my/spell-check-en ()
+  "Define dictionary lang to en and check with flyspell"
+  (setq ispell-local-dictionary "en_US"
+        ispell-local-dictionary-alist
+          '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8)))
+  (flyspell-buffer))
+
+(bind-key "C-c E" (lambda () (interactive) (my/spell-check-en)))
+(bind-key "C-c P" (lambda () (interactive) (my/spell-check-pt)))
 #+END_SRC
 
-Use [[https://www.languagetool.org/][Language Tool]] to check grammar. You need to download and set
-languagetool-path in the custom variables (no keybind defined, just
-call it with M-x).
+*** Auto completion and code check
+
+Code check with [[https://www.flycheck.org/en/latest/][Flycheck]].
 
 #+BEGIN_SRC emacs-lisp
-(use-package langtool
- :ensure t
- :defer t
- :init
- (setq langtool-language-tool-jar my/languagetool-path
-     langtool-mother-tongue "en"
-     langtool-disabled-rules '("WHITESPACE_RULE"
-                               "EN_UNPAIRED_BRACKETS"
-                               "COMMA_PARENTHESIS_WHITESPACE"
-                               "EN_QUOTES")))
+(use-package flycheck :ensure t)
 #+END_SRC
-
-Code check with [[https://www.flycheck.org/en/latest/][Flycheck]] with /jshint/ and /jsonlist/ disabled.
-
-#+BEGIN_SRC emacs-lisp
-(use-package flycheck
-  :ensure t
-  :init
-  (add-hook 'after-init-hook #'global-flycheck-mode)
-  (defun my/disable-flycheck-flawed-checkers ()
-    "Disable jshint and jsonlist from flycheck"
-    (setq-default flycheck-disabled-checkers
-                  (append flycheck-disabled-checkers)
-                  '(javascript-jshint))
-    (setq-default flycheck-disabled-checkers
-                  (append flycheck-disabled-checkers)
-                  '(json-jsonlist)))
-  (eval-after-load 'flycheck-mode 'my/disable-flycheck-flawed-checkers))
-#+END_SRC
-
-*** Auto completion
 
 [[https://github.com/joaotavora/yasnippet][YASnippet]] is a template system for Emacs. It allows you to type an
 abbreviation and automatically expand it into function templates.
@@ -1048,7 +932,6 @@ retrieve and display completion candidates.
          ("C-." . company-complete))
   :init
   (define-key flyspell-mode-map (kbd "C-.") 'company-complete)
-  (add-hook 'after-init-hook #'global-company-mode)
   :config
   (setq company-selection-wrap-around t
         company-idle-delay 1.0
@@ -1090,6 +973,15 @@ likelier candidates at the top of the list.
   :defer t
   :after (company)
   :init (company-statistics-mode))
+#+END_SRC
+
+Activate Company and Flycheck (add to hook).
+
+#+BEGIN_SRC emacs-lisp
+(defun my/setup-company-flycheck ()
+  "Activate company and Flycheck"
+  (flycheck-mode +1)
+  (company-mode +1))
 #+END_SRC
 
 *** Version control
@@ -1154,33 +1046,18 @@ results as a pretty-printed XML, JSON and even images.
       (add-to-list 'company-backends 'company-restclient)))
 #+END_SRC
 
-
-Shell pop helps you to use shell easily on Emacs. Only one key action
-to work.
+Use engine mode to search from emacs.
 
 #+BEGIN_SRC emacs-lisp
-(use-package shell-pop
+(use-package engine-mode
   :ensure t
   :defer t
-  :bind (("C-c t" . shell-pop))
   :init
-  (setq shell-pop-shell-type (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
-  (setq shell-pop-term-shell my/default-shell)
-  :config
-  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type))
-#+END_SRC
-
-[[https://wakatime.com/emacs][Wakatime]] to track your time in editor.
-
-#+BEGIN_SRC emacs-lisp
-(when my/enable-wakatime
-  (use-package wakatime-mode
-    :ensure t
-    :defer t
-    :init
-    (setq wakatime-api-key my/wakatime-apikey
-          wakatime-cli-path my/wakatime-path)
-    (global-wakatime-mode)))
+  (defengine google "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s" :keybinding "g")
+  (defengine youtube "https://www.youtube.com/results?search_query=%s" :keybinding "y")
+  (defengine github "https://github.com/search?ref=simplesearch&q=%s" :keybinding "h")
+  (defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" :keybinding "w")
+  (engine-mode t))
 #+END_SRC
 
 Use [[https://github.com/politza/pdf-tools][pdf-tools]] to read pdf files.
@@ -1191,524 +1068,7 @@ Use [[https://github.com/politza/pdf-tools][pdf-tools]] to read pdf files.
   :defer t)
 #+END_SRC
 
-** Programming languages
-
-Adding new or better support to programming languages and text markup.
-
-*** Lisp
-
-[[https://common-lisp.net/project/slime/][SLIME]] is a Emacs mode for Common Lisp development. Inspired by
-existing systems such Emacs Lisp and ILISP, we are working to create
-an environment for hacking Common Lisp in.
-
-#+BEGIN_SRC emacs-lisp
-(use-package slime-company
-  :ensure t
-  :defer t)
-
-(use-package slime
-  :ensure t
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.sbclrc$" . lisp-mode))
-  (load (expand-file-name my/slime-helper-path))
-  (setq inferior-lisp-program my/sbcl-path
-        slime-net-coding-system 'utf-8-unix
-        slime-complete-symbol*-fancy t
-        slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
-  (slime-setup '(slime-fancy
-                 slime-indentation
-                 slime-banner
-                 slime-highlight-edits
-                 slime-company))
-  (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-  (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode))
-#+END_SRC
-
-Make all /elisp/ modes use the [[https://github.com/purcell/elisp-slime-nav][Slime navigation]].
-
-#+BEGIN_SRC emacs-lisp
-(use-package elisp-slime-nav
-  :ensure t
-  :defer t
-  :after (slime)
-  :config
-  (dolist (hook '(emacs-lisp-mode-hook
-                  lisp-interaction-mode-hook
-                  ielm-mode-hook
-                  eshell-mode-hook))
-    (add-hook hook 'turn-on-elisp-slime-nav-mode))
-  :bind (("C-c s" . slime-selector)))
-#+END_SRC
-
-[[https://gitlab.com/jaor/geiser][Geiser]] is a generic Emacs/Scheme interaction mode, featuring an
-enhanced REPL and a set of minor modes improving Emacs’ basic scheme
-major mode.
-
-#+BEGIN_SRC emacs-lisp
-(use-package geiser
-  :ensure t
-  :defer t
-  :config
-  (setq geiser-default-implementation my/racket-path
-        geiser-guile-load-init-file-p t)
-  (add-hook 'geiser-mode-hook
-            (lambda () (setq geiser-impl--implementation my/racket-path)))
-  (add-hook 'scheme-mode-hook 'slime-mode))
-#+END_SRC
-
-
-[[https://cider.readthedocs.io/en/latest/][CIDER]] extends Emacs with support for interactive programming in
-Clojure.
-
-#+BEGIN_SRC emacs-lisp
-(use-package clojure-mode
-  :ensure t
-  :defer t
-  :config
-  (add-hook 'clojure-mode-hook
-    (lambda ()
-      (push '("fn" . ?ƒ) prettify-symbols-alist)))
-  (add-hook 'clojure-mode-hook #'paredit-mode))
-
-(use-package cider
-  :ensure t
-  :defer t
-  :after (company clojure-mode)
-  :config
-  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
-  (add-hook 'cider-repl-mode-hook #'company-mode)
-  (add-hook 'cider-mode-hook #'company-mode)
-  (setq nrepl-hide-special-buffers t
-        cider-repl-tab-command 'indent-for-tab-command
-        cider-prefer-local-resources t
-        cider-repl-pop-to-buffer-on-connect nil
-        cider-repl-pop-to-buffer-on-connect nil
-        cider-popup-stacktraces nil
-        cider-repl-popup-stacktraces t
-        cider-auto-select-error-buffer t
-        nrepl-buffer-name-show-port t
-        cider-repl-display-in-current-window t
-        cider-repl-result-prefix ";; => "
-        cider-interactive-eval-result-prefix ";; => "
-        cider-repl-use-clojure-font-lock t
-        cider-test-show-report-on-success t
-        nrepl-hide-special-buffers t
-        nrepl-buffer-name-separator "-"
-        nrepl-buffer-name-show-port t
-        cider-repl-wrap-history t))
-#+END_SRC
-
-*** Markdown
-
-[[https://jblevins.org/projects/markdown-mode/][Major]] mode for editing Markdown-formatted text.
-
-#+BEGIN_SRC emacs-lisp
-(use-package markdown-mode
-  :ensure t
-  :defer t
-  :commands (markdown-mode gfm-mode)
-  :mode (("README\\.md\\'" . gfm-mode)
-         ("\\.md\\'" . markdown-mode)
-         ("\\.markdown\\'" . markdown-mode))
-  :init
-  (setq markdown-command my/pandoc-path
-        markdown-css-paths my/markdown-css-path
-        markdown-xhtml-header-content my/markdown-head))
-
-
-(use-package markdown-preview-mode
-  :ensure t
-  :defer t)
-#+END_SRC
-
-*** JavaScript
-
-Using [[https://github.com/mooz/js2-mode][js2-mode]] a improved JavaScript editing mode for GNU Emacs and
-add /eslint/ to /flycheck/.
-
-#+BEGIN_SRC emacs-lisp
-(use-package js2-mode
-  :ensure t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  (add-to-list 'auto-mode-alist '("\\.mjs\\'" . js2-mode))
-  (flycheck-add-mode 'javascript-eslint 'js2-mode))
-#+END_SRC
-
-Add [[https://github.com/felipeochoa/rjsx-mode][rjsx-mode]] for React and JSX syntax.
-
-#+BEGIN_SRC emacs-lisp
-(use-package rjsx-mode
-  :ensure t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-  (flycheck-add-mode 'javascript-eslint 'rjsx-mode))
-#+END_SRC
-
-The package [[https://github.com/magnars/js2-refactor.el][js-2-refactor]] adds powerful refactorings based on the AST
-generated by /js2-mode/, and [[https://github.com/NicolasPetton/xref-js2][xref-js2]] makes it easy to jump to function
-references or definitions.
-
-#+BEGIN_SRC emacs-lisp
-(use-package js2-refactor
-  :ensure t
-  :hook ((js2-mode  . js2-refactor-mode)
-         (rjsx-mode . js2-refactor-mode))
-  :init
-  (js2r-add-keybindings-with-prefix "C-c x")
-  (define-key js2-mode-map (kbd "C-k") #'js2r-kill)
-  (define-key rjsx-mode-map (kbd "C-k") #'js2r-kill))
-
-(use-package xref-js2
-  :ensure t
-  :init
-  (define-key js-mode-map (kbd "M-.") nil)
-  (add-hook 'js2-mode-hook (lambda ()
-    (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
-  (add-hook 'rjsx-mode-hook (lambda ()
-    (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t))))
-#+END_SRC
-
-Adding [[http://ternjs.net/][Tern]] for parse and add to /company/ completion.
-
-#+BEGIN_SRC emacs-lisp
-(use-package tern
-  :ensure t
-  :init
-  (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
-  (add-hook 'rjsx-mode-hook (lambda () (tern-mode t)))
-  (setq tern-command (cons (executable-find "tern") '())))
-
-(use-package company-tern
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'company
-      (add-to-list 'company-backends 'company-tern)))
-#+END_SRC
-
-Install [[https://github.com/NicolasPetton/Indium][Indium]] to connect to a browser tab or nodejs process.
-
-#+BEGIN_SRC emacs-lisp
-(use-package indium
-  :ensure t
-  :hook ((js2-mode  . indium-interaction-mode)
-         (rjsx-mode . indium-interaction-mode)))
-#+END_SRC
-
-Add [[https://github.com/mojochao/npm-mode][NPM]] mode to manage npm projects.
-
-#+BEGIN_SRC emacs-lisp
-(use-package npm-mode
-  :ensure t
-  :defer t)
-;; :init (npm-global-mode)) - disabling global mode, call it with M-x
-#+END_SRC
-
-Add [[https://github.com/prettier/prettier-emacs][Prettier]] to JavaScript modes (not added to hook, I prefer to
-call for it when needed).
-
-#+BEGIN_SRC emacs-lisp
-(use-package prettier-js
-  :ensure t
-  :defer t)
-;; :init
-;; (add-hook 'js2-mode-hook 'prettier-js-mode)
-;; (add-hook 'rjsx-mode-hook 'prettier-js-mode))
-#+END_SRC
-
-Add support for [[https://github.com/an-sh/flow-minor-mode][flow]].
-
-#+BEGIN_SRC emacs-lisp
-(use-package company-flow
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'company
-      (add-to-list 'company-backends 'company-flow)))
-
-(use-package flow-minor-mode
-  :ensure t
-  :defer t
-  :hook ((js2-mode  . flow-minor-enable-automatically)
-         (rjsx-mode . flow-minor-enable-automatically)))
-#+END_SRC
-
-Add [[https://github.com/emacs-typescript/typescript.el][Typescript]] support.
-
-#+BEGIN_SRC emacs-lisp
-(use-package typescript-mode
-  :ensure t
-  :init
-  (flycheck-add-mode 'typescript-tslint 'typescript-mode))
-
-(use-package tide
-  :ensure t
-  :defer t
-  :init
-  (defun my/setup-tide-mode ()
-    "Setup tide mode for typescript"
-    (interactive)
-    (tide-setup)
-    (tide-hl-identifier-mode +1))
-  (add-hook 'typescript-mode-hook #'my/setup-tide-mode))
-#+END_SRC
-
-*** WEB (HTML, Svelte and Templates)
-
-[[http://web-mode.org/][Web-mode]] is a Emacs major-mode for editing web templates.
-
-#+BEGIN_SRC emacs-lisp
-(use-package company-web
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'company
-      (add-to-list 'company-backends 'company-web-html)))
-
-(use-package web-mode
-  :ensure t
-  :after (flycheck tide)
-  :init
-  (defun my/web-mode-hook ()
-    "Settings for web-mode hook"
-    (setq web-mode-markup-indent-offset 2
-          web-mode-css-indent-offset 2
-          web-mode-code-indent-offset 2
-          web-mode-enable-auto-pairing t
-          web-mode-enable-css-colorization t)
-    (when (string-equal "tsx" (file-name-extension buffer-file-name))
-      (setup-tide-mode)))
-  (add-hook 'web-mode-hook 'my/web-mode-hook)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (flycheck-add-mode 'typescript-tslint 'web-mode))
-
-(require 'web-mode)
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.svelte?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.hbs?\\'" . web-mode))
-#+END_SRC
-
-*** CSS
-
-[[https://github.com/emacsmirror/rainbow-mode][Rainbow mode]] sets background color to strings that match color names, e.g. #0000ff
-is displayed in white with a blue background.
-
-#+BEGIN_SRC emacs-lisp
-(use-package rainbow-mode
-  :ensure t)
-#+END_SRC
-
-Add CSS, LESS and SASS support, and activate rainbow mode.
-
-#+BEGIN_SRC emacs-lisp
-(use-package css-mode
-  :init
-  (setq css-indent-offset 2)
-  :config
-  (add-hook 'css-mode-hook
-            (lambda () (rainbow-mode 1))))
-
-(use-package less-css-mode
-  :ensure t
-  :defer t
-  :config
-  (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
-  (add-hook 'less-css-mode-hook
-            (lambda () (rainbow-mode 1))))
-
-(use-package scss-mode
-  :ensure t
-  :defer t
-  :init
-  (setq scss-compile-at-save nil)
-  :config
-  (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
-  (add-hook 'scss-mode-hook
-            (lambda () (rainbow-mode 1))))
-#+END_SRC
-
-*** JSON
-
-Add support for JSON.
-
-#+BEGIN_SRC emacs-lisp
-  (use-package json-mode
-    :ensure t
-    :defer t
-    :init
-    (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
-    (add-to-list 'auto-mode-alist '("\\.eslintrc\\'" . json-mode))
-    (add-to-list 'auto-mode-alist '("\\.babelrc\\'" . json-mode))
-    (add-to-list 'auto-mode-alist '("\\.jscsrc\\'" . json-mode))
-    (add-to-list 'auto-mode-alist '("\\.jshintrc\\'" . json-mode)))
-#+END_SRC
-
-*** YAML
-
-Add support to YAML.
-
-#+BEGIN_SRC emacs-lisp
-(use-package yaml-mode
-  :ensure t
-  :defer t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
-#+END_SRC
-
-*** PHP
-
-Support to PHP.
-
-#+BEGIN_SRC emacs-lisp
-(use-package php-mode
-  :ensure t
-  :defer t
-  :init
-  (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode)))
-
-(use-package company-php
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'company
-      (add-to-list 'company-backends 'company-ac-php-backend)))
-#+END_SRC
-
-*** Rust
-
-Install Rust major mode.
-
-#+BEGIN_SRC emacs-lisp
-(use-package rust-mode
-  :ensure t
-  :defer t)
-
-(use-package cargo
-  :ensure t
-  :defer t
-  :after (rust-mode)
-  :hook (rust-mode . cargo-minor-mode))
-#+END_SRC
-
-Install Racer.
-
-#+BEGIN_SRC emacs-lisp
-(use-package racer
-  :ensure t
-  :defer t
-  :after (rust-mode)
-  :hook ((rust-mode  . racer-mode)
-         (racer-mode . eldoc-mode)
-         (racer-mode . company-mode))
-  :init
-  (setq racer-cmd my/racer-path
-        racer-rust-src-path my/rust-src-path))
-#+END_SRC
-
-Install Flycheck rust
-
-#+BEGIN_SRC emacs-lisp
-(use-package flycheck-rust
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'flycheck
-    (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
-#+END_SRC
-
-*** Python
-
-Install elpy, pyenv, autopep8 and jedi.
-
-#+BEGIN_SRC emacs-lisp
-(use-package python-mode
-  :ensure t)
-
-(use-package elpy
-  :ensure t
-  :hook (elpy-mode . flycheck-mode)
-  :init (elpy-enable))
-
-(use-package pyenv-mode
-  :ensure t
-  :defer t)
-;;  :init (pyenv-mode)) - same as npm-mode, call when you need it with M-x
-
-(use-package py-autopep8
-  :ensure t
-  :defer t
-  :hook (elpy-mode . py-autopep8-enable-on-save))
-
-(use-package company-jedi
-  :ensure t
-  :defer t
-  :hook (python-mode . jedi:setup)
-  :config
-  (setq jedi:complete-on-dot t)
-  :init
-  (add-to-list 'company-backends 'company-jedi))
-
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
-#+END_SRC
-
-*** Haskell
-
-Install haskell mode and Intero.
-
-#+BEGIN_SRC emacs-lisp
-(use-package haskell-mode
-  :ensure t
-  :init
-  (add-hook 'haskell-mode-hook
-    (lambda ()
-      (haskell-doc-mode)
-      (turn-on-haskell-indent))))
-
-(use-package intero
-  :ensure t
-  :hook (haskell-mode . intero-mode))
-#+END_SRC
-
-*** Docker
-
-Install Dockerfiles syntax highlight and docker-tramp to access file
-inside containers using tramp.
-
-#+BEGIN_SRC emacs-lisp
-(use-package dockerfile-mode
-  :ensure t
-  :init
-  (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
-
-(use-package docker-compose-mode
-  :ensure t)
-
-(use-package docker-tramp
-  :ensure t)
-#+END_SRC
-
-*** Elm
-
-Install mode for Elm development.
-
-#+BEGIN_SRC emacs-lisp
-(use-package elm-mode
-  :ensure t
-  :init
-    (with-eval-after-load 'company
-      (add-to-list 'company-backends 'company-elm))
-    (add-hook 'elm-mode-hook #'elm-oracle-setup-completion))
-
-(use-package flycheck-elm
-  :ensure t
-  :init
-    (with-eval-after-load 'flycheck
-      (add-hook 'flycheck-mode-hook #'flycheck-elm-setup)))
-#+END_SRC
-** Org configuration
+*** Org configuration
 
 Add [[https://github.com/sabof/org-bullets][Org bullets]] to show bullets in outline.
 
@@ -1753,29 +1113,275 @@ Make /windmove/ work in /org-mode/.
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
 #+END_SRC
-** Utilities
 
-Open this configuration file at any moment.
+** Programming Languages
+*** Lisp
+
+[[https://common-lisp.net/project/slime/][SLIME]] is a Emacs mode for Common Lisp development. Inspired by
+existing systems such Emacs Lisp and ILISP, we are working to create
+an environment for hacking Common Lisp in.
 
 #+BEGIN_SRC emacs-lisp
-(defun my/conf ()
-  "Load the current emacs configuration org file (~/.emacs.d/ec.org)"
-  (interactive)
-  (find-file "~/.emacs.d/ec.org"))
+(use-package slime-company :ensure t)
 
-(global-set-key (kbd "C-c w") 'my/conf)
+(use-package slime
+  :ensure t
+  :init
+  (add-to-list 'auto-mode-alist '("\\.sbclrc$" . lisp-mode))
+  (load (expand-file-name my/slime-helper-path))
+  (setq inferior-lisp-program my/sbcl-path
+        slime-net-coding-system 'utf-8-unix
+        slime-complete-symbol*-fancy t
+        slime-complete-symbol-function 'slime-fuzzy-complete-symbol)
+  (slime-setup '(slime-fancy
+                 slime-indentation
+                 slime-banner
+                 slime-highlight-edits
+                 slime-company)))
+
+(use-package elisp-slime-nav
+  :ensure t
+  :bind (("C-c s" . slime-selector)))
+
+(defun my/setup-lisp-mode ()
+  "Setup modes for lisp"
+  (elisp-slime-nav-mode +1)
+  (flycheck-mode +1)
+  (eldoc-mode +1)
+  (my/setup-company-flycheck))
+
+(defun my/setup-geiser-mode ()
+  "Setup modes for Scheme"
+  (slime-mode +1)
+  (paredit-mode +1)
+  (my/setup-company-flycheck))
+
+(defun my/setup-clojure-mode ()
+  (paredit-mode +1)
+  (my/setup-company-flycheck))
 #+END_SRC
 
-Use engine mode to search from emacs.
+Make all /elisp/ modes use the [[https://github.com/purcell/elisp-slime-nav][Slime navigation]].
 
 #+BEGIN_SRC emacs-lisp
-(use-package engine-mode
+(add-hook 'emacs-lisp-mode-hook #'my/setup-lisp-mode)
+(add-hook 'lisp-interaction-mode-hook #'my/setup-lisp-mode)
+(add-hook 'ielm-mode-hook #'my/setup-lisp-mode)
+(add-hook 'eshell-mode-hook #'my/setup-lisp-mode)
+#+END_SRC
+
+[[https://gitlab.com/jaor/geiser][Geiser]] is a generic Emacs/Scheme interaction mode, featuring an
+enhanced REPL and a set of minor modes improving Emacs’ basic scheme
+major mode.
+
+#+BEGIN_SRC emacs-lisp
+(use-package geiser
+  :ensure t
+  :init
+  (setq geiser-default-implementation my/racket-path
+        geiser-guile-load-init-file-p t)
+  (add-hook 'geiser-mode-hook
+            (lambda () (setq geiser-impl--implementation my/racket-path)))
+  (add-hook 'scheme-mode-hook #'my/setup-geiser-mode))
+#+END_SRC
+
+
+[[https://cider.readthedocs.io/en/latest/][CIDER]] extends Emacs with support for interactive programming in
+Clojure.
+
+#+BEGIN_SRC emacs-lisp
+(use-package clojure-mode
+  :ensure t
+  :config
+  (add-hook 'clojure-mode-hook
+    (lambda ()
+      (push '("fn" . ?ƒ) prettify-symbols-alist)))
+  (add-hook 'clojure-mode-hook #'my/setup-clojure-mode))
+
+(use-package cider
+  :ensure t
+  :config
+  (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+  (add-hook 'cider-repl-mode-hook #'company-mode)
+  (add-hook 'cider-mode-hook #'company-mode)
+  (setq nrepl-hide-special-buffers t
+        cider-repl-tab-command 'indent-for-tab-command
+        cider-prefer-local-resources t
+        cider-repl-pop-to-buffer-on-connect nil
+        cider-repl-pop-to-buffer-on-connect nil
+        cider-popup-stacktraces nil
+        cider-repl-popup-stacktraces t
+        cider-auto-select-error-buffer t
+        nrepl-buffer-name-show-port t
+        cider-repl-display-in-current-window t
+        cider-repl-result-prefix ";; => "
+        cider-interactive-eval-result-prefix ";; => "
+        cider-repl-use-clojure-font-lock t
+        cider-test-show-report-on-success t
+        nrepl-hide-special-buffers t
+        nrepl-buffer-name-separator "-"
+        nrepl-buffer-name-show-port t
+        cider-repl-wrap-history t))
+#+END_SRC
+
+*** Javascript
+
+Adding modes for Javascript and React.
+
+#+BEGIN_SRC emacs-lisp
+(use-package js2-mode
+  :ensure t
+  :init
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+    (add-to-list 'auto-mode-alist '("\\.mjs\\'" . js2-mode))
+    (flycheck-add-mode 'javascript-eslint 'js2-mode)
+    (add-hook 'js2-mode-hook #'my/setup-company-flycheck))
+
+(use-package rjsx-mode
+  :ensure t
+  :init
+    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
+    (flycheck-add-mode 'javascript-eslint 'js2-mode)
+    (add-hook 'rjsx-mode-hook #'my/setup-company-flycheck))
+#+END_SRC
+
+*** Typescript
+
+Adding mode for typescript and Tide.
+
+#+BEGIN_SRC emacs-lisp
+(use-package typescript-mode :ensure t)
+
+(use-package tide
+  :ensure t
+  :init
+    (defun my/setup-tide-mode ()
+      "Setup tide mode for typescript"
+      (interactive)
+      (tide-setup)
+      (tide-hl-identifier-mode +1)
+      (flycheck-mode +1)
+      (eldoc-mode +1)
+      (company-mode +1)
+      (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append))
+    (add-hook 'typescript-mode-hook #'my/setup-tide-mode))
+#+END_SRC
+
+*** Web
+
+Adding mode for HTML and Templates
+
+#+BEGIN_SRC emacs-lisp
+(use-package web-mode
+  :ensure t
+  :init
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.svelte?\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.hbs?\\'" . web-mode))
+    (add-hook 'web-mode-hook #'my/setup-company-flycheck))
+#+END_SRC
+
+*** CSS
+
+[[https://github.com/emacsmirror/rainbow-mode][Rainbow mode]] sets background color to strings that match color names, e.g. #0000ff
+is displayed in white with a blue background.
+
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-mode
+  :ensure t)
+#+END_SRC
+
+Add CSS, LESS and SASS support, and activate rainbow mode.
+
+#+BEGIN_SRC emacs-lisp
+(use-package css-mode
+  :config
+  (add-hook 'css-mode-hook
+            (lambda () (rainbow-mode 1))))
+
+(use-package less-css-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
+  (add-hook 'less-css-mode-hook
+            (lambda () (rainbow-mode 1))))
+
+(use-package scss-mode
+  :ensure t
+  :init
+  (setq scss-compile-at-save nil)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
+  (add-hook 'scss-mode-hook
+            (lambda () (rainbow-mode 1))))
+#+END_SRC
+
+*** JSON
+
+Add support for JSON.
+
+#+BEGIN_SRC emacs-lisp
+  (use-package json-mode
+    :ensure t
+    :init
+    (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
+    (add-to-list 'auto-mode-alist '("\\.eslintrc\\'" . json-mode))
+    (add-to-list 'auto-mode-alist '("\\.babelrc\\'" . json-mode))
+    (add-to-list 'auto-mode-alist '("\\.jscsrc\\'" . json-mode))
+    (add-to-list 'auto-mode-alist '("\\.jshintrc\\'" . json-mode)))
+#+END_SRC
+
+*** YAML
+
+Add support to YAML.
+
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-mode
   :ensure t
   :defer t
   :init
-  (defengine google "http://www.google.com/search?ie=utf-8&oe=utf-8&q=%s" :keybinding "g")
-  (defengine youtube "https://www.youtube.com/results?search_query=%s" :keybinding "y")
-  (defengine github "https://github.com/search?ref=simplesearch&q=%s" :keybinding "h")
-  (defengine wikipedia "http://www.wikipedia.org/search-redirect.php?language=en&go=Go&search=%s" :keybinding "w")
-  (engine-mode t))
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+#+END_SRC
+
+*** LSP
+
+Adding LSP mode and bind all hooks.
+
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-mode
+  :pin "melpa-stable"
+  :ensure t
+  :commands lsp
+  :hook ((js2-mode        . lsp)
+         (rjsx-mode       . lsp)
+         (typescript-mode . lsp)
+         (web-mode        . lsp)
+         (css-mode        . lsp))
+  :config
+    (setq lsp-language-id-configuration '(
+      (web-mode        . "html")
+      (css-mode        . "css")
+      (js2-mode        . "javascript")
+      (rjsx-mode       . "javascript")
+      (typescript-mode . "typescript")
+    ))
+  :init (setq lsp-keymap-prefix "C-c w"))
+
+(use-package lsp-ui
+  :pin "melpa-stable"
+  :ensure t
+  :commands lsp-ui-mode
+  :config (setq lsp-prefer-flymake nil))
+
+
+(use-package lsp-ivy
+  :pin "melpa-stable"
+  :ensure t
+  :commands lsp-ivy-workspace-symbol)
+
+(use-package company-lsp
+  :pin "melpa-stable"
+  :ensure t
+  :init
+    (add-to-list 'company-backends 'company-lsp))
 #+END_SRC
