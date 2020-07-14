@@ -1289,6 +1289,11 @@ is displayed in white with a blue background.
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-mode
   :ensure t)
+
+(defun my/setup-css ()
+    "Setup CSS mode"
+    (rainbow-mode +1)
+    (my/setup-company-flycheck))
 #+END_SRC
 
 Add CSS, LESS and SASS support, and activate rainbow mode.
@@ -1296,15 +1301,13 @@ Add CSS, LESS and SASS support, and activate rainbow mode.
 #+BEGIN_SRC emacs-lisp
 (use-package css-mode
   :config
-  (add-hook 'css-mode-hook
-            (lambda () (rainbow-mode 1))))
+  (add-hook 'css-mode-hook #'my/setup-css))
 
 (use-package less-css-mode
   :ensure t
   :config
   (add-to-list 'auto-mode-alist '("\\.less\\'" . less-css-mode))
-  (add-hook 'less-css-mode-hook
-            (lambda () (rainbow-mode 1))))
+  (add-hook 'less-css-mode-hook #'my/setup-css))
 
 (use-package scss-mode
   :ensure t
@@ -1312,8 +1315,7 @@ Add CSS, LESS and SASS support, and activate rainbow mode.
   (setq scss-compile-at-save nil)
   :config
   (add-to-list 'auto-mode-alist '("\\.scss\\'" . scss-mode))
-  (add-hook 'scss-mode-hook
-            (lambda () (rainbow-mode 1))))
+  (add-hook 'scss-mode-hook #'my/setup-css))
 #+END_SRC
 
 *** JSON
