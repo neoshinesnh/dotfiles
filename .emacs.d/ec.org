@@ -1502,6 +1502,7 @@ Adding LSP mode and bind all hooks.
     (add-to-list 'company-backends 'company-lsp))
 
 (use-package lsp-treemacs
+  :pin "melpa-stable"
   :after treemacs lsp-mode
   :ensure t
   :config (lsp-treemacs-sync-mode 1))
