@@ -36,6 +36,24 @@ Spell check configuration. You can find the right paths executing
     ("pt_BR" "/usr/share/hunspell/pt_BR.aff"))) ;; ;; On windows C:/Hunspell/en_US.aff
 #+END_SRC
 
+** Recommended dependencies and setup
+
+- [[https://nodejs.org/][NodeJS]]
+- [[http://www.sbcl.org/][SBCL]]
+- [[https://racket-lang.org/][Racket]]
+- [[https://hunspell.github.io/][Hunspell]] (with [[https://github.com/LibreOffice/dictionaries][en_US and pt_BR]] dict)
+
+*** Quicklisp setup
+
+#+BEGIN_EXAMPLE
+curl -O https://beta.quicklisp.org/quicklisp.lisp
+sbcl --load quicklisp.lisp
+(quicklisp-quickstart:install)
+(ql:add-to-init-file)
+(ql:quickload "quicklisp-slime-helper")
+(exit)
+#+END_EXAMPLE
+
 ** Key-binds table
 
 Key binds defined, redefined or removed by this configuration.
@@ -547,6 +565,7 @@ install Moody for a better modeline and Minions to hide minor modes.
 #+BEGIN_SRC emacs-lisp
 (use-package moody
   :ensure t
+  :defer t
   :config
   (setq x-underline-at-descent-line t)
   (moody-replace-mode-line-buffer-identification)
@@ -554,6 +573,7 @@ install Moody for a better modeline and Minions to hide minor modes.
 
 (use-package minions
   :ensure t
+  :defer t
   :config
   (setq minions-mode-line-lighter "ミ"
         minions-mode-line-delimiters '("" . ""))
@@ -709,7 +729,6 @@ indexing mechanism backed by external commands exists as well).
 
 (use-package swiper
   :ensure t
-  :defer t
   :init
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t
@@ -722,7 +741,6 @@ indexing mechanism backed by external commands exists as well).
 
 (use-package counsel
   :ensure t
-  :defer t
   :init
   (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
   :bind (("M-x"     . counsel-M-x)
@@ -741,7 +759,6 @@ indexing mechanism backed by external commands exists as well).
 (use-package projectile
   :ensure t
   :defer t
-  :after (swiper)
   :init
   (setq projectile-completion-system 'ivy)
   (setq projectile-keymap-prefix (kbd "C-x p"))
@@ -806,17 +823,10 @@ Use [[https://github.com/Fuco1/smartparens][Smartparens]] to all programming mod
 mode for dealing with pairs in Emacs.
 
 #+BEGIN_SRC emacs-lisp
-(use-package paredit
-  :ensure t
-  :defer t
-  :hook ((emacs-lisp-mode . paredit-mode)
-         (lisp-mode       . paredit-mode)
-         (scheme-mode     . paredit-mode)))
+(use-package paredit :ensure t)
 
 (use-package smartparens
   :ensure t
-  :defer t
-  :after (paredit)
   :hook (prog-mode . smartparens-mode)
   :init
   (require 'smartparens-config)
@@ -871,8 +881,6 @@ Add [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]] to corr
 (use-package flyspell-correct-ivy
   :ensure t
   :defer t
-  :after (swiper)
-  :demand t
   :bind (:map flyspell-mode-map
               ("C-c $" . flyspell-correct-word-generic)))
 #+END_SRC
@@ -1075,6 +1083,7 @@ Add [[https://github.com/sabof/org-bullets][Org bullets]] to show bullets in out
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets
   :ensure t
+  :defer t
   :init
   (add-hook 'org-mode-hook 'org-bullets-mode))
 #+END_SRC
@@ -1146,7 +1155,7 @@ an environment for hacking Common Lisp in.
 (defun my/setup-lisp-mode ()
   "Setup modes for lisp"
   (elisp-slime-nav-mode +1)
-  (flycheck-mode +1)
+  (paredit-mode +1)
   (eldoc-mode +1)
   (my/setup-company-flycheck))
 
