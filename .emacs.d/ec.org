@@ -38,7 +38,7 @@ Spell check configuration. You can find the right paths executing
 
 ** Recommended dependencies and setup
 
-- [[https://nodejs.org/][NodeJS]]
+- [[https://nodejs.org/][NodeJS]] (install eslint and typescript globally)
 - [[http://www.sbcl.org/][SBCL]]
 - [[https://racket-lang.org/][Racket]]
 - [[https://hunspell.github.io/][Hunspell]] (with [[https://github.com/LibreOffice/dictionaries][en_US and pt_BR]] dict)
@@ -58,70 +58,72 @@ sbcl --load quicklisp.lisp
 
 Key binds defined, redefined or removed by this configuration.
 
-| Key bind        | Description                               | Package              |
-|-----------------+-------------------------------------------+----------------------|
-| =S-<cursor>=      | Navigate between windows                  | Windmove             |
-| =C-z=             | Unset in window mode                      | None                 |
-| =C-x C-z=         | Unset in window mode                      | None                 |
-| =C-c o=           | Open with                                 | Crux                 |
-| =C-c e=           | Eval and replace                          | Crux                 |
-| =C-a=             | Go to beginning of line                   | Crux                 |
-| =C-c D=           | Delete file and buffer                    | Crux                 |
-| =C-c d=           | Duplicate current line/region             | Crux                 |
-| =S-RET=           | Smart open line                           | Crux                 |
-| =C-S-RET=         | Smart open line above                     | Crux                 |
-| =C-c M-d=         | Duplicate and comment current line/region | Crux                 |
-| =C-c r=           | Rename file and buffer                    | Crux                 |
-| =C-x u=           | View undo tree                            | Undo tree            |
-| =C-/=             | Undo                                      | Undo tree            |
-| =M-SPC=           | Remove white-space (lines)                | Shrink whitespace    |
-| =C-s=             | Search in file                            | Swiper               |
-| =C-c u=           | Swiper all                                | Swiper               |
-| =C-c C-r=         | Ivy resume                                | Ivy                  |
-| =<f6>=            | Ivy resume                                | Ivy                  |
-| =M-x=             | Counsel M-x                               | Counsel              |
-| =C-x C-f=         | Open/find file                            | Counsel              |
-| =C-c f f=         | Find file at point                        | Counsel              |
-| =<f1> f=          | Counsel describe function                 | Counsel              |
-| =<f1> v=          | Counsel describe variable                 | Counsel              |
-| =<f1> l=          | Counsel load library                      | Counsel              |
-| =<f2> i=          | Counsel info lookup symbol                | Counsel              |
-| =<f2> u=          | Counsel Unicode char                      | Counsel              |
-| =C-c g=           | Counsel git                               | Counsel              |
-| =C-c j=           | Counsel git-grep                          | Counsel              |
-| =C-c k=           | Counsel ag                                | Counsel              |
-| =C-x l=           | Counsel locate                            | Counsel              |
-| =C-x p=           | Projectile prefix                         | Projectile           |
-| =C-==             | Expand region/selection                   | Expand region        |
-| =C-S-c C-S-c=     | Edit lines                                | Multiple cursors     |
-| =C-c C-<=         | Mark all like this                        | Multiple cursors     |
-| =C->=             | Mark next like this                       | Multiple cursors     |
-| =C-<=             | Mark previous like this                   | Multiple cursors     |
-| =C-S-<mouse-1>=   | Add cursor on click                       | Multiple cursors     |
-| =C-c SPC=         | Go to word or sub-word                    | Avy                  |
-| =C-c q=           | Edit file as SUDO (Linux only)            | Sudo edit            |
-| =C-c .=           | Auto-complete                             | Company              |
-| =C-.=             | Auto-complete                             | Company              |
-| =C-n=             | Select next on auto-complete              | Company              |
-| =C-p=             | Select previous on auto-complete          | Company              |
-| =C-d=             | Show doc buffer                           | Company              |
-| =C-l=             | Show-location                             | Company              |
-| =<tab>=           | Auto-complete                             | Company              |
-| =C-x g=           | Git status                                | Magit                |
-| =C-x M-g=         | Dispatch popup                            | Magit                |
-| =C-c P=           | Check spell on document in Portuguese     | Ispell/Flyspell      |
-| =C-c E=           | Check spell on document in English        | Ispell/Flyspell      |
-| =C-c $=           | Check word                                | flyspell-correct-ivy |
-| =M-==             | Insert snippet                            | Yasnippet            |
-| =C-c s=           | Slime selector                            | Slime                |
-| =C-c c=           | Org capture                               | Org                  |
-| =C-c a=           | Org agenda                                | Org                  |
-| =C-c l=           | Org store link                            | Org                  |
-| =C-c w=           | LSP prefix                                | LSP mode             |
-| =C-x / g=         | Search on Google                          | Engine mode          |
-| =C-x / y=         | Search on Youtube                         | Engine mode          |
-| =C-x / h=         | Search on Github                          | Engine mode          |
-| =C-x / w=         | Search on Wikipedia                       | Engine mode          |
+| Key bind      | Description                               | Package              |
+|---------------+-------------------------------------------+----------------------|
+| =S-<cursor>=    | Navigate between windows                  | Windmove             |
+| =C-z=           | Unset in window mode                      | None                 |
+| =C-x C-z=       | Unset in window mode                      | None                 |
+| =C-c o=         | Open with                                 | Crux                 |
+| =C-c e=         | Eval and replace                          | Crux                 |
+| =C-a=           | Go to beginning of line                   | Crux                 |
+| =C-c D=         | Delete file and buffer                    | Crux                 |
+| =C-c d=         | Duplicate current line/region             | Crux                 |
+| =S-RET=         | Smart open line                           | Crux                 |
+| =C-S-RET=       | Smart open line above                     | Crux                 |
+| =C-c M-d=       | Duplicate and comment current line/region | Crux                 |
+| =C-c r=         | Rename file and buffer                    | Crux                 |
+| =C-x u=         | View undo tree                            | Undo tree            |
+| =C-/=           | Undo                                      | Undo tree            |
+| =M-SPC=         | Remove white-space (lines)                | Shrink whitespace    |
+| =C-s=           | Search in file                            | Swiper               |
+| =C-c u=         | Swiper all                                | Swiper               |
+| =C-c C-r=       | Ivy resume                                | Ivy                  |
+| =<f6>=          | Ivy resume                                | Ivy                  |
+| =M-x=           | Counsel M-x                               | Counsel              |
+| =C-x C-f=       | Open/find file                            | Counsel              |
+| =C-c f f=       | Find file at point                        | Counsel              |
+| =<f1> f=        | Counsel describe function                 | Counsel              |
+| =<f1> v=        | Counsel describe variable                 | Counsel              |
+| =<f1> l=        | Counsel load library                      | Counsel              |
+| =<f2> i=        | Counsel info lookup symbol                | Counsel              |
+| =<f2> u=        | Counsel Unicode char                      | Counsel              |
+| =C-c g=         | Counsel git                               | Counsel              |
+| =C-c j=         | Counsel git-grep                          | Counsel              |
+| =C-c k=         | Counsel ag                                | Counsel              |
+| =C-x l=         | Counsel locate                            | Counsel              |
+| =C-x p=         | Projectile prefix                         | Projectile           |
+| =C-==           | Expand region/selection                   | Expand region        |
+| =C-S-c C-S-c=   | Edit lines                                | Multiple cursors     |
+| =C-c C-<=       | Mark all like this                        | Multiple cursors     |
+| =C->=           | Mark next like this                       | Multiple cursors     |
+| =C-<=           | Mark previous like this                   | Multiple cursors     |
+| =C-S-<mouse-1>= | Add cursor on click                       | Multiple cursors     |
+| =C-c SPC=       | Go to word or sub-word                    | Avy                  |
+| =C-c q=         | Edit file as SUDO (Linux only)            | Sudo edit            |
+| =C-c .=         | Auto-complete                             | Company              |
+| =C-.=           | Auto-complete                             | Company              |
+| =C-n=           | Select next on auto-complete              | Company              |
+| =C-p=           | Select previous on auto-complete          | Company              |
+| =C-d=           | Show doc buffer                           | Company              |
+| =C-l=           | Show-location                             | Company              |
+| =<tab>=         | Auto-complete                             | Company              |
+| =C-x g=         | Git status                                | Magit                |
+| =C-x M-g=       | Dispatch popup                            | Magit                |
+| =C-c P=         | Check spell on document in Portuguese     | Ispell/Flyspell      |
+| =C-c E=         | Check spell on document in English        | Ispell/Flyspell      |
+| =C-c $=         | Check word                                | flyspell-correct-ivy |
+| =M-==           | Insert snippet                            | Yasnippet            |
+| =C-c s=         | Slime selector                            | Slime                |
+| =C-c c=         | Org capture                               | Org                  |
+| =C-c a=         | Org agenda                                | Org                  |
+| =C-c l=         | Org store link                            | Org                  |
+| =C-c w=         | LSP prefix                                | LSP mode             |
+| =C-x / g=       | Search on Google                          | Engine mode          |
+| =C-x / y=       | Search on Youtube                         | Engine mode          |
+| =C-x / h=       | Search on Github                          | Engine mode          |
+| =C-x / w=       | Search on Wikipedia                       | Engine mode          |
+| =M-0=           | Treemacs select window                    | Treemacs             |
+| =C-x t=         | Treemacs prefix                           | Treemacs             |
 
 ** Initialization file
 
@@ -332,10 +334,12 @@ Set garbage collector threshold and add to /minibuffer/ hook.
 
 (defun my/minibuffer-exit-hook ()
   "Set gc threshold to a fixed value on exit minibuffer."
-  (setq gc-cons-threshold 800000))
+  (setq gc-cons-threshold 100000000))
 
 (add-hook 'minibuffer-setup-hook #'my/minibuffer-setup-hook)
 (add-hook 'minibuffer-exit-hook #'my/minibuffer-exit-hook)
+
+(setq read-process-output-max (* 1024 1024))
 #+END_SRC
 
 Ignore case for completion, and set /string/ for /regex/.
@@ -565,7 +569,6 @@ install Moody for a better modeline and Minions to hide minor modes.
 #+BEGIN_SRC emacs-lisp
 (use-package moody
   :ensure t
-  :defer t
   :config
   (setq x-underline-at-descent-line t)
   (moody-replace-mode-line-buffer-identification)
@@ -573,7 +576,6 @@ install Moody for a better modeline and Minions to hide minor modes.
 
 (use-package minions
   :ensure t
-  :defer t
   :config
   (setq minions-mode-line-lighter "ミ"
         minions-mode-line-delimiters '("" . ""))
@@ -758,11 +760,94 @@ indexing mechanism backed by external commands exists as well).
 
 (use-package projectile
   :ensure t
-  :defer t
   :init
   (setq projectile-completion-system 'ivy)
   (setq projectile-keymap-prefix (kbd "C-x p"))
   (projectile-mode))
+#+END_SRC
+
+Add [[https://github.com/Alexander-Miller/treemacs][treemacs]]
+
+#+BEGIN_SRC emacs-lisp
+(use-package treemacs
+  :ensure t
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (progn
+    (setq treemacs-collapse-dirs                 (if treemacs-python-executable 3 0)
+          treemacs-deferred-git-apply-delay      0.5
+          treemacs-directory-name-transformer    #'identity
+          treemacs-display-in-side-window        t
+          treemacs-eldoc-display                 t
+          treemacs-file-event-delay              5000
+          treemacs-file-extension-regex          treemacs-last-period-regex-value
+          treemacs-file-follow-delay             0.2
+          treemacs-file-name-transformer         #'identity
+          treemacs-follow-after-init             t
+          treemacs-git-command-pipe              ""
+          treemacs-goto-tag-strategy             'refetch-index
+          treemacs-indentation                   2
+          treemacs-indentation-string            " "
+          treemacs-is-never-other-window         nil
+          treemacs-max-git-entries               5000
+          treemacs-missing-project-action        'ask
+          treemacs-move-forward-on-expand        nil
+          treemacs-no-png-images                 nil
+          treemacs-no-delete-other-windows       t
+          treemacs-project-follow-cleanup        nil
+          treemacs-persist-file                  (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+          treemacs-position                      'left
+          treemacs-recenter-distance             0.1
+          treemacs-recenter-after-file-follow    nil
+          treemacs-recenter-after-tag-follow     nil
+          treemacs-recenter-after-project-jump   'always
+          treemacs-recenter-after-project-expand 'on-distance
+          treemacs-show-cursor                   nil
+          treemacs-show-hidden-files             t
+          treemacs-silent-filewatch              nil
+          treemacs-silent-refresh                nil
+          treemacs-sorting                       'alphabetic-asc
+          treemacs-space-between-root-nodes      t
+          treemacs-tag-follow-cleanup            t
+          treemacs-tag-follow-delay              1.5
+          treemacs-user-mode-line-format         nil
+          treemacs-user-header-line-format       nil
+          treemacs-width                         35
+          treemacs-workspace-switch-cleanup      nil)
+
+    ;; The default width and height of the icons is 22 pixels. If you are
+    ;; using a Hi-DPI display, uncomment this to double the icon size.
+    (treemacs-resize-icons 44)
+
+    (treemacs-follow-mode t)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode t)
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null treemacs-python-executable)))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple))))
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag)))
+
+(use-package treemacs-projectile
+  :after treemacs projectile
+  :ensure t)
+
+(use-package treemacs-icons-dired
+  :after treemacs dired
+  :ensure t
+  :config (treemacs-icons-dired-mode))
 #+END_SRC
 
 [[https://github.com/magnars/expand-region.el][Expand region]] increases the selected region by semantic units. Just
@@ -856,6 +941,20 @@ Better /tab/ behavior with [[https://www.emacswiki.org/emacs/TabCompletion#Smart
   :config
   (add-to-list 'smart-tab-disabled-major-modes 'shell-mode))
 #+END_SRC
+
+Install Which Key
+
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :ensure t
+  :init (which-key-mode)
+  :config
+    (which-key-setup-side-window-right-bottom)
+    (setq which-key-sort-order 'which-key-key-order-alpha
+          which-key-side-window-max-width 0.33
+          which-key-idle-delay 0.05))
+#+END_SRC
+
 
 *** Spell check
 
@@ -1034,6 +1133,11 @@ exist, only Magit and Git itself deserve to be called porcelains.
          ("C-x M-g" . magit-dispatch-popup))
   :config
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
+
+
+(use-package treemacs-magit
+  :after treemacs magit
+  :ensure t)
 #+END_SRC
 
 *** Tools and applications
@@ -1131,6 +1235,7 @@ existing systems such Emacs Lisp and ILISP, we are working to create
 an environment for hacking Common Lisp in.
 
 #+BEGIN_SRC emacs-lisp
+()
 (use-package slime-company :ensure t)
 
 (use-package slime
@@ -1250,7 +1355,7 @@ Adding modes for Javascript and React.
   :ensure t
   :init
     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-    (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
+    (flycheck-add-mode 'javascript-eslint 'js2-mode)
     (add-hook 'rjsx-mode-hook #'my/setup-company-flycheck))
 #+END_SRC
 
@@ -1395,4 +1500,9 @@ Adding LSP mode and bind all hooks.
   :ensure t
   :init
     (add-to-list 'company-backends 'company-lsp))
+
+(use-package lsp-treemacs
+  :after treemacs lsp-mode
+  :ensure t
+  :config (lsp-treemacs-sync-mode 1))
 #+END_SRC
