@@ -499,14 +499,15 @@ Set window title with file name.
   "%b"))))
 #+END_SRC
 
-Change font to [[https://sourcefoundry.org/hack/][ttf-hack]].
+Change default font to [[https://sourcefoundry.org/hack/][ttf-hack]] and everything else to Noto Sans.
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'default-frame-alist
-             '(font . "Hack-11"))
+(add-to-list 'default-frame-alist '(font . "Hack-11"))
 (set-face-attribute 'default t :font "Hack-11")
 (set-face-attribute 'default nil :font "Hack-11")
 (set-frame-font "Hack-11" nil t)
+(set-face-attribute 'mode-line nil :font "Noto Sans-10")
+(set-face-attribute 'variable-pitch nil :font "Noto Sans-11")
 #+END_SRC
 
 Prettify lambda and function symbols.
@@ -564,6 +565,14 @@ Set theme to [[https://github.com/greduan/emacs-theme-gruvbox][Gruvbox]].
   :init (load-theme 'gruvbox-dark-hard t))
 #+END_SRC
 
+Set mixed pitch fonts
+
+#+BEGIN_SRC emacs-lisp
+(use-package mixed-pitch
+  :ensure t
+  :hook (text-mode . mixed-pitch-mode))
+#+END_SRC
+
 install Moody for a better modeline and Minions to hide minor modes.
 
 #+BEGIN_SRC emacs-lisp
@@ -580,6 +589,8 @@ install Moody for a better modeline and Minions to hide minor modes.
   (setq minions-mode-line-lighter "ミ"
         minions-mode-line-delimiters '("" . ""))
   (minions-mode 1))
+
+(set-face-attribute 'mode-line nil :font "Noto Sans-10") ;; force mode-line font change after moody (bug)
 
 (use-package nyan-mode
   :ensure t
@@ -600,7 +611,6 @@ depth.
 #+BEGIN_SRC emacs-lisp
 (use-package rainbow-delimiters
   :ensure t
-  :defer t
   :hook (prog-mode . rainbow-delimiters-mode))
 #+END_SRC
 
@@ -614,7 +624,6 @@ it behaves well in large buffers.
 #+BEGIN_SRC emacs-lisp
 (use-package highlight-indent-guides
   :ensure t
-  :defer t
   :hook (prog-mode . highlight-indent-guides-mode)
   :init
   (setq highlight-indent-guides-method 'column
@@ -648,7 +657,6 @@ Emacs experience.
 #+BEGIN_SRC emacs-lisp
 (use-package crux
   :ensure t
-  :defer t
   :bind (("C-c o"   . crux-open-with)
          ("C-c e"   . crux-eval-and-replace)
          ("C-a"     . crux-move-beginning-of-line)
@@ -678,7 +686,6 @@ efficient.
 #+BEGIN_SRC emacs-lisp
 (use-package nlinum
   :ensure t
-  :defer t
   :hook (prog-mode . nlinum-mode)
   :init
   (setq nlinum-format " %d ")
@@ -691,7 +698,6 @@ Install [[https://www.emacswiki.org/emacs/UndoTree][undo-tree]], and set it to s
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree
   :ensure t
-  :defer t
   :init
   (setq undo-tree-auto-save-history t
         undo-tree-history-directory-alist `((".*" . ,temporary-file-directory)))
@@ -705,7 +711,6 @@ Remove white-spaces with [[https://github.com/jcpetkovich/shrink-whitespace.el][
 #+BEGIN_SRC emacs-lisp
 (use-package shrink-whitespace
   :ensure t
-  :defer t
   :bind ("M-SPC" . shrink-whitespace))
 #+END_SRC
 
@@ -760,6 +765,7 @@ indexing mechanism backed by external commands exists as well).
 
 (use-package projectile
   :ensure t
+  :defer t
   :init
   (setq projectile-completion-system 'ivy)
   (setq projectile-keymap-prefix (kbd "C-x p"))
@@ -856,7 +862,6 @@ keep pressing the key until it selects what you want.
 #+BEGIN_SRC emacs-lisp
 (use-package expand-region
   :ensure t
-  :defer t
   :bind (("C-=" . er/expand-region)))
 #+END_SRC
 
@@ -865,7 +870,6 @@ keep pressing the key until it selects what you want.
 #+BEGIN_SRC emacs-lisp
 (use-package multiple-cursors
   :ensure t
-  :defer t
   :bind (("C-S-c C-S-c"   . mc/edit-lines)
          ("C-c C-<"       . mc/mark-all-like-this)
          ("C->"           . mc/mark-next-like-this)
@@ -879,7 +883,6 @@ decision tree.
 #+BEGIN_SRC emacs-lisp
 (use-package avy
   :ensure t
-  :defer t
   :init (setq avy-background t
               avy-style 'at-full)
   :bind (("C-c SPC" . avy-goto-word-or-subword-1)))
@@ -888,11 +891,10 @@ decision tree.
 Use [[https://github.com/nflath/sudo-edit/blob/master/sudo-edit.el][sudo]] to edit current file.
 
 #+BEGIN_SRC emacs-lisp
-(when (eq system-type 'gnu/linux)
-  (use-package sudo-edit
-    :ensure t
-    :defer t
-    :bind (("C-c q" . sudo-edit-current-file))))
+(use-package sudo-edit
+  :ensure t
+  :if (eq system-type 'gnu/linux)
+  :bind (("C-c q" . sudo-edit-current-file)))
 #+END_SRC
 
 Use [[https://editorconfig.org/][editorconfig]] to set different editor settings by projects.
@@ -900,7 +902,6 @@ Use [[https://editorconfig.org/][editorconfig]] to set different editor settings
 #+BEGIN_SRC emacs-lisp
 (use-package editorconfig
   :ensure t
-  :defer t
   :hook (prog-mode . editorconfig-mode))
 #+END_SRC
 
@@ -911,6 +912,7 @@ mode for dealing with pairs in Emacs.
 (use-package paredit :ensure t)
 
 (use-package smartparens
+  :after paredit
   :ensure t
   :hook (prog-mode . smartparens-mode)
   :init
@@ -955,7 +957,6 @@ Install Which Key
           which-key-idle-delay 0.05))
 #+END_SRC
 
-
 *** Spell check
 
 Setting skip rules for /ispell/ and set /flyspell/ to text mode.
@@ -979,7 +980,6 @@ Add [[https://github.com/d12frosted/flyspell-correct][flyspell-correct]] to corr
 #+BEGIN_SRC emacs-lisp
 (use-package flyspell-correct-ivy
   :ensure t
-  :defer t
   :bind (:map flyspell-mode-map
               ("C-c $" . flyspell-correct-word-generic)))
 #+END_SRC
@@ -1019,7 +1019,6 @@ abbreviation and automatically expand it into function templates.
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
   :ensure t
-  :defer t
   :bind (("M-=" . yas-insert-snippet))
   :init
   (yas-global-mode 1)
@@ -1059,9 +1058,8 @@ default [[https://github.com/auto-complete/popup-el][popup.el]].
 
 #+BEGIN_SRC emacs-lisp
 (use-package company-quickhelp
+  :after company
   :ensure t
-  :defer t
-  :after (company)
   :init (add-hook 'company-mode-hook #'company-quickhelp-mode)
   :config (setq company-quickhelp-delay 1))
 #+END_SRC
@@ -1076,9 +1074,8 @@ likelier candidates at the top of the list.
 
 #+BEGIN_SRC emacs-lisp
 (use-package company-statistics
+  :after company
   :ensure t
-  :defer t
-  :after (company)
   :init (company-statistics-mode))
 #+END_SRC
 
@@ -1109,7 +1106,6 @@ you to jump between and revert them selectively.
 
 (use-package diff-hl
   :ensure t
-  :defer t
   :hook ((prog-mode  . diff-hl-mode)
          (dired-mode . diff-hl-dired-mode))
   :config
@@ -1126,9 +1122,8 @@ exist, only Magit and Git itself deserve to be called porcelains.
 
 #+BEGIN_SRC emacs-lisp
 (use-package magit
+  :after diff-hl
   :ensure t
-  :defer t
-  :after (diff-hl)
   :bind (("C-x g"   . magit-status)
          ("C-x M-g" . magit-dispatch-popup))
   :config
@@ -1152,6 +1147,7 @@ results as a pretty-printed XML, JSON and even images.
   :defer t)
 
 (use-package company-restclient
+  :after company restclient
   :ensure t
   :init
   (with-eval-after-load 'company
@@ -1235,10 +1231,14 @@ existing systems such Emacs Lisp and ILISP, we are working to create
 an environment for hacking Common Lisp in.
 
 #+BEGIN_SRC emacs-lisp
-()
-(use-package slime-company :ensure t)
+(use-package slime-company
+  :after company
+  :ensure t
+  :config (setq slime-company-completion 'fuzzy
+                slime-company-after-completion 'slime-company-just-one-space))
 
 (use-package slime
+  :after slime-company
   :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.sbclrc$" . lisp-mode))
@@ -1254,6 +1254,7 @@ an environment for hacking Common Lisp in.
                  slime-company)))
 
 (use-package elisp-slime-nav
+  :after slime
   :ensure t
   :bind (("C-c s" . slime-selector)))
 
@@ -1271,6 +1272,7 @@ an environment for hacking Common Lisp in.
   (my/setup-company-flycheck))
 
 (defun my/setup-clojure-mode ()
+  "Setup modes for Clojure"
   (paredit-mode +1)
   (my/setup-company-flycheck))
 #+END_SRC
@@ -1313,6 +1315,7 @@ Clojure.
   (add-hook 'clojure-mode-hook #'my/setup-clojure-mode))
 
 (use-package cider
+  :after company
   :ensure t
   :config
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
@@ -1355,7 +1358,7 @@ Adding modes for Javascript and React.
   :ensure t
   :init
     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-    (flycheck-add-mode 'javascript-eslint 'js2-mode)
+    (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (add-hook 'rjsx-mode-hook #'my/setup-company-flycheck))
 #+END_SRC
 
@@ -1367,6 +1370,7 @@ Adding mode for typescript and Tide.
 (use-package typescript-mode :ensure t)
 
 (use-package tide
+  :after typescript-mode
   :ensure t
   :init
     (defun my/setup-tide-mode ()
@@ -1454,7 +1458,6 @@ Add support to YAML.
 #+BEGIN_SRC emacs-lisp
 (use-package yaml-mode
   :ensure t
-  :defer t
   :init
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 #+END_SRC
@@ -1492,11 +1495,13 @@ Adding LSP mode and bind all hooks.
 
 (use-package lsp-ivy
   :pin "melpa-stable"
+  :after swiper
   :ensure t
   :commands lsp-ivy-workspace-symbol)
 
 (use-package company-lsp
   :pin "melpa-stable"
+  :after company
   :ensure t
   :init
     (add-to-list 'company-backends 'company-lsp))
