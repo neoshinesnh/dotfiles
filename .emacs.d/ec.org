@@ -1250,7 +1250,7 @@ Adding modes for Javascript and React.
   :ensure t
   :init
     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-    (flycheck-add-mode 'javascript-eslint 'js2-mode)
+    (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (add-hook 'rjsx-mode-hook #'my/setup-company-flycheck))
 #+END_SRC
 
