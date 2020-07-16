@@ -178,14 +178,6 @@ performance-oriented and tidy.
   (require 'use-package))
 #+END_SRC
 
-If you want to disable a package just put a =:disabled= in the code.
-
-#+BEGIN_EXAMPLE
-(use-package package-name
-  :ensure t
-  :disabled)
-#+END_EXAMPLE
-
 Installing [[https://github.com/ahyatt/emacs-websocket][websockets]] package, this is a dependency for others
 packages that we will use latter.
 
