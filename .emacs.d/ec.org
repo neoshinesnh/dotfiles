@@ -18,6 +18,7 @@ change personal info, paths and some specific settings here.
       calendar-latitude -23.550520
       calendar-longitude -46.633308
       calendar-location-name "Sao Paulo, BR"
+      my/is-HiDpi nil
       my/org-directory "~/Documents/org"
       my/custom-snippets-path "~/.emacs.d/custom/snippets"
       my/sbcl-path "/usr/bin/sbcl"
@@ -494,12 +495,15 @@ Set window title with file name.
 Change default font to [[https://sourcefoundry.org/hack/][ttf-hack]] and everything else to Noto Sans.
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'default-frame-alist '(font . "Hack-11"))
-(set-face-attribute 'default t :font "Hack-11")
-(set-face-attribute 'default nil :font "Hack-11")
-(set-frame-font "Hack-11" nil t)
-(set-face-attribute 'mode-line nil :font "Noto Sans-10")
-(set-face-attribute 'variable-pitch nil :font "Noto Sans-11")
+(defun my/set-refresh-fonts ()
+  (add-to-list 'default-frame-alist '(font . "Hack-11"))
+  (set-face-attribute 'default t :font "Hack-11")
+  (set-face-attribute 'default nil :font "Hack-11")
+  (set-frame-font "Hack-11" nil t)
+  (set-face-attribute 'mode-line nil :font "Noto Sans-12")
+  (set-face-attribute 'variable-pitch nil :font "Noto Sans-12"))
+
+;; (my/set-refresh-fonts) ;; only call after moody instalation (bug)
 #+END_SRC
 
 Prettify lambda and function symbols.
@@ -557,12 +561,18 @@ Set theme to [[https://github.com/greduan/emacs-theme-gruvbox][Gruvbox]].
   :init (load-theme 'gruvbox-dark-hard t))
 #+END_SRC
 
-Set mixed pitch fonts
+Set mixed pitch fonts and add emojify.
 
 #+BEGIN_SRC emacs-lisp
 (use-package mixed-pitch
   :ensure t
   :hook (text-mode . mixed-pitch-mode))
+
+(use-package emojify
+  :ensure t
+  :init
+    (global-emojify-mode)
+    (global-emojify-mode-line-mode))
 #+END_SRC
 
 install Moody for a better modeline and Minions to hide minor modes.
@@ -578,11 +588,12 @@ install Moody for a better modeline and Minions to hide minor modes.
 (use-package minions
   :ensure t
   :config
-  (setq minions-mode-line-lighter "ミ"
+  (setq minions-mode-line-lighter " 🤖 "
         minions-mode-line-delimiters '("" . ""))
   (minions-mode 1))
 
-(set-face-attribute 'mode-line nil :font "Noto Sans-10") ;; force mode-line font change after moody (bug)
+
+(my/set-refresh-fonts) ;; force mode-line font change after moody (bug)
 
 (use-package nyan-mode
   :ensure t
@@ -816,9 +827,8 @@ Add [[https://github.com/Alexander-Miller/treemacs][treemacs]]
           treemacs-width                         35
           treemacs-workspace-switch-cleanup      nil)
 
-    ;; The default width and height of the icons is 22 pixels. If you are
-    ;; using a Hi-DPI display, uncomment this to double the icon size.
-    (treemacs-resize-icons 44)
+    (when my/is-HiDpi
+      (treemacs-resize-icons 44))
 
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)
