@@ -1,0 +1,8 @@
+#!/bin/bash
+
+picom -b &
+dunst &
+feh --bg-tile ~/Pictures/beemo.png
+tint2 &
+xcape -e 'Super_L=Super_L|E' &
+udiskie -2
