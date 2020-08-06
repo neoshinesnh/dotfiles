@@ -1197,7 +1197,7 @@ Set ellipsis character, timestamp and files location.
       org-log-done 'time
       org-hide-emphasis-markers t
       org-default-notes-file (concat my/org-directory "/notes.org")
-      org-agenda-files (list (concat my/org-directory "/agenda.org") (concat org-directory "/work.org")))
+      org-agenda-files (list (concat my/org-directory "/agenda.org") (concat my/org-directory "/work.org")))
 #+END_SRC
 
 Set /keybind/ for agenda, capture, store link and add org-indent on hook.
