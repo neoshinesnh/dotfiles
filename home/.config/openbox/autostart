@@ -1,8 +1,13 @@
 #!/bin/bash
 
 picom -b &
+numlockx &
+pactl set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo-extra1
+nm-applet &
+# volumeicon &
+# blueman-applet &
 dunst &
-feh --bg-tile ~/Pictures/beemo.png
+nitrogen --restore &
 tint2 &
 xcape -e 'Super_L=Super_L|E' &
 udiskie -2

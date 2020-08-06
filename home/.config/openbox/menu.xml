@@ -27,14 +27,14 @@
         <execute>encryptr</execute>
       </action>
     </item>
-    <item label="Steam">
-      <action name="Execute">
-        <execute>steam-native</execute>
-      </action>
-    </item>
     <item label="Spotify">
       <action name="Execute">
         <execute>flatpak run --branch=stable --arch=x86_64 --command=spotify --file-forwarding com.spotify.Client @@u</execute>
+      </action>
+    </item>
+    <item label="Steam">
+      <action name="Execute">
+        <execute>steam-native</execute>
       </action>
     </item>
     <item label="Pidgin">
@@ -76,27 +76,6 @@
       </item>
     </menu>
 
-     <menu id="office" label="Office">
-      <item label="Libre Office">
-        <action name="Execute">
-          <execute>libreoffice</execute>
-        </action>
-      </item>
-    </menu>
-
-    <menu id="graphics" label="Graphics">
-      <item label="GNU Image Manipulation Program">
-        <action name="Execute">
-          <execute>gimp-2.10</execute>
-        </action>
-      </item>
-      <item label="Inkscape">
-        <action name="Execute">
-          <execute>inkscape</execute>
-        </action>
-      </item>
-    </menu>
-
     <menu id="network" label="Network">
       <item label="FireFox">
         <action name="Execute">
@@ -110,9 +89,17 @@
       </item>
     </menu>
 
+    <menu execute="openbox-menu lxde-applications.menu" id="apps"
+          label="Others"/>
+
     <separator label="System"/>
 
     <menu id="settings" label="Settings">
+      <item label="Bluetooth">
+        <action name="Execute">
+          <execute>blueman-manager</execute>
+        </action>
+      </item>
       <item label="NVIDIA X Server Settings">
         <action name="Execute">
           <execute>nvidia-settings</execute>

@@ -330,6 +330,19 @@
         <command>sh ~/.config/openbox/scripts/lock.sh</command>
       </action>
     </keybind>
+    <!-- A bit of tiling -->
+    <keybind key="W-Right">
+      <action name="GrowToEdgeEast"/>
+    </keybind>
+    <keybind key="W-Left">
+      <action name="GrowToEdgeWest"/>
+    </keybind>
+    <keybind key="W-Down">
+      <action name="GrowToEdgeSouth"/>
+    </keybind>
+    <keybind key="W-Up">
+      <action name="GrowToEdgeNorth"/>
+    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>

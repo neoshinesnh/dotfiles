@@ -1,2 +1,2 @@
 1: rw initrd=intel-ucode.img initrd=initramfs-linux-zen.img add_efi_memmap net.ifnames=0 biosdevname=0 loglevel=3 rd.udev.log_priority=3 rd.systemd.show_status=auto vt.global_cursor_default=0 apparmor=1 security=apparmor audit=1 splash quiet
-2: rw initrd=intel-ucode.img initrd=initramfs-linux-zen.img add_efi_memmap nvidia-drm.modeset=1 splash quiet
+2: rw initrd=intel-ucode.img initrd=initramfs-linux-zen.img add_efi_memmap nvidia-drm.modeset=1 apparmor=1 security=apparmor audit=1 splash quiet
