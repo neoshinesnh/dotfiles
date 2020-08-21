@@ -123,8 +123,6 @@ Key binds defined, redefined or removed by this configuration.
 | =C-x / y=       | Search on Youtube                         | Engine mode          |
 | =C-x / h=       | Search on Github                          | Engine mode          |
 | =C-x / w=       | Search on Wikipedia                       | Engine mode          |
-| =M-0=           | Treemacs select window                    | Treemacs             |
-| =C-x t=         | Treemacs prefix                           | Treemacs             |
 
 ** Initialization file
 
@@ -421,27 +419,14 @@ Use Emacs /terminfo/, not system /terminfo/.
 
 *** Linux tweaks
 
-Make /GnuTLS/ more safe.
+Make /GnuTLS/ more safe, use gtk tooltips and set dired list switch.
 
 #+BEGIN_SRC emacs-lisp
 (when (eq system-type 'gnu/linux)
   (setq gnutls-min-prime-bits 4096
-        tls-program '("openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof")))
-#+END_SRC
-
-Tweaks for /GTK/.
-
-#+BEGIN_SRC emacs-lisp
-(when (eq system-type 'gnu/linux)
-  (setq x-gtk-use-system-tooltips t)
-
-  (defun my/max-fullscreen ()
-    "Tweak to use maximum frame size in linux."
-    (interactive)
-    (toggle-frame-maximized))
-
-  (add-hook 'after-init-hook #'my/max-fullscreen)
-  (setq dired-listing-switches "-lFaGh1v --group-directories-first"))
+        tls-program '("openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof")
+        x-gtk-use-system-tooltips t
+        dired-listing-switches "-lFaGh1v --group-directories-first"))
 #+END_SRC
 
 *** Visual settings
@@ -775,89 +760,6 @@ indexing mechanism backed by external commands exists as well).
   (projectile-mode))
 #+END_SRC
 
-Add [[https://github.com/Alexander-Miller/treemacs][treemacs]]
-
-#+BEGIN_SRC emacs-lisp
-(use-package treemacs
-  :ensure t
-  :defer t
-  :init
-  (with-eval-after-load 'winum
-    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
-  :config
-  (progn
-    (setq treemacs-collapse-dirs                 (if treemacs-python-executable 3 0)
-          treemacs-deferred-git-apply-delay      0.5
-          treemacs-directory-name-transformer    #'identity
-          treemacs-display-in-side-window        t
-          treemacs-eldoc-display                 t
-          treemacs-file-event-delay              5000
-          treemacs-file-extension-regex          treemacs-last-period-regex-value
-          treemacs-file-follow-delay             0.2
-          treemacs-file-name-transformer         #'identity
-          treemacs-follow-after-init             t
-          treemacs-git-command-pipe              ""
-          treemacs-goto-tag-strategy             'refetch-index
-          treemacs-indentation                   2
-          treemacs-indentation-string            " "
-          treemacs-is-never-other-window         nil
-          treemacs-max-git-entries               5000
-          treemacs-missing-project-action        'ask
-          treemacs-move-forward-on-expand        nil
-          treemacs-no-png-images                 nil
-          treemacs-no-delete-other-windows       t
-          treemacs-project-follow-cleanup        nil
-          treemacs-persist-file                  (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
-          treemacs-position                      'left
-          treemacs-recenter-distance             0.1
-          treemacs-recenter-after-file-follow    nil
-          treemacs-recenter-after-tag-follow     nil
-          treemacs-recenter-after-project-jump   'always
-          treemacs-recenter-after-project-expand 'on-distance
-          treemacs-show-cursor                   nil
-          treemacs-show-hidden-files             t
-          treemacs-silent-filewatch              nil
-          treemacs-silent-refresh                nil
-          treemacs-sorting                       'alphabetic-asc
-          treemacs-space-between-root-nodes      t
-          treemacs-tag-follow-cleanup            t
-          treemacs-tag-follow-delay              1.5
-          treemacs-user-mode-line-format         nil
-          treemacs-user-header-line-format       nil
-          treemacs-width                         35
-          treemacs-workspace-switch-cleanup      nil)
-
-    (when my/is-HiDpi
-      (treemacs-resize-icons 44))
-
-    (treemacs-follow-mode t)
-    (treemacs-filewatch-mode t)
-    (treemacs-fringe-indicator-mode t)
-    (pcase (cons (not (null (executable-find "git")))
-                 (not (null treemacs-python-executable)))
-      (`(t . t)
-       (treemacs-git-mode 'deferred))
-      (`(t . _)
-       (treemacs-git-mode 'simple))))
-  :bind
-  (:map global-map
-        ("M-0"       . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag)))
-
-(use-package treemacs-projectile
-  :after treemacs projectile
-  :ensure t)
-
-(use-package treemacs-icons-dired
-  :after treemacs dired
-  :ensure t
-  :config (treemacs-icons-dired-mode))
-#+END_SRC
-
 [[https://github.com/magnars/expand-region.el][Expand region]] increases the selected region by semantic units. Just
 keep pressing the key until it selects what you want.
 
@@ -953,7 +855,7 @@ Install Which Key
   :ensure t
   :init (which-key-mode)
   :config
-    (which-key-setup-side-window-right-bottom)
+    (which-key-setup-side-window-bottom)
     (setq which-key-sort-order 'which-key-key-order-alpha
           which-key-side-window-max-width 0.33
           which-key-idle-delay 0.05))
@@ -1464,53 +1366,74 @@ Add support to YAML.
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 #+END_SRC
 
-*** LSP
+*** Rust
 
-Adding LSP mode and bind all hooks.
+Add rustic.
 
 #+BEGIN_SRC emacs-lisp
-(use-package lsp-mode
-  :pin "melpa-stable"
-  :ensure t
-  :commands lsp
-  :hook ((js2-mode        . lsp)
-         (rjsx-mode       . lsp)
-         (typescript-mode . lsp)
-         (web-mode        . lsp)
-         (css-mode        . lsp))
-  :config
-    (setq lsp-language-id-configuration '(
-      (web-mode        . "html")
-      (css-mode        . "css")
-      (js2-mode        . "javascript")
-      (rjsx-mode       . "javascript")
-      (typescript-mode . "typescript")
-    ))
-  :init (setq lsp-keymap-prefix "C-c w"))
-
-(use-package lsp-ui
-  :pin "melpa-stable"
-  :ensure t
-  :commands lsp-ui-mode
-  :config (setq lsp-prefer-flymake nil))
+  (use-package rustic :ensure t)
+#+END_SRC
 
 
-(use-package lsp-ivy
-  :pin "melpa-stable"
-  :after swiper
-  :ensure t
-  :commands lsp-ivy-workspace-symbol)
+*** LSP (Eglot)
 
-(use-package company-lsp
-  :pin "melpa-stable"
-  :after company
-  :ensure t
-  :init
-    (add-to-list 'company-backends 'company-lsp))
+Adding Eglot.
 
-(use-package lsp-treemacs
-  :pin "melpa-stable"
-  :after treemacs lsp-mode
-  :ensure t
-  :config (lsp-treemacs-sync-mode 1))
+#+BEGIN_SRC emacs-lisp
+  (use-package eglot
+    :ensure t
+    :init
+      (add-hook 'js2-mode-hook 'eglot-ensure)
+      (add-hook 'rjsx-mode-hook 'eglot-ensure)
+      (add-hook 'typescript-mode 'eglot-ensure)
+      (add-hook 'rustic-mode-hook 'eglot-ensure))
+#+END_SRC
+
+
+
+#+BEGIN_SRC emacs-lisp
+  ;; Adding LSP mode and bind all hooks.
+  ;; (use-package lsp-mode
+  ;;   :pin "melpa-stable"
+  ;;   :ensure t
+  ;;   :commands lsp
+  ;;   :hook ((js2-mode        . lsp)
+  ;;          (rjsx-mode       . lsp)
+  ;;          (typescript-mode . lsp)
+  ;;          (web-mode        . lsp)
+  ;;          (css-mode        . lsp)
+  ;;          (rustic-mode       . lsp))
+  ;;   :config
+  ;;     (setq lsp-language-id-configuration '(
+  ;;       (web-mode        . "html")
+  ;;       (css-mode        . "css")
+  ;;       (rustic-mode     . "rs")
+  ;;       (js2-mode        . "javascript")
+  ;;       (rjsx-mode       . "javascript")
+  ;;       (typescript-mode . "typescript")
+  ;;     ))
+  ;;   :init
+  ;;     (setq lsp-keymap-prefix "C-c w")
+  ;;     (setq rustic-lsp-server 'rls)
+  ;;     (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rls")))
+
+  ;; (use-package lsp-ui
+  ;;   :pin "melpa-stable"
+  ;;   :ensure t
+  ;;   :commands lsp-ui-mode
+  ;;   :config (setq lsp-prefer-flymake nil))
+
+
+  ;; (use-package lsp-ivy
+  ;;   :pin "melpa-stable"
+  ;;   :after swiper
+  ;;   :ensure t
+  ;;   :commands lsp-ivy-workspace-symbol)
+
+  ;; (use-package company-lsp
+  ;;   :pin "melpa-stable"
+  ;;   :after company
+  ;;   :ensure t
+  ;;   :init
+  ;;     (add-to-list 'company-backends 'company-lsp))
 #+END_SRC

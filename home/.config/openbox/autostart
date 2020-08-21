@@ -11,3 +11,7 @@ nitrogen --restore &
 tint2 &
 xcape -e 'Super_L=Super_L|E' &
 udiskie -2
+qjoypad &
+
+# Start e-macs on my TODO list
+# sleep 3 && emacs -fs ~/Documents/org/notes.org &
