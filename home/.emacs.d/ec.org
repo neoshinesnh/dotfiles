@@ -18,7 +18,6 @@ change personal info, paths and some specific settings here.
       calendar-latitude -23.550520
       calendar-longitude -46.633308
       calendar-location-name "Sao Paulo, BR"
-      my/is-HiDpi nil
       my/org-directory "~/Documents/org"
       my/custom-snippets-path "~/.emacs.d/custom/snippets"
       my/sbcl-path "/usr/bin/sbcl"
@@ -31,18 +30,22 @@ Spell check configuration. You can find the right paths executing
 
 #+BEGIN_SRC emacs-lisp
 (require 'ispell)
-(setq ispell-program-name "hunspell") ;; On windows C:/Hunspell/hunspell.exe
+(setq ispell-program-name "hunspell")
 (setq ispell-hunspell-dict-paths-alist
   '(("en_US" "/usr/share/hunspell/en_US.aff")
-    ("pt_BR" "/usr/share/hunspell/pt_BR.aff"))) ;; ;; On windows C:/Hunspell/en_US.aff
+    ("pt_BR" "/usr/share/hunspell/pt_BR.aff")))
 #+END_SRC
 
 ** Recommended dependencies and setup
 
-- [[https://nodejs.org/][NodeJS]] (install eslint and typescript globally)
+- [[https://hunspell.github.io/][Hunspell]] (with [[https://github.com/LibreOffice/dictionaries][en_US and pt_BR]] dict)
+- [[https://github.com/ggreer/the_silver_searcher][The Silver Searcher (AG)]]
+- [[https://www.google.com/get/noto/][Noto Fonts]]
+- [[https://sourcefoundry.org/hack/][Hack Fonts]]
+- [[https://nodejs.org/][NodeJS]] (install eslint, typescript and [[https://www.npmjs.com/package/javascript-typescript-langserver][language server]] globally)
 - [[http://www.sbcl.org/][SBCL]]
 - [[https://racket-lang.org/][Racket]]
-- [[https://hunspell.github.io/][Hunspell]] (with [[https://github.com/LibreOffice/dictionaries][en_US and pt_BR]] dict)
+- [[https://rustup.rs/][Rustup]] and [[https://github.com/rust-lang/rls][RLS]]
 
 *** Quicklisp setup
 
@@ -1374,7 +1377,6 @@ Add rustic.
   (use-package rustic :ensure t)
 #+END_SRC
 
-
 *** LSP (Eglot)
 
 Adding Eglot.
@@ -1387,53 +1389,4 @@ Adding Eglot.
       (add-hook 'rjsx-mode-hook 'eglot-ensure)
       (add-hook 'typescript-mode 'eglot-ensure)
       (add-hook 'rustic-mode-hook 'eglot-ensure))
-#+END_SRC
-
-
-
-#+BEGIN_SRC emacs-lisp
-  ;; Adding LSP mode and bind all hooks.
-  ;; (use-package lsp-mode
-  ;;   :pin "melpa-stable"
-  ;;   :ensure t
-  ;;   :commands lsp
-  ;;   :hook ((js2-mode        . lsp)
-  ;;          (rjsx-mode       . lsp)
-  ;;          (typescript-mode . lsp)
-  ;;          (web-mode        . lsp)
-  ;;          (css-mode        . lsp)
-  ;;          (rustic-mode       . lsp))
-  ;;   :config
-  ;;     (setq lsp-language-id-configuration '(
-  ;;       (web-mode        . "html")
-  ;;       (css-mode        . "css")
-  ;;       (rustic-mode     . "rs")
-  ;;       (js2-mode        . "javascript")
-  ;;       (rjsx-mode       . "javascript")
-  ;;       (typescript-mode . "typescript")
-  ;;     ))
-  ;;   :init
-  ;;     (setq lsp-keymap-prefix "C-c w")
-  ;;     (setq rustic-lsp-server 'rls)
-  ;;     (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rls")))
-
-  ;; (use-package lsp-ui
-  ;;   :pin "melpa-stable"
-  ;;   :ensure t
-  ;;   :commands lsp-ui-mode
-  ;;   :config (setq lsp-prefer-flymake nil))
-
-
-  ;; (use-package lsp-ivy
-  ;;   :pin "melpa-stable"
-  ;;   :after swiper
-  ;;   :ensure t
-  ;;   :commands lsp-ivy-workspace-symbol)
-
-  ;; (use-package company-lsp
-  ;;   :pin "melpa-stable"
-  ;;   :after company
-  ;;   :ensure t
-  ;;   :init
-  ;;     (add-to-list 'company-backends 'company-lsp))
 #+END_SRC
