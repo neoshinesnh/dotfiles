@@ -1035,11 +1035,6 @@ exist, only Magit and Git itself deserve to be called porcelains.
          ("C-x M-g" . magit-dispatch-popup))
   :config
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
-
-
-(use-package treemacs-magit
-  :after treemacs magit
-  :ensure t)
 #+END_SRC
 
 *** Tools and applications
