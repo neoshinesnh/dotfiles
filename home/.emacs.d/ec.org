@@ -1369,7 +1369,10 @@ Add support to YAML.
 Add rustic.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package rustic :ensure t)
+  (use-package rustic
+    :ensure t
+    :config
+      (add-hook 'rustic-mode-hook #'my/setup-company-flycheck))
 #+END_SRC
 
 *** LSP (Eglot)
