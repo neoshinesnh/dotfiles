@@ -1080,9 +1080,15 @@ Use [[https://github.com/politza/pdf-tools][pdf-tools]] to read pdf files.
 
 *** Org configuration
 
-Add [[https://github.com/sabof/org-bullets][Org bullets]] to show bullets in outline.
+Add [[https://github.com/sabof/org-bullets][Org bullets]] to show bullets in outline and [[https://github.com/rnkn/olivetti][Olivetti]] to display a
+better buffer layout.
 
 #+BEGIN_SRC emacs-lisp
+(use-package olivetti
+  :ensure t
+  :init
+  (add-hook 'org-mode-hook 'olivetti-mode))
+
 (use-package org-bullets
   :ensure t
   :defer t
@@ -1262,6 +1268,8 @@ Adding modes for Javascript and React.
     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
     (flycheck-add-mode 'javascript-eslint 'rjsx-mode)
     (add-hook 'rjsx-mode-hook #'my/setup-company-flycheck))
+
+(use-package coffee-mode :ensure t)
 #+END_SRC
 
 *** Typescript
@@ -1269,7 +1277,9 @@ Adding modes for Javascript and React.
 Adding mode for typescript and Tide.
 
 #+BEGIN_SRC emacs-lisp
-(use-package typescript-mode :ensure t)
+(use-package typescript-mode
+  :ensure t
+  :mode (("\\.tsx?$" . typescript-mode)))
 
 (use-package tide
   :after typescript-mode
@@ -1299,6 +1309,8 @@ Adding mode for HTML and Templates
     (add-to-list 'auto-mode-alist '("\\.svelte?\\'" . web-mode))
     (add-to-list 'auto-mode-alist '("\\.hbs?\\'" . web-mode))
     (add-hook 'web-mode-hook #'my/setup-company-flycheck))
+
+(use-package pug-mode :ensure t)
 #+END_SRC
 
 *** CSS
@@ -1369,10 +1381,15 @@ Add support to YAML.
 Add rustic.
 
 #+BEGIN_SRC emacs-lisp
+  (use-package cargo :ensure t)
+
   (use-package rustic
     :ensure t
     :config
-      (add-hook 'rustic-mode-hook #'my/setup-company-flycheck))
+      (add-hook 'rustic-mode-hook #'my/setup-company-flycheck)
+      (add-hook 'rustic-mode-hook 'cargo-minor-mode)
+      (add-hook 'rustic-mode-hook (lambda ()
+        (local-set-key (kbd "C-c <tab>") #'rust-format-buffer))))
 #+END_SRC
 
 *** LSP (Eglot)
