@@ -480,7 +480,7 @@ Set window title with file name.
   "%b"))))
 #+END_SRC
 
-Change default font to [[https://sourcefoundry.org/hack/][ttf-hack]] and everything else to Noto Sans.
+Change default font to [[https://sourcefoundry.org/hack/][ttf-hack]] and everything else to [[https://www.google.com/get/noto/][Noto]].
 
 #+BEGIN_SRC emacs-lisp
 (defun my/set-refresh-fonts ()
@@ -488,8 +488,8 @@ Change default font to [[https://sourcefoundry.org/hack/][ttf-hack]] and everyth
   (set-face-attribute 'default t :font "Hack-11")
   (set-face-attribute 'default nil :font "Hack-11")
   (set-frame-font "Hack-11" nil t)
-  (set-face-attribute 'mode-line nil :font "Noto Sans-12")
-  (set-face-attribute 'variable-pitch nil :font "Noto Sans-12"))
+  (set-face-attribute 'mode-line nil :font "Noto Sans-10")
+  (set-face-attribute 'variable-pitch nil :font "Noto Serif-12"))
 
 ;; (my/set-refresh-fonts) ;; only call after moody instalation (bug)
 #+END_SRC
@@ -543,10 +543,14 @@ Settings for external packages to enhance editor.
 Set theme to [[https://github.com/greduan/emacs-theme-gruvbox][Gruvbox]].
 
 #+BEGIN_SRC emacs-lisp
-(use-package gruvbox-theme
-  :ensure t
-  :defer t
-  :init (load-theme 'gruvbox-dark-hard t))
+  (use-package gruvbox-theme
+    :ensure t
+    :defer t
+    :init
+    (load-theme 'gruvbox-dark-hard t)
+    (let ((line (face-attribute 'mode-line :underline)))
+      (set-face-attribute 'mode-line nil :background "#3c3836")
+      (set-face-attribute 'mode-line-inactive nil :background "#282828")))
 #+END_SRC
 
 Set mixed pitch fonts and add emojify.
