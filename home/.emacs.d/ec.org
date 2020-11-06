@@ -42,6 +42,7 @@ Spell check configuration. You can find the right paths executing
 - [[https://github.com/ggreer/the_silver_searcher][The Silver Searcher (AG)]]
 - [[https://www.google.com/get/noto/][Noto Fonts]]
 - [[https://sourcefoundry.org/hack/][Hack Fonts]]
+- [[https://www.huertatipografica.com/en/fonts/bitter-ht][Bitter Font]]
 - [[https://nodejs.org/][NodeJS]] (install eslint, typescript and [[https://www.npmjs.com/package/javascript-typescript-langserver][language server]] globally)
 - [[http://www.sbcl.org/][SBCL]]
 - [[https://racket-lang.org/][Racket]]
@@ -489,7 +490,7 @@ Change default font to [[https://sourcefoundry.org/hack/][ttf-hack]] and everyth
   (set-face-attribute 'default nil :font "Hack-11")
   (set-frame-font "Hack-11" nil t)
   (set-face-attribute 'mode-line nil :font "Noto Sans-10")
-  (set-face-attribute 'variable-pitch nil :font "Noto Serif-12"))
+  (set-face-attribute 'variable-pitch nil :font "Noto Sans-12"))
 
 ;; (my/set-refresh-fonts) ;; only call after moody instalation (bug)
 #+END_SRC
@@ -1108,6 +1109,28 @@ Set ellipsis character, timestamp and files location.
       org-hide-emphasis-markers t
       org-default-notes-file (concat my/org-directory "/notes.org")
       org-agenda-files (list (concat my/org-directory "/agenda.org") (concat my/org-directory "/work.org")))
+#+END_SRC
+
+Set faces for headings.
+
+#+BEGIN_SRC emacs-lisp
+(let* ((variable-tuple
+        (cond ((x-list-fonts "Bitter") '(:font "Bitter"))
+              ((x-family-fonts "Serif") '(:family "Serif"))
+              (nil (warn "Cannot find a Serif Font."))))
+       (headline `(:inherit default :weight bold)))
+
+  (custom-theme-set-faces
+   'user
+   `(org-level-8 ((t (,@headline ,@variable-tuple))))
+   `(org-level-7 ((t (,@headline ,@variable-tuple))))
+   `(org-level-6 ((t (,@headline ,@variable-tuple))))
+   `(org-level-5 ((t (,@headline ,@variable-tuple))))
+   `(org-level-4 ((t (,@headline ,@variable-tuple))))
+   `(org-level-3 ((t (,@headline ,@variable-tuple))))
+   `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.1))))
+   `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.25))))
+   `(org-document-title ((t (,@headline ,@variable-tuple :height 1.5 :underline nil))))))
 #+END_SRC
 
 Set /keybind/ for agenda, capture, store link and add org-indent on hook.
